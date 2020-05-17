@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-//anotacion para borrar
-
 Route::get('/', 'HomeController@index')->name('dashboard');
+
+
 
 //Ruta para obtener la lista de clientes en la creacion de ordenes de trabajo (para busqueda y autocompletar)
 Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('clientes.getClientes');
