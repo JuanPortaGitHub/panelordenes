@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-
+//anotacion para borrar
 
 Route::get('/', 'HomeController@index')->name('dashboard');
 
