@@ -18,7 +18,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('dashboard');
 
-//prueba4
+//prueba5
 
 //Ruta para obtener la lista de clientes en la creacion de ordenes de trabajo (para busqueda y autocompletar)
 Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('clientes.getClientes');
