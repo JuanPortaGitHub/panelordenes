@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('layouts.layoutsecciones')
 
 @section('content')
 
@@ -150,4 +150,10 @@
             });*/
         });
     </script>
+
+    <!-- Bootstrap 4 -->
+    <script src="../adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../adminlte/js/adminlte.min.js"></script>
+
 @endsection
