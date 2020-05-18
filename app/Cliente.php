@@ -26,6 +26,9 @@ class Cliente extends Model
 
 
     ];
+    public function anotaciones(){
 
+        return $this->hasMany(Annotation::class);
+    }
 }
 

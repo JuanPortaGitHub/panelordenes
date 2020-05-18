@@ -143,6 +143,7 @@
                 </div>
 
             </form>
+        </section>
 
             <!-- CIERRE DE FORMULARIO CARGA OT -->
 

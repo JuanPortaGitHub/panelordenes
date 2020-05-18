@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 
-
+use Illuminate\Support\Str;
 use App\Annotation;
 use App\area;
 use App\Categoria;
@@ -66,12 +66,13 @@ class OtController extends Controller
         $fechaentrega=now()->addDays(2);
         $tipoequipos= tipodeequipo::all();
 
+        //CREA VALOR RANDOM PARA EL PASSWORD DE OT
+        $passwordot= Str::random(5);
 
 
 
 
-
-        return view('ordenes.cargaot', compact('tecnicos','estadoderepuestos', 'confirmacions', 'estados', 'sucursales', 'fechaentrega', 'areas', 'tipoequipos'));
+        return view('ordenes.cargaot', compact('tecnicos','estadoderepuestos', 'confirmacions', 'estados', 'sucursales', 'fechaentrega', 'areas', 'tipoequipos', 'passwordot'));
     }
 
 
@@ -153,7 +154,7 @@ class OtController extends Controller
             $nuevaorden->area_id = $request->input('area');
             $nuevaorden->estadorepuesto_id = $request->input('necesitarepuesto');
             $nuevaorden->presupuesto = $request->input('Presupuesto');
-
+            $nuevaorden->passwordot = $request->input('passwordot');
 
 
 
@@ -247,12 +248,45 @@ class OtController extends Controller
         return view ("ordenes.anotaciones", compact ("anotacionOt","estados", "reparados", "categorias", "anotaciones", "areas"));
     }
 
-    /*public function cargaranotacion($ot_id){
 
-        $anotacionOt=Ot::where('ot_id',$ot_id)->firstOrFail();
-        $anotaciones=$anotacionOt->annotation;
 
-        return view ("anotaciones.create", compact ("anotacionOt", "anotaciones"));
-    }*/
+
+    //ESTAS SON FUNCIONES DE CONTROLADOR PARA QUE EL CLIENTE PUEDA VER EL ESTADO DE SU ORDEN
+
+    //Funcion para la consulta
+
+    public function estadodeorden(){
+
+
+        return view ("ordenes.estadodeorden");
+
+
+    }
+
+
+    //Obtiene parametros de "estadoconsulta" y va a consultaorden para que lleve a la pagina de informacion de la orden
+
+
+    public function consultaorden(Request $request){
+
+        $otconsultada = $request->input('ot_id');
+        //$passwordconsultado = $request->input('passwordot');
+
+        $orden=Ot::where('ot_id',$otconsultada)->firstOrFail();
+
+
+
+        $anotacionesOT=DB::table('annotations')
+            ->where('ot_id', '=', $otconsultada)
+            ->where('visiblecliente', '=', 1)
+            ->get();
+
+        $estados = estado::all();
+        $reparados = Reparaexito::all();
+        $categorias = Categoria::all();
+        $areas = area::all();
+        return view ("ordenes.consultaorden", compact ("orden", "anotacionesOT", "estados","reparados", "categorias", "areas"));
+    }
+
 
 }

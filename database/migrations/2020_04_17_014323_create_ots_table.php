@@ -29,7 +29,7 @@ class CreateOtsTable extends Migration
             $table->integer('equipo_id');
             $table->integer('anotaciones_id');
             $table->integer('recibidopor_id');
-            $table->string('observacion');
+            $table->string('passwordot');
             $table->integer('estadorepuesto_id')->default(1);
             $table->integer('confirmacion_id');
             $table->integer('reparaexito_id')->default(1);

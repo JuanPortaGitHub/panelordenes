@@ -18,7 +18,9 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('dashboard');
 
-//prueba6
+Route::get('/estadodeorden', 'OtController@estadodeorden')->name('estadodeorden');
+Route::get('/consultaorden', 'OtController@consultaorden')->name('consultaorden');
+
 
 //Ruta para obtener la lista de clientes en la creacion de ordenes de trabajo (para busqueda y autocompletar)
 Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('clientes.getClientes');
@@ -26,8 +28,6 @@ Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('cl
 //Ruta para para obtener el detalle de la orden de trabajo en base a $ot_id en vez de $id como sale por defecto en resource
 Route::get('/orden/{ot_id}','OtController@anotaciones')->name('ordenes.anotaciones');
 
-//Ruta para la creacion de nuevas anotaciones en base al $ot_id y no al $id
-//Route::get('/agregaranotacion/{ot_id}','OtController@cargaranotacion')->name('ordenes.cargaranotacion');
 
 
 Route::resource('ordenes', 'OtController');

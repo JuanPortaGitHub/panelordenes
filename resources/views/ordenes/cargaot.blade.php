@@ -15,22 +15,6 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Carga Orden de Trabajo</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">General Form</li>
-                        </ol>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
 
 
         <!-- Main content -->
@@ -39,9 +23,16 @@
         <!-- Cuadro acceso agregar cliente -->
 
 
+        <div class="col-lg-3 col-6">
 
-        <a href="{{ URL::route('clientes.create')}}"
-           onclick="window.open(this.href,'targetWindow',
+
+
+
+
+                <!-- small card -->
+                <div class="small-box bg-warning">
+                    <a href="{{ URL::route('clientes.create')}}"
+                                                      onclick="window.open(this.href,'targetWindow',
                                    `toolbar=no,
                                     location=no,
                                     status=no,
@@ -51,25 +42,28 @@
                                     width=400,
                                     height=770`);
                                     return false;">
+                    <table>
+                        <tr>
+                            <td>
+                                <h4><b>Agregar Cliente</b> </h4>
+                            </td>
+                            <td>
+                                <div class="icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
 
 
 
-            <div class="col-lg-4 col-6">
-                <!-- small card -->
-                <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h4><b>Agregar Cliente</b> </h4>
-                        <h4><b></b></h4>
 
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
 
+                    </a>
                 </div>
-            </div>
-        </a>
 
+
+        </div>
         <!-- Cierra cuadro acceso agregar cliente -->
 
 
@@ -94,12 +88,6 @@
                     <!-- Seccion contenido Cliente -->
 
                     <div class="card-body">
-
-
-
-
-
-
 
 
                         <div class="form-group row">
@@ -150,35 +138,6 @@
                         </div>
 
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -318,6 +277,12 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="presupuesto" class="col-sm-2 col-form-label">Presupuesto</label>
+                            <div class="col-sm-10">
+                                <input name="Presupuesto" type="number" class="form-control" placeholder="Presupuesto ...">
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="fechaingreso" class="col-sm-2 col-form-label">Fecha Ingreso</label>
                             <div class="col-sm-10">
                                 <input name="fechaingreso" type="datetime-local" class="form-control" value="{{now()->format('Y-m-d\TH:i')}}">
@@ -330,9 +295,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="presupuesto" class="col-sm-2 col-form-label">Presupuesto</label>
+                            <label for="passwordot" class="col-sm-2 col-form-label">Contraseña Orden</label>
                             <div class="col-sm-10">
-                                <input name="Presupuesto" type="text" class="form-control" placeholder="Presupuesto ...">
+                                <input name="passwordot" type="text" class="form-control" value={{ $passwordot }} readonly>
                             </div>
                         </div>
 
@@ -439,7 +404,7 @@
 
 
 
-<!-- Script autocompletar cliente -->
+<!-- Script autocompletar campos cliente en base a apellido -->
 <script type="text/javascript">
 
     // CSRF Token

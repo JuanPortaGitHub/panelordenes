@@ -46,7 +46,7 @@
 
                 <div class="card card-primary collapsed-card">
                     <div class="card-header">
-                        <h3 class="card-title">Datos Orden Nº <b>{{$anotacionOt->ot_id}}</b></h3>
+                        <h3 class="card-title">Datos Orden Nº <b>{{$orden->ot_id}}</b></h3>
 
                         <div class="card-tools">
 
@@ -60,7 +60,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                                 <label for="estadoot">ESTADO</label>
-                                                <input type="text" id="estadoot" class="form-control" value={{$anotacionOt->estado->estadoot}}>
+                                                <input type="text" id="estadoot" class="form-control" value={{$orden->estado->estadoot}}>
                                         </div>
                                     </div>
 
@@ -69,19 +69,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="estadoot">Pasword Orden</label>
-                                            <input type="text" id="estadoot" class="form-control" value={{$anotacionOt->passwordot}}>
+                                            <input type="text" id="estadoot" class="form-control" value={{$orden->passwordot}}>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="Sucursal">Sucursal</label>
-                                                <input type="text" id="Sucursal" class="form-control" value={{$anotacionOt->sucursal->sucursal}}>
+                                                <input type="text" id="Sucursal" class="form-control" value={{$orden->sucursal->sucursal}}>
                                             </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="Categoria">Categoria</label>
-                                                <input type="text" id="Categoria" class="form-control" value={{$anotacionOt->tiporeparacion}}>
+                                                <input type="text" id="Categoria" class="form-control" value={{$orden->tiporeparacion}}>
                                             </div>
                                     </div>
                                 </div>
@@ -90,19 +90,19 @@
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="reparadoconexito">Reparado</label>
-                                                <input type="text" id="reparadoconexito" class="form-control" value={{$anotacionOt->reparaexito->reparadoconexito}}>
+                                                <input type="text" id="reparadoconexito" class="form-control" value={{$orden->reparaexito->reparadoconexito}}>
                                             </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="categoriareparacion">Categoria Reparacion</label>
-                                                <input type="text" id="categoriareparacion" class="form-control" value={{$anotacionOt->categoria->categoriareparacion}}>
+                                                <input type="text" id="categoriareparacion" class="form-control" value={{$orden->categoria->categoriareparacion}}>
                                             </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="inputName">Tecnico a Cargo</label>
-                                                <input type="text" id="Tecnico" class="form-control" value={{$anotacionOt->user->name}}>
+                                                <input type="text" id="Tecnico" class="form-control" value={{$orden->user->name}}>
                                             </div>
                                     </div>
                                 </div>
@@ -111,13 +111,13 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Detalles">Detalles / Marcas / Roturas</label>
-                                            <textarea id="Detalles" class="form-control" rows="4">{{$anotacionOt->detalles}}</textarea>
+                                            <textarea id="Detalles" class="form-control" rows="4">{{$orden->detalles}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Sintoma">Sintomas / Reparaciones</label>
-                                            <textarea id="Sintoma" class="form-control" rows="4">{{$anotacionOt->sintoma}}</textarea>
+                                            <textarea id="Sintoma" class="form-control" rows="4">{{$orden->sintoma}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -126,25 +126,25 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="Presupuesto">Presupuesto</label>
-                                            <input type="number" id="Presupuesto" class="form-control" value={{$anotacionOt->presupuesto}}>
+                                            <input type="number" id="Presupuesto" class="form-control" value={{$orden->presupuesto}}>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaingreso">Fecha de Ingreso</label>
-                                            <input type="date" id="fechaingreso" class="form-control" value={{$anotacionOt->fechaingreso}}>
+                                            <input type="date" id="fechaingreso" class="form-control" value={{$orden->fechaingreso}}>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaentrega">Fecha de Entrega</label>
-                                            <input type="date" id="fechaentrega" class="form-control" value={{$anotacionOt->fechaentrega}}>
+                                            <input type="date" id="fechaentrega" class="form-control" value={{$orden->fechaentrega}}>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="encargadorecepcion">Encargado Recepcion</label>
-                                            <input type="text" id="encargadorecepcion" class="form-control" value={{$anotacionOt->user->name}}>
+                                            <input type="text" id="encargadorecepcion" class="form-control" value={{$orden->user->name}}>
                                         </div>
                                     </div>
                                 </div>
@@ -176,13 +176,13 @@
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Apellido">Apellido</label>
-                                        <input type="text" id="Apellido" class="form-control" value={{$anotacionOt->cliente->apellido}}>
+                                        <input type="text" id="Apellido" class="form-control" value={{$orden->cliente->apellido}}>
                                     </div>
                             </div>
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Nombre">Nombre</label>
-                                        <input type="text" id="Nombre" class="form-control" value={{$anotacionOt->cliente->nombre}}>
+                                        <input type="text" id="Nombre" class="form-control" value={{$orden->cliente->nombre}}>
                                     </div>
                             </div>
                         </div>
@@ -191,13 +191,13 @@
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Celular">Celular</label>
-                                        <input type="number" id="Celular" class="form-control" value={{$anotacionOt->cliente->telefono}}>
+                                        <input type="number" id="Celular" class="form-control" value={{$orden->cliente->telefono}}>
                                     </div>
                             </div>
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Telefono">Telefono</label>
-                                        <input type="number" id="Telefono" class="form-control" value={{$anotacionOt->cliente->celular}}>
+                                        <input type="number" id="Telefono" class="form-control" value={{$orden->cliente->celular}}>
                                     </div>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                             <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="Mail">Mail</label>
-                                        <input type="email" id="Mail" class="form-control" value={{$anotacionOt->cliente->mail}}>
+                                        <input type="email" id="Mail" class="form-control" value={{$orden->cliente->mail}}>
                                     </div>
                             </div>
                         </div>
@@ -231,19 +231,19 @@
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Categoria">Categoria</label>
-                                        <input type="text" id="Categoria" class="form-control" value={{$anotacionOt->equipo->categoriaequipo}}>
+                                        <input type="text" id="Categoria" class="form-control" value={{$orden->equipo->categoriaequipo}}>
                                     </div>
                             </div>
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Modelo">Modelo</label>
-                                        <input type="text" id="Modelo" class="form-control" value={{$anotacionOt->equipo->modelo}}>
+                                        <input type="text" id="Modelo" class="form-control" value={{$orden->equipo->modelo}}>
                                     </div>
                             </div>
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Password">Password</label>
-                                        <input type="text" id="Password" class="form-control" value={{$anotacionOt->equipo->password}}>
+                                        <input type="text" id="Password" class="form-control" value={{$orden->equipo->password}}>
                                     </div>
                             </div>
                         </div>
@@ -254,7 +254,7 @@
                                         <label for="Cargador">Cargador</label>
                                         <input type="text" id="Cargador" class="form-control"
 
-                                        @if($anotacionOt->equipo->cargador == 0)
+                                        @if($orden->equipo->cargador == 0)
                                         value= 'Sin cargador'
                                         @else
                                         value= 'Con cargador'
@@ -267,7 +267,7 @@
                                         <label for="Bateria">Bateria</label>
                                         <input type="text" id="Bateria" class="form-control"
 
-                                        @if($anotacionOt->equipo->bateria == 0)
+                                        @if($orden->equipo->bateria == 0)
                                        value= 'Sin bateria'
                                         @else
                                        value= 'Con bateria'
@@ -281,7 +281,7 @@
                                         <label for="bolsofunda">Bolso o Funda</label>
                                         <input type="text" id="bolsofunda" class="form-control"
 
-                                                @if($anotacionOt->equipo->bolsofunda == 0)
+                                                @if($orden->equipo->bolsofunda == 0)
                                                     value= 'Sin bolso/funda'
                                                 @else
                                                     value='Con bolso/funda'
@@ -364,7 +364,7 @@
 
 
                                                             <div class="card-header">
-                                                                <h3 class="card-title"><b>Ingresar a Orden de Trabajo</b></h3>
+                                                                <h3 class="card-title"><b>Ingresar Anotacion</b></h3>
                                                             </div>
 
 
@@ -376,7 +376,15 @@
                                                                 <div class="form-group" style="display: none">
                                                                     <label for="orden">Orden de Trabajo</label>
 
-                                                                    <input name="orden" id="orden" type="text" class="form-control" value="{{$anotacionOt->ot_id}}">
+                                                                    <input name="orden" id="orden" type="text" class="form-control" value="{{$orden->ot_id}}">
+
+
+                                                                </div>
+
+                                                                <div class="form-group" style="display: none">
+                                                                    <label for="orden">Orden de Trabajo</label>
+
+                                                                    <input name="iddecliente" id="iddecliente" type="text" class="form-control" value="{{$orden->cliente->id}}">
 
 
                                                                 </div>
@@ -387,24 +395,14 @@
                                                                     <textarea class="form-control" rows="4" placeholder="Anotacion ..." name="anotacion" id="anotacion"></textarea>
 
                                                                 </div>
-                                                                <div class="form-group">
+                                                                <div class="form-group" style="display:none">
                                                                     <label for="tecnico_id">Pincode</label>
 
-                                                                    <input name="pincode" id="pincode" type="password" class="form-control" placeholder="Pin ...">
+                                                                    <input name="pincode" id="pincode" type="password" class="form-control" value="9999">
 
 
                                                                 </div>
-                                                                <div class="offset-sm-2 col-sm-10">
-                                                                    <div class="form-check">
-                                                                        <input name="visiblecliente" type="checkbox" class="form-check-input" id="visiblecliente">
-                                                                        <label class="form-check-label" for="visiblecliente">Visible para cliente</label>
-                                                                    </div>
-                                                                    <div class="form-check">
-                                                                        <input name="notificarcliente" type="checkbox" class="form-check-input" id="notificarcliente">
-                                                                        <label class="form-check-label" for="notificarcliente">Mandar aviso a cliente</label>
-                                                                    </div>
 
-                                                                </div>
 
                                                                 <!-- Botones de Formulario -->
                                                                 <div class="card-footer">
@@ -457,17 +455,19 @@
                                             <th style="width: 15.00%">Cliente</th>
 
 
+
                                         </tr>
                                         </thead>
                                         <tbody>
 
 
-                                                @foreach($anotaciones as $anotacion)
-                                        <tr @if($anotacion->visiblecliente==1) bgcolor='#7fffd4' @else bgcolor='#d3d3d3' @endif>
-                                            <td style="width: 15.00%">{{$anotacion->created_at}}</td>
-                                            <td style="white-space: normal;width: 70.00%;word-wrap: break-word">{{$anotacion->anotacion}}</td>
-                                            <td style="width: 15.00%">{{$anotacion->user_id}}</td>
-                                            <td style="width: 15.00%">{{$anotacion->cliente_id}}</td>
+                                                @foreach($anotacionesOT as $anotacionOT)
+                                        <tr>
+                                            <td style="width: 15.00%">{{$anotacionOT->created_at}}</td>
+                                            <td style="white-space: normal;width: 70.00%;word-wrap: break-word">{{$anotacionOT->anotacion}}</td>
+                                            <td style="width: 15.00%">{{$anotacionOT->user_id}}</td>
+                                            <td style="width: 15.00%">{{$anotacionOT->cliente_id}}</td>
+
                                         </tr>
                                                 @endforeach
 

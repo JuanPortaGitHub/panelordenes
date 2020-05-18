@@ -30,25 +30,26 @@
         <!-- BOTON CARGA CLIENTE NUEVO -->
 
 
-        <a href="#clientenuevo" data-toggle="modal" data-target=".clientenuevo">
+
 
 
 
             <div class="col-lg-4 col-6">
                 <!-- small card -->
                 <div class="small-box bg-warning">
-                    <div class="inner">
-                        <h4><b>Agregar Cliente</b> </h4>
-                        <h4><b></b></h4>
+                    <a href="#clientenuevo" data-toggle="modal" data-target=".clientenuevo">
+                        <div class="inner">
+                            <h4><b>Agregar Cliente</b> </h4>
+                            <h4><b></b></h4>
 
-                    </div>
-                    <div class="icon">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                    </a>
                 </div>
             </div>
-        </a>
+
 
 
 
