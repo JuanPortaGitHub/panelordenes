@@ -453,8 +453,8 @@
                                         <tr>
                                             <th style="width: 15.00%">Fecha</th>
                                             <th style="width: 70.00%">Anotacion</th>
-                                            <th style="width: 15.00%">Tecnico</th>
-                                            <th style="width: 15.00%">Cliente</th>
+                                            <th style="width: 15.00%">Usuario</th>
+
 
 
                                         </tr>
@@ -463,11 +463,23 @@
 
 
                                                 @foreach($anotaciones as $anotacion)
-                                        <tr @if($anotacion->visiblecliente==1) bgcolor='#7fffd4' @else bgcolor='#d3d3d3' @endif>
+                                        <tr
+                                                    @if(isset($anotacion->cliente_id) && $anotacion->visiblecliente == 1) bgcolor="#ffb6c1"
+                                                    @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1)) bgcolor="#8fbc8f"
+                                                    @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 0)) bgcolor="#d3d3d3"
+
+                                                    @endif>
                                             <td style="width: 15.00%">{{$anotacion->created_at}}</td>
                                             <td style="white-space: normal;width: 70.00%;word-wrap: break-word">{{$anotacion->anotacion}}</td>
-                                            <td style="width: 15.00%">{{$anotacion->user_id}}</td>
-                                            <td style="width: 15.00%">{{$anotacion->cliente_id}}</td>
+
+                                            <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
+
+                                            <td style="width: 15.00%">@if(!isset($anotacion->user_id))
+                                                            {{$anotacion->cliente->nombre}}
+                                                            @else
+                                                            {{$anotacion->user->name}}
+                                                            @endif</td>
+
                                         </tr>
                                                 @endforeach
 

@@ -80,7 +80,17 @@
             <!-- CIERRE DE FORMULARIO CONSULTA OT -->
 
     </div>
-
+    <a href="{{ URL::route('clientes.create')}}"
+       onclick="window.open(this.href,'targetWindow',
+                                   `toolbar=no,
+                                    location=no,
+                                    status=no,
+                                    menubar=no,
+                                    scrollbars=yes,
+                                    resizable=yes,
+                                    width=400,
+                                    height=770`);
+                                    return false;">
 
 
 @endsection

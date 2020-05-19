@@ -97,8 +97,7 @@ class AnnotationController extends Controller
             $nuevaanotacion->cliente_id = $iddecliente; //asocio id de cliente a columna cliente_id de tabla anotaciones
             $nuevaanotacion->save(); //guardo anotacion
 
-            return redirect()->to('orden/'.$nuevaanotacion->ot_id); //Regresa a la pagina de anotacion de cliente
-
+            return back();
         }
     }
 

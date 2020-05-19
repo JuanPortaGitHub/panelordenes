@@ -269,23 +269,32 @@ class OtController extends Controller
 
     public function consultaorden(Request $request){
 
+
+        //PARA VALIDAR QUE OT Y PASSWORD ESTAN BIEN
+        //Obtenemos de campos ot_id y passwordot de view estadodeorden
         $otconsultada = $request->input('ot_id');
-        //$passwordconsultado = $request->input('passwordot');
+        $passwordconsultado = $request->input('passwordot');
 
-        $orden=Ot::where('ot_id',$otconsultada)->firstOrFail();
+        //hacemos consulta cuando se cumplan ambas condiciones
+        $orden=Ot::where('ot_id',$otconsultada)
+                  ->where('passwordot',$passwordconsultado)
+                    ->firstOrFail();
 
 
 
-        $anotacionesOT=DB::table('annotations')
-            ->where('ot_id', '=', $otconsultada)
-            ->where('visiblecliente', '=', 1)
-            ->get();
 
+        //PARA OBTENER LISTA DE ANOTACIONES VISIBLES CORRESPONDIENTES A LA OT
+        $anotacionOt=Annotation::where('ot_id', '=', $orden->ot_id)
+                                ->where('visiblecliente', '=', 1)->get();
+
+
+        //Para completar informacion a mostrar
         $estados = estado::all();
         $reparados = Reparaexito::all();
         $categorias = Categoria::all();
         $areas = area::all();
-        return view ("ordenes.consultaorden", compact ("orden", "anotacionesOT", "estados","reparados", "categorias", "areas"));
+
+        return view ("ordenes.consultaorden", compact ("orden", "anotacionOt", "estados","reparados", "categorias", "areas"));
     }
 
 

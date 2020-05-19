@@ -1,29 +1,39 @@
-@extends('layouts.layoutsecciones')
+<!DOCTYPE html>
 
-@section('content')
-
-
-
+<html lang="es">
+<head>
 
 
+    <!-- Meta -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{asset('jquery-ui-1.12.1/jquery-ui.min.css')}}">
+
+    <!-- Script -->
+    <script src="{{asset('jquery-ui-1.12.1/jquery-3.5.0.min.js')}}" type="text/javascript"></script>
+    <script src="{{asset('jquery-ui-1.12.1/jquery-ui.min.js')}}" type="text/javascript"></script>
 
 
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-                    </div>
+    <title>HotSpot | Ordenes de Trabajo</title>
 
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/../adminlte/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/../adminlte/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
 
-        <!-- Main content -->
+<body>
+
 
 
 
@@ -451,8 +461,8 @@
                                         <tr>
                                             <th style="width: 15.00%">Fecha</th>
                                             <th style="width: 70.00%">Anotacion</th>
-                                            <th style="width: 15.00%">Tecnico</th>
-                                            <th style="width: 15.00%">Cliente</th>
+                                            <th style="width: 15.00%">Usuario</th>
+
 
 
 
@@ -461,15 +471,22 @@
                                         <tbody>
 
 
-                                                @foreach($anotacionesOT as $anotacionOT)
-                                        <tr>
-                                            <td style="width: 15.00%">{{$anotacionOT->created_at}}</td>
-                                            <td style="white-space: normal;width: 70.00%;word-wrap: break-word">{{$anotacionOT->anotacion}}</td>
-                                            <td style="width: 15.00%">{{$anotacionOT->user_id}}</td>
-                                            <td style="width: 15.00%">{{$anotacionOT->cliente_id}}</td>
+                                        @foreach($anotacionOt as $anotacion)
+                                            <tr>
+                                                <td style="width: 15.00%">{{$anotacion->created_at}}</td>
+                                                <td style="white-space: normal;width: 70.00%;word-wrap: break-word">{{$anotacion->anotacion}}</td>
 
-                                        </tr>
-                                                @endforeach
+                                                <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
+
+                                                <td style="width: 15.00%">@if(!isset($anotacion->user_id))
+                                                        {{$anotacion->cliente->nombre}}
+                                                    @else
+                                                        {{$anotacion->user->name}}
+                                                    @endif</td>
+
+                                            </tr>
+                                        @endforeach
+
 
 
                                         </tbody>
@@ -493,32 +510,11 @@
         </div><!-- /.container-fluid -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
 
 
-
-
-@endsection
-
-
-@section("scriptextra")
 
 
     <!-- jQuery -->
@@ -529,4 +525,6 @@
     <script src="../adminlte/js/adminlte.min.js"></script>
 
 
-@endsection
+
+</body>
+</html>
