@@ -60,7 +60,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                                 <label for="estadoot">ESTADO</label>
-                                                <input type="text" id="estadoot" class="form-control" value={{$anotacionOt->estado->estadoot}}>
+                                                <input type="text" id="estadoot" class="form-control" value="{{$anotacionOt->estado->estadoot}}" readonly>
                                         </div>
                                     </div>
 
@@ -69,19 +69,20 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="estadoot">Pasword Orden</label>
-                                            <input type="text" id="estadoot" class="form-control" value={{$anotacionOt->passwordot}}>
+                                            <input type="text" id="estadoot" class="form-control" value="{{$anotacionOt->passwordot}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="Sucursal">Sucursal</label>
-                                                <input type="text" id="Sucursal" class="form-control" value={{$anotacionOt->sucursal->sucursal}}>
+                                                <input type="text" id="Sucursal" class="form-control" value="{{$anotacionOt->sucursal->sucursal}}" readonly>
                                             </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="Categoria">Categoria</label>
-                                                <input type="text" id="Categoria" class="form-control" value={{$anotacionOt->tiporeparacion}}>
+                                                <input type="text" id="Categoria" class="form-control" value="{{$anotacionOt->tiporeparacion}}" readonly>
+
                                             </div>
                                     </div>
                                 </div>
@@ -90,19 +91,19 @@
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="reparadoconexito">Reparado</label>
-                                                <input type="text" id="reparadoconexito" class="form-control" value={{$anotacionOt->reparaexito->reparadoconexito}}>
+                                                <input type="text" id="reparadoconexito" class="form-control" value="{{$anotacionOt->reparaexito->reparadoconexito}}" readonly>
                                             </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="categoriareparacion">Categoria Reparacion</label>
-                                                <input type="text" id="categoriareparacion" class="form-control" value={{$anotacionOt->categoria->categoriareparacion}}>
+                                                <input type="text" id="categoriareparacion" class="form-control" value="{{$anotacionOt->categoria->categoriareparacion}}" readonly>
                                             </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="inputName">Tecnico a Cargo</label>
-                                                <input type="text" id="Tecnico" class="form-control" value={{$anotacionOt->user->name}}>
+                                                <input type="text" id="Tecnico" class="form-control" value="{{$anotacionOt->user->name}}" readonly>
                                             </div>
                                     </div>
                                 </div>
@@ -111,13 +112,13 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Detalles">Detalles / Marcas / Roturas</label>
-                                            <textarea id="Detalles" class="form-control" rows="4">{{$anotacionOt->detalles}}</textarea>
+                                            <textarea id="Detalles" class="form-control" rows="4" readonly>{{$anotacionOt->detalles}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Sintoma">Sintomas / Reparaciones</label>
-                                            <textarea id="Sintoma" class="form-control" rows="4">{{$anotacionOt->sintoma}}</textarea>
+                                            <textarea id="Sintoma" class="form-control" rows="4" readonly>{{$anotacionOt->sintoma}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -126,25 +127,25 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="Presupuesto">Presupuesto</label>
-                                            <input type="number" id="Presupuesto" class="form-control" value={{$anotacionOt->presupuesto}}>
+                                            <input type="number" id="Presupuesto" class="form-control" value="{{$anotacionOt->presupuesto}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaingreso">Fecha de Ingreso</label>
-                                            <input type="date" id="fechaingreso" class="form-control" value={{$anotacionOt->fechaingreso}}>
+                                            <input type="date" id="fechaingreso" class="form-control" value="{{$anotacionOt->fechaingreso}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaentrega">Fecha de Entrega</label>
-                                            <input type="date" id="fechaentrega" class="form-control" value={{$anotacionOt->fechaentrega}}>
+                                            <input type="date" id="fechaentrega" class="form-control" value="{{$anotacionOt->fechaentrega}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="encargadorecepcion">Encargado Recepcion</label>
-                                            <input type="text" id="encargadorecepcion" class="form-control" value={{$anotacionOt->user->name}}>
+                                            <input type="text" id="encargadorecepcion" class="form-control" value="{{$anotacionOt->user->name}}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -176,13 +177,13 @@
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Apellido">Apellido</label>
-                                        <input type="text" id="Apellido" class="form-control" value={{$anotacionOt->cliente->apellido}}>
+                                        <input type="text" id="Apellido" class="form-control" value="{{$anotacionOt->cliente->apellido}}" readonly>
                                     </div>
                             </div>
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Nombre">Nombre</label>
-                                        <input type="text" id="Nombre" class="form-control" value={{$anotacionOt->cliente->nombre}}>
+                                        <input type="text" id="Nombre" class="form-control" value="{{$anotacionOt->cliente->nombre}}" readonly>
                                     </div>
                             </div>
                         </div>
@@ -191,13 +192,13 @@
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Celular">Celular</label>
-                                        <input type="number" id="Celular" class="form-control" value={{$anotacionOt->cliente->telefono}}>
+                                        <input type="number" id="Celular" class="form-control" value="{{$anotacionOt->cliente->telefono}}" readonly>
                                     </div>
                             </div>
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Telefono">Telefono</label>
-                                        <input type="number" id="Telefono" class="form-control" value={{$anotacionOt->cliente->celular}}>
+                                        <input type="number" id="Telefono" class="form-control" value="{{$anotacionOt->cliente->celular}}" readonly>
                                     </div>
                             </div>
                         </div>
@@ -206,7 +207,7 @@
                             <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="Mail">Mail</label>
-                                        <input type="email" id="Mail" class="form-control" value={{$anotacionOt->cliente->mail}}>
+                                        <input type="email" id="Mail" class="form-control" value="{{$anotacionOt->cliente->mail}}" readonly>
                                     </div>
                             </div>
                         </div>
@@ -231,19 +232,19 @@
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Categoria">Categoria</label>
-                                        <input type="text" id="Categoria" class="form-control" value={{$anotacionOt->equipo->categoriaequipo}}>
+                                        <input type="text" id="Categoria" class="form-control" value="{{$anotacionOt->equipo->categoriaequipo}}" readonly>
                                     </div>
                             </div>
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Modelo">Modelo</label>
-                                        <input type="text" id="Modelo" class="form-control" value={{$anotacionOt->equipo->modelo}}>
+                                        <input type="text" id="Modelo" class="form-control" value="{{$anotacionOt->equipo->modelo}}" readonly>
                                     </div>
                             </div>
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Password">Password</label>
-                                        <input type="text" id="Password" class="form-control" value={{$anotacionOt->equipo->password}}>
+                                        <input type="text" id="Password" class="form-control" value="{{$anotacionOt->equipo->password}}" readonly>
                                     </div>
                             </div>
                         </div>
@@ -258,20 +259,20 @@
                                         value= 'Sin cargador'
                                         @else
                                         value= 'Con cargador'
-                                        @endif>
+                                        @endif readonly>
 
                                     </div>
                             </div>
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Bateria">Bateria</label>
-                                        <input type="text" id="Bateria" class="form-control"
+                                        <input type="text" id="Bateria" class="form-control readonly"
 
                                         @if($anotacionOt->equipo->bateria == 0)
                                        value= 'Sin bateria'
                                         @else
                                        value= 'Con bateria'
-                                        @endif>
+                                        @endif readonly>
 
 
                                     </div>
@@ -285,7 +286,7 @@
                                                     value= 'Sin bolso/funda'
                                                 @else
                                                     value='Con bolso/funda'
-                                                @endif>
+                                                @endif readonly>
 
                                     </div>
                             </div>
