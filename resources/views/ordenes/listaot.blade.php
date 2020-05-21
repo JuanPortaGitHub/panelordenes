@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Listado Ordenes de Trabajo</h1>
+                        <h1><b>Listado Ordenes de Trabajo</b></h1>
                     </div>
 
                 </div>
@@ -25,30 +25,25 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">DataTable with default features</h3>
-                        </div>
-                        <!-- /.card-header -->
+
                         <div class="card-body">
-                            <table id="listaordenes" class="table table-bordered table-striped">
+                            <table id="listaordenes" class="table table-responsive table-bordered table-striped">
                                 <thead>
                                 <tr style="font-size: 90%" align="center">
 
                                     <th>Orden</th>
                                     <th>Suc</th>
+                                    <th>Tipo</th>
                                     <th>Apellido</th>
                                     <th>Nombre</th>
                                     <th>Estado</th>
                                     <th>Confirmacion</th>
-                                    <th>Repuesto</th>
+                                    <th>Fecha Ingreso</th>
                                     <th>Fecha Entrega</th>
                                     <th>Categoria</th>
                                     <th>Equipo</th>
-                                    <th>Fecha Ingreso</th>
-                                    <th>Detalles/Roturas/Marcas</th>
-                                    <th>Sintoma</th>
-                                    <th>Diagnostico</th>
                                     <th>Tecnico</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -59,20 +54,17 @@
 
                                 <tr style="font-size: 80%" align="center">
 
-                                    <td><a href="{{route('ordenes.anotaciones', $order->ot_id)}}">{{$order->ot_id}}</a></td>
+                                    <td><a href="{{route('ordenes.anotaciones', $order->ot_id)}}"><b>{{$order->ot_id}}</b></a></td>
                                     <td>{{$order->sucursal->sucursal}}</td>
+                                    <td>{{$order->area->areas}}</td>
                                     <td>{{$order->cliente->apellido}}</td>
                                     <td>{{$order->cliente->nombre}}</td>
                                     <td>{{$order->estado->estadoot}}</td>
                                     <td>{{$order->confirmacion->estadoconfirmacion}}</td>
-                                    <td>{{$order->Estadorepuesto->estadoderepuesto}}</td>
+                                    <td>{{$order->fechaingreso}}</td>
                                     <td>{{$order->fechaentrega}}</td>
                                     <td>{{$order->Equipo->tipodeequipo->tipodeequipo}}</td>
                                     <td>{{$order->equipo->modelo}}</td>
-                                    <td>{{$order->fechaingreso}}</td>
-                                    <td>{{$order->detalles}}</td>
-                                    <td>{{$order->sintoma}}</td>
-                                    <td>{{$order->sintoma}}</td>
                                     <td>{{$order->User->name}}</td>
 
                                 </tr>
@@ -86,21 +78,18 @@
                                 <tfoot>
                                 <tr style="font-size: 90%" align="center">
 
-                                    <th>Orden</th>
-                                    <th>Suc</th>
-                                    <th>Apellido</th>
-                                    <th>Nombre</th>
-                                    <th>Estado</th>
-                                    <th>Confirmacion</th>
-                                    <th>Repuesto</th>
-                                    <th>Fecha Entrega</th>
-                                    <th>Categoria</th>
-                                    <th>Equipo</th>
-                                    <th>Fecha Ingreso</th>
-                                    <th>Detalles/Roturas/Marcas</th>
-                                    <th>Sintoma</th>
-                                    <th>Diagnostico</th>
-                                    <th>Tecnico</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                                 </tfoot>
                             </table>
@@ -132,24 +121,53 @@
     <script src="adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
     <!-- page script -->
+
     <script>
-        $(function () {
-            $("#listaordenes").DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                "ordering": true,
-            });
-            /*$('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });*/
-        });
+
+    $(document).ready(function () {
+    $('#listaordenes').dataTable({
+
+
+        rowCallback: function(row, data, index){
+            if(data[5] == 'Urgente'){
+                $(row).find('td:eq(5)').css('background-color', '#e90125').css('font-weight', 'bold');
+            }
+            if(data[5] == 'Listo para entregar'){
+                $(row).find('td:eq(5)').css('background-color', '#2fa360').css('font-weight', 'bold');
+            }
+            if(data[5] == 'Esperando Repuesto'){
+                $(row).find('td:eq(5)').css('background-color', 'yellow').css('font-weight', 'bold');
+            }
+
+        },
+
+    initComplete: function () {
+    this.api().columns([1, 2, 5, 6, 11]).every( function () {
+    var column = this;
+    var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected></option></select>')
+    .appendTo( $(column.footer()).empty() )
+    .on( 'change', function () {
+    var val = $.fn.dataTable.util.escapeRegex(
+    $(this).val()
+    );
+
+    column
+    .search( val ? '^'+val+'$' : '', true, false )
+    .draw();
+    } );
+
+    column.data().unique().sort().each( function ( d, j ) {
+    select.append( '<option value="'+d+'">'+d+'</option>' )
+    } );
+    } );
+    }
+    });
+    });
+
+
+
     </script>
+
 
     <!-- Bootstrap 4 -->
     <script src="../adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

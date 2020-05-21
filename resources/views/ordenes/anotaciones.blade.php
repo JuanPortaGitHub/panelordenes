@@ -34,15 +34,13 @@
         <div class="container-fluid">
 
 
-
-
-
         <div class="row">
 
+
+
+            <!-- Informacion de Orden -->
+
             <div class="col-md-6">
-
-
-
 
                 <div class="card card-primary collapsed-card">
                     <div class="card-header">
@@ -133,7 +131,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaingreso">Fecha de Ingreso</label>
-                                            <input type="date" id="fechaingreso" class="form-control" value="{{$anotacionOt->fechaingreso}}" readonly>
+                                            <input type="datetime-local" id="fechaingreso" class="form-control" value="{{$anotacionOt->fechaingreso}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -151,6 +149,14 @@
                                 </div>
 
 
+                        <!-- Boton modal para edicion de orden -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".editaorden"><b>Editar</b>
+                                </button>
+                            </div>
+                        </div>
+
 
                     </div>
                     <!-- /.card-body -->
@@ -160,12 +166,22 @@
 
 
 
+
+           @include('modalformularios.modalupdateorden')
+
+
+
+
+
+
+
+            <!-- Informacion de cliente -->
+
             <div class="col-md-6">
 
-                <div class="card card-secondary collapsed-card">
+                <div class="card card-info  collapsed-card">
                     <div class="card-header">
                         <h3 class="card-title">Datos Cliente</h3>
-
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                 <i class="fas fa-plus"></i></button>
@@ -213,11 +229,36 @@
                         </div>
 
 
+                        <!-- Boton modal para edicion de cliente -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".editacliente"><b>Editar</b>
+                                </button>
+                            </div>
+                        </div>
+
 
                     </div>
                     <!-- /.card-body -->
                 </div>
                 <!-- /.card -->
+
+            @include('modalformularios.modalupdatecliente')
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Informacion de equipo -->
+
                 <div class="card card-info  collapsed-card">
                     <div class="card-header">
                         <h3 class="card-title">Datos Equipo</h3>
@@ -292,6 +333,16 @@
                             </div>
                         </div>
 
+
+
+                        <!-- Boton modal para edicion de equipo -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".editaequipo"><b>Editar</b>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                     <!-- /.card-body -->
                 </div>
@@ -301,9 +352,13 @@
         </div>
 
 
+        @include('modalformularios.modalupdateequipo')
 
 
 
+
+
+            <!-- SECCION ANOTACIONES -->
 
         <!-- /.row -->
         <div class="row">
@@ -335,12 +390,6 @@
                                 </div>
 
 
-
-
-
-
-
-
                 </div>
 
             </div>
@@ -349,7 +398,7 @@
 
 
 
-                    <!-- /.Modal que se acciona de carga de anotaicones -->
+                    <!-- /.Modal que se acciona para carga de anotaciones -->
 
                     <div class="modal fade anotacionot" tabindex="-1" role="dialog" aria-labelledby="anotacionot" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
@@ -437,7 +486,6 @@
 
 
                     <!-- /.Tabla listado de anotaciones -->
-
 
             <div class="row">
                 <div class="col-md-12">

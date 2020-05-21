@@ -149,11 +149,30 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $cliente=Cliente::findOrFail($id);
 
-        $cliente->update($request->all());
+        $request->validate([
 
-        return redirect()->route('clientes.index');
+            'apellidocliente'=>'required',
+            'nombrecliente'=>'required',
+            'celularcliente'=>'required',
+            'telefonocliente'=>'required',
+            'mailcliente'=>'required'
+
+
+
+        ]);
+
+        $updatecliente=Cliente::findOrFail($id);
+
+        $updatecliente->apellido = $request->input('apellidocliente');
+        $updatecliente->nombre = $request->input('nombrecliente');
+        $updatecliente->celular = $request->input('celularcliente');
+        $updatecliente->telefono = $request->input('telefonocliente');
+        $updatecliente->mail = $request->input('mailcliente');
+
+        $updatecliente->save();
+
+        return back();
 
     }
 

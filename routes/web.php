@@ -32,6 +32,7 @@ Route::get('/orden/{ot_id}','OtController@anotaciones')->name('ordenes.anotacion
 
 Route::resource('ordenes', 'OtController');
 Route::resource('clientes', 'ClientesController');
+Route::resource('equipos', 'EquiposController');
 Route::resource('annotations', 'AnnotationController');
 
 

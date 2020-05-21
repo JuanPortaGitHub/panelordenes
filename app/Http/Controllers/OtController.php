@@ -63,7 +63,7 @@ class OtController extends Controller
         $estadoderepuestos = Estadorepuesto::all();
         $confirmacions = Confirmacion::all();
         $areas = area::all();
-        $fechaentrega=now()->addDays(2);
+        $fechaentrega=now()->addDays(5);
         $tipoequipos= tipodeequipo::all();
 
         //CREA VALOR RANDOM PARA EL PASSWORD DE OT
@@ -223,7 +223,18 @@ class OtController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $updateorden=Ot::findOrFail($id);
+
+        $updateorden->estado_id = $request->input('estadoorden');
+        $updateorden->area_id = $request->input('categoriaorden');
+        $updateorden->reparaexito_id = $request->input('reparadoorden');
+        $updateorden->user_id = $request->input('tecnicoorden');
+        $updateorden->fechaentrega = $request->input('fechaentregaorden');
+        $updateorden->presupuesto = $request->input('presupuestoorden');
+
+        $updateorden->save();
+
+        return back();
     }
 
     /**
@@ -245,6 +256,7 @@ class OtController extends Controller
         $reparados = Reparaexito::all();
         $categorias = Categoria::all();
         $areas = area::all();
+
         return view ("ordenes.anotaciones", compact ("anotacionOt","estados", "reparados", "categorias", "anotaciones", "areas"));
     }
 

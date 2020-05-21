@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Equipo;
 use Illuminate\Http\Request;
 
 class EquiposController extends Controller
@@ -73,7 +74,20 @@ class EquiposController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+
+        $updateequipo=Equipo::findOrFail($id);
+
+        $updateequipo->tipodeequipo_id = $request->input('categoriaequipo');
+        $updateequipo->modelo = $request->input('modeloequipo');
+        $updateequipo->password = $request->input('passwordequipo');
+        $updateequipo->cargador = $request->input('cargadorequipo');
+        $updateequipo->bateria = $request->input('bateriaequipo');
+        $updateequipo->bolsofunda = $request->input('bolsoequipo');
+
+        $updateequipo->save();
+
+        return back();
     }
 
     /**

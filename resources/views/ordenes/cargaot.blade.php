@@ -166,13 +166,13 @@
                         <div class="form-group row">
                             <label for="modeloequipo" class="col-sm-2 col-form-label">Modelo Equipo</label>
                             <div class="col-sm-10">
-                                <input name="modeloequipo" type="text" class="form-control" placeholder="Modelo Equipo ..." required>
+                                <input name="modeloequipo" type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="passwordequipo" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
-                                <input name="passwordequipo" type="text" class="form-control" placeholder="Password ..." required>
+                                <input name="passwordequipo" type="text" class="form-control" placeholder="Ingresar contraseña del equipo" required>
                             </div>
                         </div>
                         <div class="offset-sm-2 col-sm-10">
@@ -216,7 +216,7 @@
                         <div class="form-group row">
                             <label for="confirmacion" class="col-sm-2 col-form-label">Confirmacion</label>
                             <div class="col-sm-10">
-                                <select name="confirmacion" class="form-control" placeholder="Presupuestar o Confirmada ..." required>
+                                <select name="confirmacion" class="form-control" placeholder="Indicar si se debe presupuestar o está confirmada ..." required>
                                     <option value=""></option>
                                     @foreach ($confirmacions as $confirmacion)
                                         <option value="{{ $confirmacion['id'] }}">{{ $confirmacion['estadoconfirmacion'] }}</option>
@@ -227,7 +227,7 @@
                         <div class="form-group row">
                             <label for="estado" class="col-sm-2 col-form-label">Estado</label>
                             <div class="col-sm-10">
-                                <select name="estado" class="form-control" placeholder="Indicar Estado de la Orden ..." required>
+                                <select name="estado" class="form-control" placeholder="Indicar estado de la orden ..." required>
                                     <option value=""></option>
                                     @foreach ($estados as $estado)
                                         <option value="{{ $estado['id'] }}">{{ $estado['estadoot'] }}</option>
@@ -238,7 +238,7 @@
                         <div class="form-group row">
                             <label for="area" class="col-sm-2 col-form-label">Area Reparacion</label>
                             <div class="col-sm-10">
-                                <select name="area" class="form-control" placeholder="Indicar Hardware o Software ..." required>
+                                <select name="area" class="form-control" placeholder="Indicar si corresponde a hardware o software ..." required>
                                     <option value=""></option>
                                     @foreach ($areas as $area)
                                         <option value="{{ $area['id'] }}">{{ $area['areas'] }}</option>
@@ -250,7 +250,7 @@
                         <div class="form-group row">
                             <label for="nombretecnico" class="col-sm-2 col-form-label">Tecnico Encargado</label>
                             <div class="col-sm-10">
-                                <select name="nombretecnico" class="form-control" placeholder="Indicar Tecnico a cargo ..." required>
+                                <select name="nombretecnico" class="form-control" placeholder="Indicar tecnico a cargo ..." required>
                                     <option value=""></option>
                                     @foreach ($tecnicos as $tecnico)
                                         <option value="{{ $tecnico['id'] }}">{{ $tecnico['name'] }}</option>
@@ -261,7 +261,7 @@
                         <div class="form-group row">
                             <label for="necesitarepuesto" class="col-sm-2 col-form-label">Repuesto</label>
                             <div class="col-sm-10">
-                                <select name="necesitarepuesto" class="form-control" placeholder="Indicar repuesto ..." required>
+                                <select name="necesitarepuesto" class="form-control" placeholder="Indicar si requiere de repuesto ..." required>
                                     <option value=""></option>
                                     @foreach ($estadoderepuestos as $estadoderepuesto)
                                         <option value="{{ $estadoderepuesto['id'] }}">{{ $estadoderepuesto['estadoderepuesto'] }}</option>
@@ -285,7 +285,7 @@
                         <div class="form-group row">
                             <label for="presupuesto" class="col-sm-2 col-form-label">Presupuesto</label>
                             <div class="col-sm-10">
-                                <input name="Presupuesto" type="number" class="form-control" placeholder="Presupuesto ..." required>
+                                <input name="Presupuesto" type="number" class="form-control" placeholder="Indicar presupuesto del trabajo ..." >
                             </div>
                         </div>
                         <div class="form-group row">
@@ -297,7 +297,7 @@
                         <div class="form-group row">
                             <label for="fechaentrega" class="col-sm-2 col-form-label">Fecha Entrega</label>
                             <div class="col-sm-10">
-                                <input name="fechaentrega" type="date" class="form-control" value="{{ $fechaentrega }}" required>
+                                <input name="fechaentrega" type="date" class="form-control" required value={{ $fechaentrega }} >
                             </div>
                         </div>
                         <div class="form-group row">
@@ -345,7 +345,7 @@
                                         <div class="form-group">
                                             <label for="anotacion">Ingrese PIN</label>
 
-                                            <input name="pincode" id="pincode" type="password" class="form-control" placeholder="Pin ...">
+                                            <input name="pincode" id="pincode" type="password" class="form-control" required placeholder="...">
 
                                         </div>
 
