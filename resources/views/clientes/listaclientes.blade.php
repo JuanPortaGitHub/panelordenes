@@ -37,7 +37,7 @@
             <div class="col-lg-4 col-6">
                 <!-- small card -->
                 <div class="small-box bg-warning">
-                    <a href="#clientenuevo" data-toggle="modal" data-target=".clientenuevo">
+                    <a href="#cargacliente" data-toggle="modal" data-target=".cargacliente">
                         <div class="inner">
                             <h4><b>Agregar Cliente</b> </h4>
                             <h4><b></b></h4>
@@ -57,83 +57,9 @@
 
             <!-- FORMULARIO DE CARGA CLIENTE (EN MODAL)-->
 
-        <div class="modal fade clientenuevo" tabindex="-1" role="dialog" aria-labelledby="clientenuevo" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
+        @include('modalformularios.modalcargacliente')
 
-
-                            <form METHOD="post" action="{{ route('clientes.store') }}" class="form-horizontal" autocomplete="off">
-                            {{csrf_field()}}
-
-                            <!-- Seccion Titular Cliente -->
-
-
-
-                                <div class="card card-warning">
-                                    <div class="card-header">
-                                        <h3 class="card-title"><b>Datos Cliente</b></h3>
-                                    </div>
-
-
-                                    <!-- Seccion contenido Cliente -->
-
-                                    <div class="card-body">
-
-
-
-                                        <div class="form-group row">
-                                            <label for="apellidocliente" class="col-sm-2 col-form-label">Apellido</label>
-                                            <div class="col-sm-10">
-                                                <input name="apellidocliente" id="apellidocliente" type="text" class="form-control" placeholder="Apellido ..." >
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group row" style="display: none;">
-                                            <label for="idcliente" class="col-sm-2 col-form-label">ID</label>
-                                            <div class="col-sm-10">
-                                                <input name="idcliente" id="idcliente" type="text" class="form-control" placeholder="ID ..." >
-
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label for="nombrecliente" class="col-sm-2 col-form-label">Nombre</label>
-                                            <div class="col-sm-10">
-                                                <input name="nombrecliente" id="nombrecliente" type="text" class="form-control" placeholder="Nombre ..." >
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="celularcliente" class="col-sm-2 col-form-label">Celular</label>
-                                            <div class="col-sm-10">
-                                                <input name="celularcliente" id="celularcliente" type="text" class="form-control" placeholder="Celular ..." >
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="telefonocliente" class="col-sm-2 col-form-label">Telefono</label>
-                                            <div class="col-sm-10">
-                                                <input name="telefonocliente" id="telefonocliente" type="text" class="form-control" placeholder="Telefono ..." >
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="mailcliente" class="col-sm-2 col-form-label">Mail</label>
-                                            <div class="col-sm-10">
-                                                <input name="mailcliente" id="mailcliente" type="email" class="form-control" placeholder="Mail ..." >
-                                            </div>
-                                        </div>
-                                        <!-- Botones de Formulario -->
-                                        <div class="card-footer">
-                                            <button type="submit" class="btn btn-info">Ingresar</button>
-                                            <button type="reset" class="btn btn-default float-right">Limpiar</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </form>
-                </div>
-            </div>
-        </div>
-
-                <!-- CIERRE DE FORMULARIO CARGA OT -->
+                <!-- CIERRE DE FORMULARIO CARGA CLIENTE -->
 
 
 

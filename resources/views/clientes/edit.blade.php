@@ -80,34 +80,34 @@
                         <div class="form-group row">
                             <label for="apellidocliente" class="col-sm-2 col-form-label">Apellido</label>
                             <div class="col-sm-10">
-                                <input name="apellido" id="apellido" type="text" class="form-control" value="{{$cliente->apellido}}" >
+                                <input name="apellido" id="apellido" type="text" class="form-control" value="{{$cliente->apellido}}" required>
 
                             </div>
                         </div>
 
 
                         <div class="form-group row">
-                            <label for="nombrecliente" class="col-sm-2 col-form-label">Nombre</label>
+                            <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
-                                <input name="nombre" id="nombre" type="text" class="form-control" value="{{$cliente->nombre}}" >
+                                <input name="nombre" id="nombre" type="text" class="form-control" value="{{$cliente->nombre}}" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="celularcliente" class="col-sm-2 col-form-label">Celular</label>
+                            <label for="celular" class="col-sm-2 col-form-label">Celular</label>
                             <div class="col-sm-10">
-                                <input name="celular" id="celular" type="text" class="form-control" value="{{$cliente->celular}}" >
+                                <input name="celular" id="celular" type="text" class="form-control" value="{{$cliente->celular}}" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="telefonocliente" class="col-sm-2 col-form-label">Telefono</label>
+                            <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
                             <div class="col-sm-10">
-                                <input name="telefono" id="telefono" type="text" class="form-control" value="{{$cliente->telefono}}" >
+                                <input name="telefono" id="telefono" type="text" class="form-control" value="{{$cliente->telefono}}" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="mailcliente" class="col-sm-2 col-form-label">Mail</label>
+                            <label for="mail" class="col-sm-2 col-form-label">Mail</label>
                             <div class="col-sm-10">
-                                <input name="mail" id="mail" type="email" class="form-control" value="{{$cliente->mail}}" >
+                                <input name="mail" id="mail" type="email" class="form-control" value="{{$cliente->mail}}" required>
                             </div>
                         </div>
                         <!-- Botones de Formulario -->
@@ -119,7 +119,7 @@
                 </div>
 
             </form>
-
+        </section>
             <!-- CIERRE DE FORMULARIO CARGA OT -->
 
     </div>

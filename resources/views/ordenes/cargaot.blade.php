@@ -20,51 +20,22 @@
         <!-- Main content -->
 
 
-        <!-- Cuadro acceso agregar cliente -->
+        <!-- Boton modal carga cliente -->
 
 
-        <div class="col-lg-3 col-6">
-
-
+        <div class="col-6">
 
 
 
-                <!-- small card -->
-                <div class="small-box bg-warning">
-                    <a href="{{ URL::route('clientes.create')}}"
-                                                      onclick="window.open(this.href,'targetWindow',
-                                   `toolbar=no,
-                                    location=no,
-                                    status=no,
-                                    menubar=no,
-                                    scrollbars=yes,
-                                    resizable=yes,
-                                    width=400,
-                                    height=770`);
-                                    return false;">
-                    <table>
-                        <tr>
-                            <td>
-                                <h4><b>Agregar Cliente</b> </h4>
-                            </td>
-                            <td>
-                                <div class="icon">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+    @include('modalformularios.modalcargacliente')
 
 
 
 
-
-                    </a>
-                </div>
+        <p></p>
 
 
-        </div>
-        <!-- Cierra cuadro acceso agregar cliente -->
+
 
 
 
@@ -137,10 +108,25 @@
                             </div>
                         </div>
 
+
+                        <!-- Boton modal para edicion de equipo -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".cargacliente"><b>Carga cliente nuevo</b>
+                                </button>
+                            </div>
+                        </div>
+
+
                     </div>
+                    <!-- Cierra boton modal carga cliente -->
+
+                </div>
 
 
 
+
+                <div class="card card-warning">
                     <!-- Seccion Titular Equipo -->
                     <div class="card card-warning">
                         <div class="card-header">
@@ -190,8 +176,11 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
 
+
+                <div class="card card-warning">
                     <!-- Seccion Titular Orden de Trabajo -->
                     <div class="card card-warning">
                         <div class="card-header">
@@ -285,19 +274,19 @@
                         <div class="form-group row">
                             <label for="presupuesto" class="col-sm-2 col-form-label">Presupuesto</label>
                             <div class="col-sm-10">
-                                <input name="Presupuesto" type="number" class="form-control" placeholder="Indicar presupuesto del trabajo ..." >
+                                <input name="Presupuesto" type="number" class="form-control" placeholder="Indicar presupuesto del trabajo ..."  required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="fechaingreso" class="col-sm-2 col-form-label">Fecha Ingreso</label>
                             <div class="col-sm-10">
-                                <input name="fechaingreso" type="datetime-local" class="form-control" value="{{now()->format('Y-m-d\TH:i')}}" required>
+                                <input name="fechaingreso" type="datetime-local" class="form-control" value="{{now()->format('Y-m-d\TH:i')}}" readonly required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="fechaentrega" class="col-sm-2 col-form-label">Fecha Entrega</label>
                             <div class="col-sm-10">
-                                <input name="fechaentrega" type="date" class="form-control" required value={{ $fechaentrega }} >
+                                <input name="fechaentrega" type="date" class="form-control" required value={{ $fechaentrega }}>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -308,7 +297,7 @@
                         </div>
 
                     </div>
-
+                </div>
 
 
 
@@ -320,7 +309,7 @@
                         </button>
                         <button type="reset" class="btn btn-default float-right">Limpiar</button>
                     </div>
-                </div>
+
 
 
 
@@ -369,13 +358,14 @@
 
 
             </form>
-
+        </section>
+        </div>
             <!-- CIERRE DE FORMULARIO CARGA OT -->
 
 
 
 
-    </section>
+
     </div>
 
     <!-- /.content-wrapper -->

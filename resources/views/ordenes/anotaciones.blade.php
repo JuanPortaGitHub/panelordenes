@@ -66,10 +66,12 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="estadoot">Pasword Orden</label>
-                                            <input type="text" id="estadoot" class="form-control" value="{{$anotacionOt->passwordot}}" readonly>
+                                            <label for="Categoria">Categoria</label>
+                                            <input type="text" id="Categoria" class="form-control" value="{{$anotacionOt->area->areas}}" readonly>
+
                                         </div>
                                     </div>
+
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="Sucursal">Sucursal</label>
@@ -77,11 +79,10 @@
                                             </div>
                                     </div>
                                     <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="Categoria">Categoria</label>
-                                                <input type="text" id="Categoria" class="form-control" value="{{$anotacionOt->tiporeparacion}}" readonly>
-
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="passwordot">Pasword Orden</label>
+                                            <input type="text" id="passwordot" class="form-control" value="{{$anotacionOt->passwordot}}" readonly>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -143,7 +144,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="encargadorecepcion">Encargado Recepcion</label>
-                                            <input type="text" id="encargadorecepcion" class="form-control" value="{{$anotacionOt->user->name}}" readonly>
+                                            <input type="text" id="encargadorecepcion" class="form-control" value="{{$anotacionOt->recibidopor_id}}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -273,7 +274,7 @@
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Categoria">Categoria</label>
-                                        <input type="text" id="Categoria" class="form-control" value="{{$anotacionOt->equipo->categoriaequipo}}" readonly>
+                                        <input type="text" id="Categoria" class="form-control" value="{{$anotacionOt->equipo->tipodeequipo->tipodeequipo}}" readonly>
                                     </div>
                             </div>
                             <div class="col-md-4">

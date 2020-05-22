@@ -76,25 +76,15 @@ class ClientesController extends Controller
 
         // Valida campos requeridos del formulario
 
-        $request->validate([
 
-            'apellidocliente'=>'required',
-            'nombrecliente'=>'required',
-            'celularcliente'=>'required',
-            'telefonocliente'=>'required',
-            'mailcliente'=>'required'
-
-
-
-        ]);
 
         $nuevocliente = new Cliente();
 
-                    $nuevocliente->apellido = $request->input('apellidocliente');
-                    $nuevocliente->nombre = $request->input('nombrecliente');
-                    $nuevocliente->celular = $request->input('celularcliente');
-                    $nuevocliente->telefono = $request->input('telefonocliente');
-                    $nuevocliente->mail = $request->input('mailcliente');
+                    $nuevocliente->apellido = $request->input('apellido');
+                    $nuevocliente->nombre = $request->input('nombre');
+                    $nuevocliente->celular = $request->input('celular');
+                    $nuevocliente->telefono = $request->input('telefono');
+                    $nuevocliente->mail = $request->input('mail');
 
                     $nuevocliente->save();
 
@@ -102,8 +92,7 @@ class ClientesController extends Controller
 
         //return redirect()->to('clientes');
 
-
-          echo "<script type=\"text/javascript\">window.close();</script>";
+         return back();
 
     }
 
@@ -152,11 +141,11 @@ class ClientesController extends Controller
 
         $request->validate([
 
-            'apellidocliente'=>'required',
-            'nombrecliente'=>'required',
-            'celularcliente'=>'required',
-            'telefonocliente'=>'required',
-            'mailcliente'=>'required'
+            'apellido'=>'required',
+            'nombre'=>'required',
+            'celular'=>'required',
+            'telefono'=>'required',
+            'mail'=>'required'
 
 
 
@@ -164,11 +153,11 @@ class ClientesController extends Controller
 
         $updatecliente=Cliente::findOrFail($id);
 
-        $updatecliente->apellido = $request->input('apellidocliente');
-        $updatecliente->nombre = $request->input('nombrecliente');
-        $updatecliente->celular = $request->input('celularcliente');
-        $updatecliente->telefono = $request->input('telefonocliente');
-        $updatecliente->mail = $request->input('mailcliente');
+        $updatecliente->apellido = $request->input('apellido');
+        $updatecliente->nombre = $request->input('nombre');
+        $updatecliente->celular = $request->input('celular');
+        $updatecliente->telefono = $request->input('telefono');
+        $updatecliente->mail = $request->input('mail');
 
         $updatecliente->save();
 

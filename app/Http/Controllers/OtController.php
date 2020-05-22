@@ -256,8 +256,10 @@ class OtController extends Controller
         $reparados = Reparaexito::all();
         $categorias = Categoria::all();
         $areas = area::all();
+        $tecnicos = User::all();
+        $tipodeequipos = tipodeequipo::all();
 
-        return view ("ordenes.anotaciones", compact ("anotacionOt","estados", "reparados", "categorias", "anotaciones", "areas"));
+        return view ("ordenes.anotaciones", compact ("anotacionOt","estados", "reparados", "categorias", "anotaciones", "areas", "tecnicos", "tipodeequipos"));
     }
 
 

@@ -3,7 +3,7 @@
 <!-- Modal de edicion de cliente -->
 
 <div class="modal fade editaorden" tabindex="-1" role="dialog" aria-labelledby="editaorden" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
 
             <div class="card card-warning">
@@ -32,19 +32,44 @@
                         </div>
                         <div class="form-group">
                             <label for="estadoorden">ESTADO</label>
-                            <input name="estadoorden" id="estadoorden" type="text" class="form-control" value="{{$anotacionOt->estado_id}}" required>
+                            <select name="estadoorden" class="form-control" required>
+                                <option selected value="{{$anotacionOt->estado['id']}}">{{ $anotacionOt->estado['estadoot']}}</option>
+                                @foreach ($estados as $estado)
+                                    <option value="{{ $estado['id'] }}">{{ $estado['estadoot'] }}</option>
+                                @endforeach
+
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="categoriaorden">Categoria</label>
-                            <input name="categoriaorden" id="categoriaorden" type="text" class="form-control" value="{{$anotacionOt->area_id}}" required>
+
+                            <select name="categoriaorden" class="form-control" required>
+                                <option selected value="{{$anotacionOt->area['id']}}">{{ $anotacionOt->area['areas']}}</option>
+                                @foreach ($areas as $area)
+                                    <option value="{{ $area['id'] }}">{{ $area['areas'] }}</option>
+                                @endforeach
+
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="reparadoorden">Reparado</label>
-                            <input name="reparadoorden" id="reparadoorden" type="text" class="form-control" value="{{$anotacionOt->reparaexito_id}}" required>
+                            <select name="reparadoorden" class="form-control" required>
+                                <option selected value="{{$anotacionOt->reparaexito['id']}}">{{ $anotacionOt->reparaexito['reparadoconexito']}}</option>
+                                @foreach ($reparados as $reparado)
+                                    <option value="{{ $reparado['id'] }}">{{ $reparado['reparadoconexito'] }}</option>
+                                @endforeach
+
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="tecnicoorden">Tecnico a cargo</label>
-                            <input name="tecnicoorden" id="tecnicoorden" type="text" class="form-control" value="{{$anotacionOt->user_id}}" required>
+                            <select name="tecnicoorden" class="form-control" required>
+                                <option selected value="{{$anotacionOt->user['id']}}">{{ $anotacionOt->user['name']}}</option>
+                                @foreach ($tecnicos as $tecnico)
+                                    <option value="{{ $tecnico['id'] }}">{{ $tecnico['name'] }}</option>
+                                @endforeach
+
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="fechaentregaorden">Fecha de entrega</label>
