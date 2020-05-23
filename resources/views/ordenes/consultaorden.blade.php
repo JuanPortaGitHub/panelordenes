@@ -70,7 +70,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                                 <label for="estadoot">ESTADO</label>
-                                                <input type="text" id="estadoot" class="form-control" value={{$orden->estado->estadoot}}>
+                                                <input type="text" id="estadoot" class="form-control" value="{{$orden->estado->estadoot}}" readonly>
                                         </div>
                                     </div>
 
@@ -78,20 +78,21 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="estadoot">Pasword Orden</label>
-                                            <input type="text" id="estadoot" class="form-control" value={{$orden->passwordot}}>
+                                            <label for="Categoria">Categoria</label>
+                                            <input type="text" id="Categoria" class="form-control" value="{{$orden->area->areas}}" readonly>
                                         </div>
+
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="Sucursal">Sucursal</label>
-                                                <input type="text" id="Sucursal" class="form-control" value={{$orden->sucursal->sucursal}}>
+                                                <input type="text" id="Sucursal" class="form-control" value="{{$orden->sucursal->sucursal}}" readonly>
                                             </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="Categoria">Categoria</label>
-                                                <input type="text" id="Categoria" class="form-control" value={{$orden->tiporeparacion}}>
+                                                <label for="passwordot">Pasword Orden</label>
+                                                <input type="text" id="passwordot" class="form-control" value="{{$orden->passwordot}}" readonly>
                                             </div>
                                     </div>
                                 </div>
@@ -100,19 +101,19 @@
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="reparadoconexito">Reparado</label>
-                                                <input type="text" id="reparadoconexito" class="form-control" value={{$orden->reparaexito->reparadoconexito}}>
+                                                <input type="text" id="reparadoconexito" class="form-control" value="{{$orden->reparaexito->reparadoconexito}}" readonly>
                                             </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="categoriareparacion">Categoria Reparacion</label>
-                                                <input type="text" id="categoriareparacion" class="form-control" value={{$orden->categoria->categoriareparacion}}>
+                                                <input type="text" id="categoriareparacion" class="form-control" value="{{$orden->categoria->categoriareparacion}}" readonly>
                                             </div>
                                     </div>
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="inputName">Tecnico a Cargo</label>
-                                                <input type="text" id="Tecnico" class="form-control" value={{$orden->user->name}}>
+                                                <input type="text" id="Tecnico" class="form-control" value="{{$orden->user->name}}" readonly>
                                             </div>
                                     </div>
                                 </div>
@@ -121,13 +122,13 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Detalles">Detalles / Marcas / Roturas</label>
-                                            <textarea id="Detalles" class="form-control" rows="4">{{$orden->detalles}}</textarea>
+                                            <textarea id="Detalles" class="form-control" rows="4" readonly>"{{$orden->detalles}}"</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Sintoma">Sintomas / Reparaciones</label>
-                                            <textarea id="Sintoma" class="form-control" rows="4">{{$orden->sintoma}}</textarea>
+                                            <textarea id="Sintoma" class="form-control" rows="4" readonly>"{{$orden->sintoma}}"</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -136,25 +137,25 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="Presupuesto">Presupuesto</label>
-                                            <input type="number" id="Presupuesto" class="form-control" value={{$orden->presupuesto}}>
+                                            <input type="number" id="Presupuesto" class="form-control" value="{{$orden->presupuesto}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaingreso">Fecha de Ingreso</label>
-                                            <input type="date" id="fechaingreso" class="form-control" value={{$orden->fechaingreso}}>
+                                            <input type="date" id="fechaingreso" class="form-control" value="{{$orden->fechaingreso}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaentrega">Fecha de Entrega</label>
-                                            <input type="date" id="fechaentrega" class="form-control" value={{$orden->fechaentrega}}>
+                                            <input type="date" id="fechaentrega" class="form-control" value="{{$orden->fechaentrega}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="encargadorecepcion">Encargado Recepcion</label>
-                                            <input type="text" id="encargadorecepcion" class="form-control" value={{$orden->user->name}}>
+                                            <input type="text" id="encargadorecepcion" class="form-control" value="{{$orden->user->name}}" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -186,13 +187,13 @@
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Apellido">Apellido</label>
-                                        <input type="text" id="Apellido" class="form-control" value={{$orden->cliente->apellido}}>
+                                        <input type="text" id="Apellido" class="form-control" value="{{$orden->cliente->apellido}}" readonly>
                                     </div>
                             </div>
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Nombre">Nombre</label>
-                                        <input type="text" id="Nombre" class="form-control" value={{$orden->cliente->nombre}}>
+                                        <input type="text" id="Nombre" class="form-control" value="{{$orden->cliente->nombre}}" readonly>
                                     </div>
                             </div>
                         </div>
@@ -201,13 +202,13 @@
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Celular">Celular</label>
-                                        <input type="number" id="Celular" class="form-control" value={{$orden->cliente->telefono}}>
+                                        <input type="number" id="Celular" class="form-control" value="{{$orden->cliente->telefono}}" readonly>
                                     </div>
                             </div>
                             <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Telefono">Telefono</label>
-                                        <input type="number" id="Telefono" class="form-control" value={{$orden->cliente->celular}}>
+                                        <input type="number" id="Telefono" class="form-control" value="{{$orden->cliente->celular}}" readonly>
                                     </div>
                             </div>
                         </div>
@@ -216,7 +217,7 @@
                             <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="Mail">Mail</label>
-                                        <input type="email" id="Mail" class="form-control" value={{$orden->cliente->mail}}>
+                                        <input type="email" id="Mail" class="form-control" value="{{$orden->cliente->mail}}" readonly>
                                     </div>
                             </div>
                         </div>
@@ -241,19 +242,19 @@
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Categoria">Categoria</label>
-                                        <input type="text" id="Categoria" class="form-control" value={{$orden->equipo->categoriaequipo}}>
+                                        <input type="text" id="Categoria" class="form-control" value="{{$orden->equipo->tipodeequipo->tipodeequipo}}" readonly>
                                     </div>
                             </div>
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Modelo">Modelo</label>
-                                        <input type="text" id="Modelo" class="form-control" value={{$orden->equipo->modelo}}>
+                                        <input type="text" id="Modelo" class="form-control" value="{{$orden->equipo->modelo}}" readonly>
                                     </div>
                             </div>
                             <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="Password">Password</label>
-                                        <input type="text" id="Password" class="form-control" value={{$orden->equipo->password}}>
+                                        <input type="text" id="Password" class="form-control" value="{{$orden->equipo->password}}" readonly>
                                     </div>
                             </div>
                         </div>
@@ -268,7 +269,7 @@
                                         value= 'Sin cargador'
                                         @else
                                         value= 'Con cargador'
-                                        @endif>
+                                        @endif readonly>
 
                                     </div>
                             </div>
@@ -281,7 +282,7 @@
                                        value= 'Sin bateria'
                                         @else
                                        value= 'Con bateria'
-                                        @endif>
+                                        @endif readonly>
 
 
                                     </div>
@@ -295,7 +296,7 @@
                                                     value= 'Sin bolso/funda'
                                                 @else
                                                     value='Con bolso/funda'
-                                                @endif>
+                                                @endif readonly>
 
                                     </div>
                             </div>
@@ -386,7 +387,7 @@
                                                                 <div class="form-group" style="display: none">
                                                                     <label for="orden">Orden de Trabajo</label>
 
-                                                                    <input name="orden" id="orden" type="text" class="form-control" value="{{$orden->ot_id}}">
+                                                                    <input name="orden" id="orden" type="text" class="form-control" value="{{$orden->ot_id}}" readonly>
 
 
                                                                 </div>
@@ -394,7 +395,7 @@
                                                                 <div class="form-group" style="display: none">
                                                                     <label for="orden">Orden de Trabajo</label>
 
-                                                                    <input name="iddecliente" id="iddecliente" type="text" class="form-control" value="{{$orden->cliente->id}}">
+                                                                    <input name="iddecliente" id="iddecliente" type="text" class="form-control" value="{{$orden->cliente->id}}" readonly>
 
 
                                                                 </div>
@@ -408,7 +409,7 @@
                                                                 <div class="form-group" style="display:none">
                                                                     <label for="tecnico_id">Pincode</label>
 
-                                                                    <input name="pincode" id="pincode" type="password" class="form-control" value="9999">
+                                                                    <input name="pincode" id="pincode" type="password" class="form-control" value="9999" readonly>
 
 
                                                                 </div>

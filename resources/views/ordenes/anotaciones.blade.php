@@ -132,7 +132,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaingreso">Fecha de Ingreso</label>
-                                            <input type="datetime-local" id="fechaingreso" class="form-control" value="{{$anotacionOt->fechaingreso}}" readonly>
+                                            <input type="date" id="fechaingreso" class="form-control" value="{{$anotacionOt->fechaingreso}}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">

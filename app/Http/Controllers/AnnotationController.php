@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Support\Facades\DB;
 use App\Annotation;
 use App\Categoria;
@@ -51,13 +52,22 @@ class AnnotationController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-
-            'orden'=>'required',
-            'anotacion'=>'required',
-            'pincode'=>'required'
-
+            'item_name' => 'required|max:255',
+            'sku_no' => 'required|alpha_num',
+            'price' => 'required|numeric',
+            'publish_at' => 'nullable|date',
         ]);
+
+        $validatedData = $request->validate([
+            'orden'=>'required|max:255',
+            'anotacion'=>'required|max:255',
+            'pincode'=>'required'
+        ]);
+
+
+
 
 
 

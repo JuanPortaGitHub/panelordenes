@@ -156,7 +156,7 @@ class OtController extends Controller
             //PASOS CONSULTA DE PINCODE
             $tecnicopin = $request->input('pincode'); //Obtengo pincode de formulario
             $tecnico = DB::table('users')->where('pincode', $tecnicopin)->first(); //hago consulta a BD para saber cual es el ID usuario al que corresponde el pin
-            $nuevaorden->recibidopor_id = $tecnico->id; //Asocio el id del usuario para grabar en la orden quien la hizo
+            $nuevaorden->recibidopor_id = $tecnico->name; //Asocio el id del usuario para grabar en la orden quien la hizo
 
 
 
