@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Listado Clientes</h1>
+
                     </div>
 
                 </div>
@@ -86,7 +86,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">DataTable with default features</h3>
+                            <h3 class="card-title"><b>Lista de clientes</b></h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

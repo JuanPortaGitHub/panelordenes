@@ -85,20 +85,6 @@ class OtController extends Controller
     public function store(Request $request)
     {
 
-        // Valida campos requeridos del formulario
-
-        $request->validate([
-
-            'apellidocliente'=>'required',
-            'nombrecliente'=>'required',
-            'celularcliente'=>'required',
-            'telefonocliente'=>'required',
-            'mailcliente'=>'required'
-
-
-
-        ]);
-
 
 
 
@@ -143,7 +129,7 @@ class OtController extends Controller
 
             //Carga en el array $nuevaorden del resto de los campos
 
-            $nuevaorden->cliente_id = $request->input('idcliente');
+            $nuevaorden->cliente_id = $request->input('idclient');
             $nuevaorden->detalles = $request->input('detalles');
             $nuevaorden->sintoma = $request->input('sintoma');
             $nuevaorden->fechaingreso = $request->input('fechaingreso');
@@ -155,7 +141,7 @@ class OtController extends Controller
             $nuevaorden->estadorepuesto_id = $request->input('necesitarepuesto');
             $nuevaorden->presupuesto = $request->input('Presupuesto');
             $nuevaorden->passwordot = $request->input('passwordot');
-
+            $nuevaorden->user_id = $request->input('nombretecnico');
 
 
 
@@ -170,7 +156,7 @@ class OtController extends Controller
             //PASOS CONSULTA DE PINCODE
             $tecnicopin = $request->input('pincode'); //Obtengo pincode de formulario
             $tecnico = DB::table('users')->where('pincode', $tecnicopin)->first(); //hago consulta a BD para saber cual es el ID usuario al que corresponde el pin
-            $nuevaorden->user_id = $tecnico->id; //Asocio el id del usuario para grabar en la anotacion
+            $nuevaorden->recibidopor_id = $tecnico->id; //Asocio el id del usuario para grabar en la orden quien la hizo
 
 
 

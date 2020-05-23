@@ -75,10 +75,10 @@
 
                             </div>
                         </div>
-                        <div class="form-group row" style="display: none;">
-                            <label for="idcliente" class="col-sm-2 col-form-label">ID</label>
+                        <div class="form-group row" style="display: none">
+                            <label for="idclient" class="col-sm-2 col-form-label">ID</label>
                             <div class="col-sm-10">
-                                <input name="idcliente" id="idcliente" type="text" class="form-control" placeholder="ID ...">
+                                <input name="idclient" id="idclient" type="text" class="form-control" placeholder="ID ...">
 
                             </div>
                         </div>
@@ -415,7 +415,7 @@
                 // Set selection
                 $('#busquedacliente').val(ui.item.label); // display the selected text
                 $('#apellidocliente').val(ui.item.apellidocliente); // save selected id to input
-                $('#idcliente').val(ui.item.idcliente); // save selected id to input
+                $('#idclient').val(ui.item.idclient); // save selected id to input
                 $('#nombrecliente').val(ui.item.nombrecliente); // save selected id to input
                 $('#celularcliente').val(ui.item.celularcliente); // save selected id to input
                 $('#telefonocliente').val(ui.item.telefonocliente); // save selected id to input

@@ -83,7 +83,7 @@
                         <!-- Botones de Formulario -->
                         <div class="card-footer" >
                             <button type="submit" class="btn btn-info">Editar</button>
-                            <button type="reset" class="btn btn-info">Borrar Cambios</button>
+
                         </div>
                     </div>
 

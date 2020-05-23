@@ -25,7 +25,7 @@ class ClientesController extends Controller
 
         $response = array();
         foreach($clientes as $cliente){
-            $response[] = array("apellidocliente"=>$cliente->apellido,"idcliente"=>$cliente->id,"nombrecliente"=>$cliente->nombre,"label"=>$cliente->apellido." ".$cliente->nombre,"celularcliente"=>$cliente->celular,"telefonocliente"=>$cliente->telefono,"mailcliente"=>$cliente->mail);
+            $response[] = array("apellidocliente"=>$cliente->apellido,"idclient"=>$cliente->id,"nombrecliente"=>$cliente->nombre,"label"=>$cliente->apellido." ".$cliente->nombre,"celularcliente"=>$cliente->celular,"telefonocliente"=>$cliente->telefono,"mailcliente"=>$cliente->mail);
         }
 
         echo json_encode($response);

@@ -31,29 +31,29 @@
                             <input name="idcliente" id="idcliente" type="text" class="form-control" value="{{$anotacionOt->cliente->id}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="apellidocliente">Apellido</label>
-                            <input name="apellidocliente" id="apellidocliente" type="text" class="form-control" value="{{$anotacionOt->cliente->apellido}}" required>
+                            <label for="apellido">Apellido</label>
+                            <input name="apellido" id="apellido" type="text" class="form-control" value="{{$anotacionOt->cliente->apellido}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="nombrecliente">Nombre</label>
-                            <input name="nombrecliente" id="nombrecliente" type="text" class="form-control" value="{{$anotacionOt->cliente->nombre}}" required>
+                            <label for="nombre">Nombre</label>
+                            <input name="nombre" id="nombre" type="text" class="form-control" value="{{$anotacionOt->cliente->nombre}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="celularcliente">Celular</label>
-                            <input name="celularcliente" id="celularcliente" type="text" class="form-control" value="{{$anotacionOt->cliente->celular}}" required>
+                            <label for="celular">Celular</label>
+                            <input name="celular" id="celular" type="text" class="form-control" value="{{$anotacionOt->cliente->celular}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="telefonocliente">Telefono</label>
-                            <input name="telefonocliente" id="telefonocliente" type="text" class="form-control" value="{{$anotacionOt->cliente->telefono}}" required>
+                            <label for="telefono">Telefono</label>
+                            <input name="telefono" id="telefono" type="text" class="form-control" value="{{$anotacionOt->cliente->telefono}}" required>
                         </div>
                         <div class="form-group">
-                            <label for="mailcliente">Mail</label>
-                            <input name="mailcliente" id="mailcliente" type="text" class="form-control" value="{{$anotacionOt->cliente->mail}}" required>
+                            <label for="mail">Mail</label>
+                            <input name="mail" id="mail" type="text" class="form-control" value="{{$anotacionOt->cliente->mail}}" required>
                         </div>
                         <!-- Botones de Formulario -->
                         <div class="card-footer" >
                             <button type="submit" class="btn btn-info">Editar</button>
-                            <button type="reset" class="btn btn-info">Borrar Cambios</button>
+
                         </div>
                     </div>
 

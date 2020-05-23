@@ -69,8 +69,8 @@
                                     @elseif($anotacionOt->equipo->bateria==1) Con bateria
                                     @endif</option>
 
-                                <option value=0>Sin cargador</option>
-                                <option value=1>Con cargador</option>
+                                <option value=0>Sin bateria</option>
+                                <option value=1>Con bateria</option>
 
                             </select>
                         </div>
@@ -82,15 +82,15 @@
                                     @elseif($anotacionOt->equipo->bolsofunda==1) Con bolso/funda
                                     @endif</option>
 
-                                <option value=0>Sin cargador</option>
-                                <option value=1>Con cargador</option>
+                                <option value=0>Sin bolso/funda</option>
+                                <option value=1>Con bolso/funda</option>
 
                             </select>
                         </div>
                         <!-- Botones de Formulario -->
                         <div class="card-footer" >
                             <button type="submit" class="btn btn-info">Editar</button>
-                            <button type="reset" class="btn btn-info">Borrar Cambios</button>
+
                         </div>
                     </div>
 
