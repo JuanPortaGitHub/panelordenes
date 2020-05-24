@@ -17,7 +17,16 @@ class Annotation extends Model
     public function cliente(){
         return $this->belongsTo('App\Cliente','cliente_id','id');
     }
+    protected $fillable = [
 
+        'id',
+        'ot_id',
+        'user_id',
+        'cliente_id',
+        'anotacion',
+        'visiblecliente'
+
+    ];
 }
 
 

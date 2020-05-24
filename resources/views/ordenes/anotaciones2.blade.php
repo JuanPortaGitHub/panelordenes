@@ -361,169 +361,122 @@
 
             <!-- SECCION ANOTACIONES -->
 
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-12">
+
+                    <div class="row">
+
+
+                        <!-- /.Boton carga anotacion nueva (acciona modal) -->
+                                <div class="col-md-3">
 
 
 
-            <!-- /.Boton carga anotacion nueva (acciona modal) -->
-            <div class="col-md-3">
+                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".anotacionot">
+                                        <b>Cargar Anotacion</b>
+                                    </button>
+                                </div>
+
+                                <div class="col-md-3">
+
+                                </div>
+
+                                <div class="col-md-3">
+
+                                    </div>
+
+                                <div class="col-md-3">
+
+                                </div>
 
 
-
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".anotacionot" id="open">
-                    <b>Cargar Anotacion</b>
-                </button>
-            </div>
-
-            <div class="col-md-3">
-
-            </div>
-
-            <div class="col-md-3">
-
-            </div>
-
-            <div class="col-md-3">
-
-            </div>
-
-
-        </div>
-
-
-
-
-
-
-    <!-- /.Modal que se acciona para carga de anotaciones -->
-
-    <div class="modal fade anotacionot" tabindex="-1" role="document" aria-labelledby="anotacionot" aria-hidden="true" id="anotacionot">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="alert alert-danger" style="display:none"></div>
-                <div class="card card-warning">
-                    <form METHOD="post" action="{{ route('annotations.store') }}" class="form-horizontal" autocomplete="off">
-                    {{csrf_field()}}
-
-                    <!-- Seccion Titular -->
-
-
-
-
-                        <div class="card-header">
-                            <h3 class="card-title"><b>Ingresar a Orden de Trabajo</b></h3>
-                        </div>
-
-
-
-                        <!-- Seccion contenido Anotacion> -->
-
-                        <div class="card-body">
-
-                            <div class="form-group" style="display: none">
-                                <label for="orden">Orden de Trabajo</label>
-
-                                <input name="orden" id="orden" type="text" class="form-control" value="{{$anotacionOt->ot_id}}">
-
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="visiblecliente">Aviso a cliente</label>
-
-
-                                <select name="visiblecliente" id="visiblecliente" class="form-control" placeholder="" required>
-                                    <option value="No visible" selected>No visible a cliente</option>
-                                    <option value="Visible">Visible a cliente</option>
-                                </select>
-
-                            </div>
-
-
-                            <div class="form-group" style="display: none" id="opcionescliente" name="opcionescliente">
-                                <label for="opcionesavisocliente">Tipo de aviso</label>
-
-
-                                <select name="opcionesavisocliente" id="opcionesavisocliente" class="form-control" placeholder="" required>
-                                    <option value="En blanco">Personalizado</option>
-                                    <option value="Presupuesto listo">Presupuesto listo</option>
-                                    <option value="Listo para entregar">Listo para entregar</option>
-                                </select>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label for="anotacion">Anotacion</label>
-
-                                <textarea class="form-control" rows="4" placeholder="Anotacion ..." name="anotacion" id="anotacion"></textarea>
-
-                            </div>
-                            <div class="form-group">
-                                <label for="tecnico_id">Pincode</label>
-
-                                <input name="pincode" id="pincode" type="password" class="form-control" placeholder="Pin ...">
-
-
-                            </div>
-
-
-
-
-
-
-                            <!-- Botones de Formulario -->
-                            <div class="card-footer">
-
-                                <button  class="btn btn-info" id="ajaxSubmit">Ingresar</button>
-                                <button type="reset" class="btn btn-default float-right">Limpiar</button>
-
-                            </div>
-                        </div>
-
-
-                    </form>
                 </div>
+
             </div>
         </div>
-    </div>
+
+
+
+
+                    <!-- /.Modal que se acciona para carga de anotaciones -->
+
+                    <div class="modal fade anotacionot" tabindex="-1" role="document" aria-labelledby="anotacionot" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+
+                                    <div class="card card-warning">
+                                                    <form METHOD="post" action="{{ route('annotations.store') }}" class="form-horizontal" autocomplete="off">
+                                                    {{csrf_field()}}
+
+                                                    <!-- Seccion Titular -->
+
+
+
+
+                                                            <div class="card-header">
+                                                                <h3 class="card-title"><b>Ingresar a Orden de Trabajo</b></h3>
+                                                            </div>
+
+
+
+                                                            <!-- Seccion contenido Anotacion> -->
+
+                                                            <div class="card-body">
+
+                                                                <div class="form-group" style="display: none">
+                                                                    <label for="orden">Orden de Trabajo</label>
+
+                                                                    <input name="orden" id="orden" type="text" class="form-control" value="{{$anotacionOt->ot_id}}">
+
+
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="anotacion">Anotacion</label>
+
+                                                                    <textarea class="form-control" rows="4" placeholder="Anotacion ..." name="anotacion" id="anotacion"></textarea>
+
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="tecnico_id">Pincode</label>
+
+                                                                    <input name="pincode" id="pincode" type="password" class="form-control" placeholder="Pin ...">
+
+
+                                                                </div>
+                                                                <div class="offset-sm-2 col-sm-10">
+                                                                    <div class="form-check">
+                                                                        <input name="visiblecliente" type="checkbox" class="form-check-input" id="visiblecliente">
+                                                                        <label class="form-check-label" for="visiblecliente">Visible para cliente</label>
+                                                                    </div>
+                                                                    <div class="form-check">
+                                                                        <input name="notificarcliente" type="checkbox" class="form-check-input" id="notificarcliente">
+                                                                        <label class="form-check-label" for="notificarcliente">Mandar aviso a cliente</label>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <!-- Botones de Formulario -->
+                                                                <div class="card-footer">
+                                                                    <button type="submit" class="btn btn-info">Ingresar</button>
+                                                                    <button type="reset" class="btn btn-default float-right">Limpiar</button>
+                                                                </div>
+                                                            </div>
+
+
+                                                    </form>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
 
 
 
 
 
 
-    <!-- /.FIN de modal que se acciona de carga de anotaicones -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                    <!-- /.FIN de modal que se acciona de carga de anotaicones -->
 
 
 
@@ -629,88 +582,6 @@
 
 
 @section("scriptextra")
-    <script>
-
-        $(function() {
-            $('#opcionescliente').hide();
-            $('#visiblecliente').change(function(){
-                if($('#visiblecliente').val() == 'Visible') {
-                    $('#opcionescliente').show();
-                } else {
-                    $('#opcionescliente').hide();
-                }
-            });
-        });
-
-
-    </script>
-
-
-    <script>
-
-        $(function() {
-            $('#opcionesavisocliente').change(function(){
-                if($('#opcionesavisocliente').val() == 'Presupuesto listo') {
-                    $('#anotacion').val("AVISO DE SISTEMA. \n" +
-                        "Diagnostico y/o presupuesto de su equipo Orden de Trabajo Nº 8756 estan listos. \n" +
-                        "Fecha de reparación aproximada: {{$anotacionOt->fechaentrega}} \n" +
-                        "Presupuesto de reparación: $ {{$anotacionOt->presupuesto}}  \n" );
-                } if($('#opcionesavisocliente').val() == 'Listo para entregar') {
-                    $('#anotacion').val("AVISO DE SISTEMA. \n" +
-                        "Hola {{$anotacionOt->cliente->nombre}}!! \n" +
-                        "Te informamos que tu equipo Orden de Trabajo Nº 8756 esta listo para ser retirado. \n" +
-                        "Nuestros horarios son: Lunes a Viernes de 10 a 14 y 16 a 21hs. \n" +
-                        "Te esperamos!! \n")
-
-                } if($('#opcionesavisocliente').val() == 'En blanco') {
-                $('#anotacion').val("");
-            }
-            });
-        });
-
-
-    </script>
-
-    <!-- SCRIPT PARA VALIDACION DE MODAL -->
-    <script>
-        jQuery(document).ready(function(){
-            jQuery('#ajaxSubmit').click(function(e){
-                e.preventDefault();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                jQuery.ajax({
-                    url: "{{ route('annotations.store') }}",
-                    method: 'post',
-                    data: {
-                        orden: jQuery('#orden').val(),
-                        anotacion: jQuery('#anotacion').val(),
-                        pincode: jQuery('#pincode').val(),
-                        visiblecliente: jQuery('#visiblecliente').val(),
-
-                    },
-                    success: function(result){
-                        if(result.errors)
-                        {
-                            jQuery('.alert-danger').html('');
-
-                            jQuery.each(result.errors, function(key, value){
-                                jQuery('.alert-danger').show();
-                                jQuery('.alert-danger').append('<li>'+value+'</li>');
-                            });
-                        }
-                        else
-                        {
-                            jQuery('.alert-danger').hide();
-                            jQuery('.anotacionot').hide();
-                            location.reload();
-                        }
-                    }});
-            });
-        });
-    </script>
 
 
     <!-- jQuery -->
