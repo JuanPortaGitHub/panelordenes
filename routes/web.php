@@ -20,6 +20,7 @@ Route::get('/', 'HomeController@index')->name('dashboard');
 
 Route::get('/estadodeorden', 'OtController@estadodeorden')->name('estadodeorden');
 Route::get('/consultaorden', 'OtController@consultaorden')->name('consultaorden');
+Route::get('/confirmapresupuesto', 'AnnotationController@confirmapresupuesto')->name('confirmapresupuesto');
 
 
 //Ruta para obtener la lista de clientes en la creacion de ordenes de trabajo (para busqueda y autocompletar)

@@ -76,15 +76,8 @@ class Ot extends Model
     }
 
     protected $fillable = [
-        'idcliente',
-        'apellidocliente',
-        'nombrecliente',
-        'celularcliente',
-        'telefonocliente',
-        'mailcliente',
-        'estadoot'
 
-
+        'estado_id'
 
     ];
 

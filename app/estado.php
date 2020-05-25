@@ -14,4 +14,11 @@ class estado extends Model
         return $this->hasMany(Ot::class);
 
     }
+
+    protected $fillable = [
+
+        'estadoot'
+
+    ];
+
 }

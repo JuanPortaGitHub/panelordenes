@@ -107,6 +107,7 @@ class AnnotationController extends Controller
 
             $iddecliente = $request->input('iddecliente'); //obtengo el id de cliente
             $nuevaanotacion->cliente_id = $iddecliente; //asocio id de cliente a columna cliente_id de tabla anotaciones
+            $nuevaanotacion->visiblecliente = 1;
             $nuevaanotacion->save(); //guardo anotacion
 
             return back();
@@ -167,4 +168,58 @@ class AnnotationController extends Controller
      * @param  \App\Annotation  $annotation
      * @return \Illuminate\Http\Response
      */
+
+
+    public function confirmapresupuesto(Request $request){
+
+        //CONFIRMACION/RECHAZO ORDEN
+        //Obtengo de la view la ot a confirmar/rechazar
+        $otabuscar = $request->input('ot_id');
+
+        //Busco la ot en la base de datos
+        $otconfirmadaorechazada=Ot::where('ot_id', '=', $otabuscar)->firstOrFail();
+
+
+        //Si se presiona el boton submit con valor confirma cambia a estado 5 (confirmado)
+        if($request->get('submit') == 'Confirma') {
+
+            $otconfirmadaorechazada->estado_id=5;
+
+            //CARGA REGISTRO DE ANOTACION
+            $nuevaanotacion = new Annotation();
+
+            $nuevaanotacion->ot_id = $otconfirmadaorechazada->ot_id;
+            $nuevaanotacion->anotacion = 'Presupuesto confirmado por cliente';
+            $nuevaanotacion->cliente_id = $otconfirmadaorechazada->cliente_id;
+            $nuevaanotacion->visiblecliente = 1;
+            $nuevaanotacion->save();
+
+
+        //Si se presiona el boton submit con valor Rechaza cambia a estado 6 (rechazado)
+        } else if($request->get('submit') == 'Rechaza') {
+
+            $otconfirmadaorechazada->estado_id=6;
+
+            //CARGA REGISTRO DE ANOTACION
+            $nuevaanotacion = new Annotation();
+
+            $nuevaanotacion->ot_id = $otconfirmadaorechazada->ot_id;
+            $nuevaanotacion->anotacion = 'Presupuesto rechazado por cliente';
+            $nuevaanotacion->cliente_id = $otconfirmadaorechazada->cliente_id;
+            $nuevaanotacion->visiblecliente = 1;
+            $nuevaanotacion->save();
+        }
+
+        //Guardo la confirmacion
+        $otconfirmadaorechazada->save();
+
+
+
+        return back();
+    }
+
+
+
+
+
 }

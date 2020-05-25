@@ -451,6 +451,18 @@
 
                             </div>
 
+                            <div class="form-group" id="infopresupuesto" name="infopresupuesto">
+                                <div class="form-group">
+                                    <label for="presupuestoenviado">Presupuesto</label>
+                                    <input name="presupuestoenviado" id="presupuestoenviado" type="text" class="form-control" value="{{$anotacionOt->presupuesto}}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="fechaentregaenviada">Fecha reparación aproximada</label>
+                                    <input name="fechaentregaenviada" id="fechaentregaenviada" type="date" class="form-control" value="{{$anotacionOt->fechaentrega}}">
+                                </div>
+                            </div>
+
                             <div class="form-group">
                                 <label for="anotacion">Anotacion</label>
 
@@ -645,20 +657,35 @@
 
     </script>
 
+    <script>
+
+        $(function() {
+            $('#infopresupuesto').hide();
+            $('#opcionesavisocliente').change(function(){
+                if($('#opcionesavisocliente').val() == 'Presupuesto listo') {
+                    $('#infopresupuesto').show();
+                } else {
+                    $('#infopresupuesto').hide();
+                }
+            });
+        });
+
+
+    </script>
 
     <script>
 
         $(function() {
             $('#opcionesavisocliente').change(function(){
                 if($('#opcionesavisocliente').val() == 'Presupuesto listo') {
-                    $('#anotacion').val("AVISO DE SISTEMA. \n" +
-                        "Diagnostico y/o presupuesto de su equipo Orden de Trabajo Nº 8756 estan listos. \n" +
+                    $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
+                        "Diagnostico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} estan listos. \n" +
                         "Fecha de reparación aproximada: {{$anotacionOt->fechaentrega}} \n" +
                         "Presupuesto de reparación: $ {{$anotacionOt->presupuesto}}  \n" );
                 } if($('#opcionesavisocliente').val() == 'Listo para entregar') {
-                    $('#anotacion').val("AVISO DE SISTEMA. \n" +
+                    $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
                         "Hola {{$anotacionOt->cliente->nombre}}!! \n" +
-                        "Te informamos que tu equipo Orden de Trabajo Nº 8756 esta listo para ser retirado. \n" +
+                        "Te informamos que tu equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo para ser retirado. \n" +
                         "Nuestros horarios son: Lunes a Viernes de 10 a 14 y 16 a 21hs. \n" +
                         "Te esperamos!! \n")
 
