@@ -65,12 +65,23 @@ class AnnotationController extends Controller
         }
 
 
+        // CAMBIOS EN TABLA ORDENES
+
+        //Obtengo de la view la ot
+        $otabuscar = $request->input('orden');
+
+        //Busco la ot en la base de datos
+        $ordenacambiar=Ot::where('ot_id', '=', $otabuscar)->firstOrFail();
+
+        $ordenacambiar->presupuesto = $request->input('presupuestoenviado');
+        $ordenacambiar->fechaentrega = $request->input('fechaentregaenviada');
+        $ordenacambiar->estado_id = $request->input('cambioorden');
+        $ordenacambiar->save();
 
 
 
 
-
-
+        // CAMBIOS EN TABLA ANOTACIONES
 
         $nuevaanotacion = new Annotation();
 
@@ -79,39 +90,44 @@ class AnnotationController extends Controller
         $nuevaanotacion->anotacion = $request->input('anotacion');
 
 
-        //PASOS CONSULTA DE PINCODE
-        $pin = $request->input('pincode'); //Obtengo pincode de formulario (puede ser formulario de ordenes/anotaciones o de consultaorden (de cliente)
+
+                    //PASOS CONSULTA DE PINCODE
+                    $pin = $request->input('pincode'); //Obtengo pincode de formulario (puede ser formulario de ordenes/anotaciones o de consultaorden (de cliente)
 
         if($pin<9999){ //el pincode que identifica los clientes es 9999, cualquier otro nro entra en el if para identificar que usuario/tecnico hizo la anotacion
 
-            $tecnico = DB::table('users')->where('pincode', $pin)->first(); //hago consulta a BD para saber cual es el ID usuario/tecnico al que corresponde el pin
-            $nuevaanotacion->user_id = $tecnico->id; //Asocio el id del usuario/tecnico para grabar en la anotacion
+                    $tecnico = DB::table('users')->where('pincode', $pin)->first(); //hago consulta a BD para saber cual es el ID usuario/tecnico al que corresponde el pin
+
+                    $nuevaanotacion->user_id = $tecnico->id; //Asocio el id del usuario/tecnico para grabar en la anotacion
 
 
 
-            //PASOS para verificar que el checkbox visiblecliente esta o no tildado
-            if($request->input('visiblecliente')== "Visible"){
-                //Checkbox checked
-                $nuevaanotacion->visiblecliente = 1;
-            }else{
-                //Checkbox not checked
-                $nuevaanotacion->visiblecliente = 0;
-            }
+                    //PASOS para verificar que el checkbox visiblecliente esta o no tildado
+                    if($request->input('visiblecliente')== "Visible"){
+                        //Checkbox checked
+                            $nuevaanotacion->visiblecliente = 1;
+                    }else{
+                        //Checkbox not checked
+                            $nuevaanotacion->visiblecliente = 0;
+                    }
 
-            //Guarda anotacion
-            $nuevaanotacion->save();
+        //Guarda anotacion
+        $nuevaanotacion->save();
 
 
 
         }else{ //Alternativa cuando el pincode es 9999 (o sea que anota un cliente)
 
-            $iddecliente = $request->input('iddecliente'); //obtengo el id de cliente
-            $nuevaanotacion->cliente_id = $iddecliente; //asocio id de cliente a columna cliente_id de tabla anotaciones
-            $nuevaanotacion->visiblecliente = 1;
-            $nuevaanotacion->save(); //guardo anotacion
+                    $iddecliente = $request->input('iddecliente'); //obtengo el id de cliente
+                    $nuevaanotacion->cliente_id = $iddecliente; //asocio id de cliente a columna cliente_id de tabla anotaciones
+                    $nuevaanotacion->visiblecliente = 1;
 
-            return back();
+        $nuevaanotacion->save(); //guardo anotacion
+
         }
+
+        return back();
+
     }
 
     /**

@@ -39,7 +39,7 @@ class OtController extends Controller
 
 
 
-        $orders=Ot::all();
+        $orders=Ot::all()->sortByDesc("ot_id");
 
         return view('ordenes.listaot', compact('orders'));
     }
@@ -238,6 +238,7 @@ class OtController extends Controller
 
         $anotacionOt=Ot::where('ot_id',$ot_id)->firstOrFail();
         $anotaciones=$anotacionOt->annotation;
+        $anotaciones = $anotaciones->sortByDesc('id');
         $estados = estado::all();
         $reparados = Reparaexito::all();
         $categorias = Categoria::all();

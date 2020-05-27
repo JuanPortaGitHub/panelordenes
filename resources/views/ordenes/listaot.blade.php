@@ -128,6 +128,7 @@
     $('#listaordenes').dataTable({
 
 
+
         rowCallback: function(row, data, index){
             if(data[5] == 'Urgente'){
                 $(row).find('td:eq(5)').css('background-color', '#e90125').css('font-weight', 'bold');
@@ -135,8 +136,14 @@
             if(data[5] == 'Listo para entregar'){
                 $(row).find('td:eq(5)').css('background-color', '#2fa360').css('font-weight', 'bold');
             }
-            if(data[5] == 'Esperando Repuesto'){
+            if(data[5] == 'Esperando repuesto'){
+                $(row).find('td:eq(5)').css('background-color', '#b4ffd4').css('font-weight', 'bold');
+            }
+            if(data[5] == 'Entregado'){
                 $(row).find('td:eq(5)').css('background-color', 'yellow').css('font-weight', 'bold');
+            }
+            if(data[5] == 'Presupuestado'){
+                $(row).find('td:eq(5)').css('background-color', '#4f85a5').css('font-weight', 'bold');
             }
 
         },
