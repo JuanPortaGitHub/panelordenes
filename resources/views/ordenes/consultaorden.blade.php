@@ -482,7 +482,7 @@
                         <div class="col-md-12">
 
                                 <div class="card-body table-responsive p-0" style="height:600px">
-                                    <table class="table table-head-fixed text-nowrap">
+                                    <table class="table table-head-fixed text-nowrap ">
 
 
 
@@ -501,17 +501,21 @@
 
 
                                         @foreach($anotacionOt as $anotacion)
-                                            <tr>
+
+                                            @if(!isset($anotacion->user_id))<tr style="width: 15.00%; background-color: ghostwhite; font-family: Verdana; font-size: small">
+                                            @else()<tr style="width: 15.00%; background-color: orange; font-family: Verdana; font-size: small">
+                                            @endif
                                                 <td style="width: 15.00%">{{$anotacion->created_at}}</td>
                                                 <td style="white-space: normal;width: 70.00%;word-wrap: break-word">{{$anotacion->anotacion}}</td>
 
                                                 <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
 
-                                                <td style="width: 15.00%">@if(!isset($anotacion->user_id))
-                                                        {{$anotacion->cliente->nombre}}
+                                                    @if(!isset($anotacion->user_id))
+                                                        <td> {{$anotacion->cliente->nombre}}
                                                     @else
-                                                        {{$anotacion->user->name}}
-                                                    @endif</td>
+                                                        <td> <b>HotSpot</b>
+                                                    @endif
+                                                        </td>
 
                                             </tr>
                                         @endforeach

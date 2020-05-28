@@ -48,7 +48,7 @@
 
                             <div class="card-tools">
 
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" ><i class="fas fa-plus"></i>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" id="btnlessinfoot"><i class="fas fa-plus"></i>
                                 </button>
 
                             </div>
@@ -132,7 +132,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="fechaingreso">Fecha de Ingreso</label>
-                                        <input type="date" id="fechaingreso" class="form-control" value="{{$anotacionOt->fechaingreso}}" readonly>
+                                        <input type="text" id="fechaingreso" class="form-control" value="{{$anotacionOt->fechaingreso}}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -174,7 +174,7 @@
 
 
                 <!-- /.Parte visible incial (se esconde cuando se pide mas informacion -->
-                <div class="card-body">
+                <div class="card-body" id="datosinicialesot">
 
 
                     <div class="row">
@@ -204,7 +204,7 @@
                         <div class="card-header">
                             <h3 class="card-title">Datos Cliente</h3>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" id="btnlessinfocliente" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-plus"></i></button>
                             </div>
                         </div>
@@ -269,7 +269,7 @@
 
 
                 <!-- /.Parte visible incial (se esconde cuando se pide mas informacion -->
-                    <div class="card-body">
+                    <div class="card-body" id="datosinicialescliente">
 
 
                         <div class="row">
@@ -302,7 +302,7 @@
                             <h3 class="card-title">Datos Equipo</h3>
 
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" id="btnlessinfoequipo" data-toggle="tooltip" title="Collapse">
                                     <i class="fas fa-plus"></i></button>
                             </div>
                         </div>
@@ -392,7 +392,7 @@
 
 
         <!-- /.Parte visible incial (se esconde cuando se pide mas informacion -->
-            <div class="card-body">
+            <div class="card-body" id="datosinicialesequipo">
 
 
                 <div class="row">
@@ -511,20 +511,6 @@
 
                                 </div>
 
-
-
-
-                                <div class="form-group" style="display: none" id="opcionescliente" name="opcionescliente">
-                                    <label for="opcionesavisocliente">Tipo de aviso</label>
-
-
-                                    <select name="opcionesavisocliente" id="opcionesavisocliente" class="form-control" placeholder="" required>
-                                        <option value="En blanco">Personalizado</option>
-                                        <option value="Presupuesto listo">Presupuesto listo</option>
-                                        <option value="Listo para entregar">Listo para entregar</option>
-                                    </select>
-
-                                </div>
 
                                 <div class="form-group" id="infopresupuesto" name="infopresupuesto">
                                     <div class="form-group">
@@ -831,6 +817,23 @@
         });
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnlessinfoot").click(function () {
+                $("#datosinicialesot").toggle();
+            });
+
+            $("#btnlessinfocliente").click(function () {
+                $("#datosinicialescliente").toggle();
+            });
+
+            $("#btnlessinfoequipo").click(function () {
+                $("#datosinicialesequipo").toggle();
+            });
+
+
+        });
+    </script>
 
     <!-- jQuery -->
     <script src="../adminlte/plugins/jquery/jquery.min.js"></script>

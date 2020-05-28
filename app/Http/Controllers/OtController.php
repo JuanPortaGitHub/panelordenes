@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Annotation;
 use App\area;
@@ -29,10 +29,7 @@ class OtController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     public function index()
     {
@@ -138,7 +135,7 @@ class OtController extends Controller
             $nuevaorden->estado_id = $request->input('estado');
             $nuevaorden->confirmacion_id = $request->input('confirmacion');
             $nuevaorden->area_id = $request->input('area');
-            $nuevaorden->estadorepuesto_id = $request->input('necesitarepuesto');
+            $nuevaorden->repuesto_id = $request->input('necesitarepuesto');
             $nuevaorden->presupuesto = $request->input('Presupuesto');
             $nuevaorden->passwordot = $request->input('passwordot');
             $nuevaorden->user_id = $request->input('nombretecnico');
@@ -286,7 +283,9 @@ class OtController extends Controller
 
         //PARA OBTENER LISTA DE ANOTACIONES VISIBLES CORRESPONDIENTES A LA OT
         $anotacionOt=Annotation::where('ot_id', '=', $orden->ot_id)
-                                ->where('visiblecliente', '=', 1)->get();
+                                ->where('visiblecliente', '=', 1)
+                                ->orderby('id', 'desc')
+                                ->get();
 
 
         //Para completar informacion a mostrar

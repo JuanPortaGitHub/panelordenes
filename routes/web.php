@@ -16,25 +16,25 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('dashboard');
+Route::get('/', 'HomeController@index')->name('dashboard')->middleware('auth');;
 
 Route::get('/estadodeorden', 'OtController@estadodeorden')->name('estadodeorden');
 Route::get('/consultaorden', 'OtController@consultaorden')->name('consultaorden');
-Route::get('/confirmapresupuesto', 'AnnotationController@confirmapresupuesto')->name('confirmapresupuesto');
+Route::get('/confirmapresupuesto', 'AnnotationController@confirmapresupuesto')->name('confirmapresupuesto')->middleware('auth');;
 
 
 //Ruta para obtener la lista de clientes en la creacion de ordenes de trabajo (para busqueda y autocompletar)
-Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('clientes.getClientes');
+Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('clientes.getClientes')->middleware('auth');;
 
 //Ruta para para obtener el detalle de la orden de trabajo en base a $ot_id en vez de $id como sale por defecto en resource
-Route::get('/orden/{ot_id}','OtController@anotaciones')->name('ordenes.anotaciones');
+Route::get('/orden/{ot_id}','OtController@anotaciones')->name('ordenes.anotaciones')->middleware('auth');;
 
 
 
-Route::resource('ordenes', 'OtController');
-Route::resource('clientes', 'ClientesController');
-Route::resource('equipos', 'EquiposController');
-Route::resource('annotations', 'AnnotationController');
+Route::resource('ordenes', 'OtController')->middleware('auth');;
+Route::resource('clientes', 'ClientesController')->middleware('auth');;
+Route::resource('equipos', 'EquiposController')->middleware('auth');
+Route::resource('annotations', 'AnnotationController')->middleware('auth');;
 
 
 
