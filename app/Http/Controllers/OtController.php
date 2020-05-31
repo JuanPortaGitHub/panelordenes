@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Dompdf\Dompdf;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Annotation;
@@ -64,7 +64,7 @@ class OtController extends Controller
         $tipoequipos= tipodeequipo::all();
 
         //CREA VALOR RANDOM PARA EL PASSWORD DE OT
-        $passwordot= Str::random(5);
+        $passwordot= strtolower(str::random(5));
 
 
 
@@ -157,15 +157,26 @@ class OtController extends Controller
 
 
 
+
+            /*//Imprime
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml("pdf.pdfcargaot", compact ("orden"));
+            $dompdf->render();
+            $dompdf->stream();
+*/
+
             //Guarda el array
             $nuevaorden->save();
 
+            $orden=$nuevaorden;
 
-            //Arma la variable $orders para pasarla a la lista (idem que en el index) para poder abrir la lista de ordenes luego de guardar
 
-            $orders=Ot::all();
+        //Arma la variable $orders para pasarla a la lista (idem que en el index) para poder abrir la lista de ordenes luego de guardar
 
-            return view('ordenes.listaot', compact('orders'));
+            //$orders=Ot::all();
+
+        return view ("pdf.pdfcargaot", compact ("orden"));
+
     }
 
 
@@ -183,6 +194,9 @@ class OtController extends Controller
      */
     public function show($id)
     {
+
+
+
 
     }
 
@@ -296,6 +310,12 @@ class OtController extends Controller
 
         return view ("ordenes.consultaorden", compact ("orden", "anotacionOt", "estados","reparados", "categorias", "areas"));
     }
+    public function showpdf($ot_id)
+    {
+        $orden=Ot::where('ot_id',$ot_id)->firstOrFail();
 
+
+        return view ("pdf.pdfcargaot", compact ("orden"));
+    }
 
 }

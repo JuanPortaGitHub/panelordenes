@@ -43,6 +43,7 @@
                                     <th>Categoria</th>
                                     <th>Equipo</th>
                                     <th>Tecnico</th>
+                                    <th>Imprimir</th>
 
                                 </tr>
                                 </thead>
@@ -61,12 +62,12 @@
                                     <td>{{$order->cliente->nombre}}</td>
                                     <td>{{$order->estado->estadoot}}</td>
                                     <td>{{$order->confirmacion->estadoconfirmacion}}</td>
-                                    <td>{{$order->fechaingreso}}</td>
-                                    <td>{{$order->fechaentrega}}</td>
+                                    <td>{{ \Carbon\Carbon::parse($order->fechaingreso)->format('d-m-y H:i') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($order->fechaentrega)->format('d-m-y') }}</td>
                                     <td>{{$order->Equipo->tipodeequipo->tipodeequipo}}</td>
                                     <td>{{$order->equipo->modelo}}</td>
                                     <td>{{$order->User->name}}</td>
-
+                                    <td><a href="{{route('ordenes.showpdf', $order->ot_id)}}"><i class="fas fa-print"></i></a></td>
                                 </tr>
 
                                     @endforeach
@@ -78,6 +79,7 @@
                                 <tfoot>
                                 <tr style="font-size: 90%" align="center">
 
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>

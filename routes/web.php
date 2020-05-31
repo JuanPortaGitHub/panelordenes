@@ -29,7 +29,7 @@ Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('cl
 //Ruta para para obtener el detalle de la orden de trabajo en base a $ot_id en vez de $id como sale por defecto en resource
 Route::get('/orden/{ot_id}','OtController@anotaciones')->name('ordenes.anotaciones')->middleware('auth');;
 
-
+Route::get('/pdf/{ot_id}','OtController@showpdf')->name('ordenes.showpdf')->middleware('auth');;
 
 Route::resource('ordenes', 'OtController')->middleware('auth');;
 Route::resource('clientes', 'ClientesController')->middleware('auth');;

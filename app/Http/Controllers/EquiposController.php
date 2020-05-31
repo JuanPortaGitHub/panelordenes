@@ -16,7 +16,7 @@ class EquiposController extends Controller
 
     public function index()
     {
-        //
+        return view('pdf.pdfcargaot');
     }
 
     /**

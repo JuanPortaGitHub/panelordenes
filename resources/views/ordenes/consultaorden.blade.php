@@ -143,13 +143,13 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaingreso">Fecha de Ingreso</label>
-                                            <input type="date" id="fechaingreso" class="form-control" value="{{$orden->fechaingreso}}" readonly>
+                                            <input type="date" id="fechaingreso" class="form-control" value="{{ \Carbon\Carbon::parse($orden->fechaingreso)->format('d/m/y H:i') }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaentrega">Fecha de Entrega</label>
-                                            <input type="date" id="fechaentrega" class="form-control" value="{{$orden->fechaentrega}}" readonly>
+                                            <input type="date" id="fechaentrega" class="form-control" value="{{ \Carbon\Carbon::parse($orden->fechaentrega)->format('d-m-y') }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -505,7 +505,7 @@
                                             @if(!isset($anotacion->user_id))<tr style="width: 15.00%; background-color: ghostwhite; font-family: Verdana; font-size: small">
                                             @else()<tr style="width: 15.00%; background-color: orange; font-family: Verdana; font-size: small">
                                             @endif
-                                                <td style="width: 15.00%">{{$anotacion->created_at}}</td>
+                                                <td style="width: 15.00%">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d/m/y H:i') }}</td>
                                                 <td style="white-space: normal;width: 70.00%;word-wrap: break-word">{{$anotacion->anotacion}}</td>
 
                                                 <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
