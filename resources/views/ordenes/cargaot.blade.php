@@ -201,29 +201,6 @@
                                 </select>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="confirmacion" class="col-sm-2 col-form-label">Confirmacion</label>
-                            <div class="col-sm-10">
-                                <select name="confirmacion" class="form-control" placeholder="Indicar si se debe presupuestar o está confirmada ..." required>
-                                    <option value=""></option>
-                                    @foreach ($confirmacions as $confirmacion)
-                                        <option value="{{ $confirmacion['id'] }}">{{ $confirmacion['estadoconfirmacion'] }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="estado" class="col-sm-2 col-form-label">Estado</label>
-                            <div class="col-sm-10">
-                                <select name="estado" class="form-control" placeholder="Indicar estado de la orden ..." required>
-                                    <option value=""></option>
-                                    @foreach ($estados as $estado)
-                                        <option value="{{ $estado['id'] }}">{{ $estado['estadoot'] }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
                         <div class="form-group row">
                             <label for="area" class="col-sm-2 col-form-label">Area Reparacion</label>
                             <div class="col-sm-10">
@@ -237,24 +214,26 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="nombretecnico" class="col-sm-2 col-form-label">Tecnico Encargado</label>
+                            <label for="estado" class="col-sm-2 col-form-label">Estado</label>
                             <div class="col-sm-10">
-                                <select name="nombretecnico" class="form-control" placeholder="Indicar tecnico a cargo ..." required>
-                                    <option value=""></option>
-                                    @foreach ($tecnicos as $tecnico)
-                                        <option value="{{ $tecnico['id'] }}">{{ $tecnico['name'] }}</option>
-                                    @endforeach
+                                <select name="estado" class="form-control" placeholder="Indicar estado de la orden ..." required>
+
+                                    <option value="{{ $estados[0]->id }}">{{ $estados[0]->estadoot }}</option>
+                                    <option value="{{ $estados[1]->id }}">{{ $estados[1]->estadoot }}</option>
+                                    <option value="{{ $estados[4]->id }}">{{ $estados[4]->estadoot }}</option>
+
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="necesitarepuesto" class="col-sm-2 col-form-label">Repuesto</label>
                             <div class="col-sm-10">
                                 <select name="necesitarepuesto" class="form-control" placeholder="Indicar si requiere de repuesto ..." required>
-                                    <option value=""></option>
-                                    @foreach ($estadoderepuestos as $estadoderepuesto)
-                                        <option value="{{ $estadoderepuesto['id'] }}">{{ $estadoderepuesto['estadoderepuesto'] }}</option>
-                                    @endforeach
+
+                                        <option value="{{ $estadoderepuestos[0]->id }}">{{ $estadoderepuestos[0]->estadoderepuesto }}</option>
+                                        <option value="{{ $estadoderepuestos[1]->id }}">{{ $estadoderepuestos[1]->estadoderepuesto }}</option>
+
                                 </select>
                             </div>
                         </div>

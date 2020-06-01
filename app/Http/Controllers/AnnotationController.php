@@ -167,9 +167,10 @@ class AnnotationController extends Controller
      * @param  \App\Annotation  $annotation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Annotation $annotation)
+    public function destroy($id)
     {
-        //
+        Annotation::find($id)->delete();
+        return back();
     }
 
 

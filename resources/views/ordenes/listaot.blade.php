@@ -37,7 +37,7 @@
                                     <th>Apellido</th>
                                     <th>Nombre</th>
                                     <th>Estado</th>
-                                    <th>Confirmacion</th>
+
                                     <th>Fecha Ingreso</th>
                                     <th>Fecha Entrega</th>
                                     <th>Categoria</th>
@@ -61,7 +61,7 @@
                                     <td>{{$order->cliente->apellido}}</td>
                                     <td>{{$order->cliente->nombre}}</td>
                                     <td>{{$order->estado->estadoot}}</td>
-                                    <td>{{$order->confirmacion->estadoconfirmacion}}</td>
+
                                     <td>{{ \Carbon\Carbon::parse($order->fechaingreso)->format('d-m-y H:i') }}</td>
                                     <td>{{ \Carbon\Carbon::parse($order->fechaentrega)->format('d-m-y') }}</td>
                                     <td>{{$order->Equipo->tipodeequipo->tipodeequipo}}</td>
@@ -86,7 +86,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
+
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -151,13 +151,14 @@
         },
 
     initComplete: function () {
-    this.api().columns([1, 2, 5, 6, 11]).every( function () {
+    this.api().columns([1, 2, 5, 8, 10]).every( function () {
     var column = this;
     var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected></option></select>')
     .appendTo( $(column.footer()).empty() )
     .on( 'change', function () {
     var val = $.fn.dataTable.util.escapeRegex(
     $(this).val()
+
     );
 
     column
@@ -165,11 +166,12 @@
     .draw();
     } );
 
+
     column.data().unique().sort().each( function ( d, j ) {
     select.append( '<option value="'+d+'">'+d+'</option>' )
     } );
     } );
-    }
+    },"order": [[ 0, "desc" ]]
     });
     });
 

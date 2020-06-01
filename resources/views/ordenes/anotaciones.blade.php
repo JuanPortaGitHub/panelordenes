@@ -200,7 +200,7 @@
 
                 <div class="col-md-6">
 
-                    <div class="card card-info  collapsed-card">
+                    <div class="card card-secondary collapsed-card">
                         <div class="card-header">
                             <h3 class="card-title">Datos Cliente</h3>
                             <div class="card-tools">
@@ -297,7 +297,7 @@
 
                 <!-- Informacion de equipo -->
 
-                    <div class="card card-info  collapsed-card">
+                    <div class="card card-secondary collapsed-card">
                         <div class="card-header">
                             <h3 class="card-title">Datos Equipo</h3>
 
@@ -429,7 +429,7 @@
 
 
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".anotacionot" id="open">
-                    <b>Cargar Anotacion</b>
+                    <b>Cargar Actualización</b>
                 </button>
             </div>
 
@@ -501,7 +501,7 @@
                                     <label for="cambioorden">Cambiar estado</label>
 
                                     <select name="cambioorden" id="cambioorden" class="form-control" required>
-                                        <option selected value="{{$anotacionOt->estado['id']}}">{{ $anotacionOt->estado['estadoot']}}</option>
+                                        <option selected value="{{$anotacionOt->estado['id']}}">Sin cambio de estado</option>
                                         @foreach ($estados as $estado)
                                             <option value="{{ $estado['id'] }}">{{ $estado['estadoot'] }}</option>
                                         @endforeach
@@ -513,6 +513,11 @@
 
 
                                 <div class="form-group" id="infopresupuesto" name="infopresupuesto">
+                                    <div class="form-group">
+                                        <label for="diagnosticoenviado">Diagnóstico / Trabajo a realizar</label>
+                                        <input name="diagnosticoenviado" id="diagnosticoenviado" type="text" class="form-control" value="{{$anotacionOt->sintoma}}">
+                                    </div>
+
                                     <div class="form-group">
                                         <label for="presupuestoenviado">Presupuesto</label>
                                         <input name="presupuestoenviado" id="presupuestoenviado" type="text" class="form-control" value="{{$anotacionOt->presupuesto}}">
@@ -527,7 +532,7 @@
                                 <div class="form-group">
                                     <label for="anotacion">Anotacion</label>
 
-                                    <textarea class="form-control" rows="4" placeholder="Anotacion ..." name="anotacion" id="anotacion"></textarea>
+                                    <textarea class="form-control" rows="6" placeholder="Anotacion ..." name="anotacion" id="anotacion" style="font-size: small"></textarea>
 
                                 </div>
                                 <div class="form-group">
@@ -580,8 +585,8 @@
                                     <tr>
                                         <th style="width: 15.00%">Fecha</th>
                                         <th style="width: 70.00%">Anotacion</th>
-                                        <th style="width: 15.00%">Usuario</th>
-
+                                        <th style="width: 10.00%">Usuario</th>
+                                        <th style="width: 5.00%">Borrar</th>
 
 
                                     </tr>
@@ -591,22 +596,33 @@
 
                                     @foreach($anotaciones as $anotacion)
                                         <tr
-                                            @if(isset($anotacion->cliente_id) && $anotacion->visiblecliente == 1) bgcolor="#ffb6c1"
+                                            @if(isset($anotacion->cliente_id) && $anotacion->visiblecliente == 1) bgcolor="#ffffe0"
                                             @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1)) bgcolor="#8fbc8f"
                                             @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 0)) bgcolor="#d3d3d3"
 
-                                            @endif>
-                                            <td style="width: 15.00%">{{ \Carbon\Carbon::parse($anotacionOt->created_at)->format('d/m/y H:i') }}</td>
-                                            <td style="white-space: normal;width: 70.00%;word-wrap: break-word">{{$anotacion->anotacion}}</td>
+                                            @endif style="font-size: small">
+                                            <td style="width: 15.00%; font-family: Verdana">{{ \Carbon\Carbon::parse($anotacionOt->created_at)->format('d/m/y H:i') }}</td>
+                                            <td style="white-space: pre;width: 70.00%;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
 
                                             <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
 
-                                            <td style="width: 15.00%">@if(!isset($anotacion->user_id))
+                                            <td style="width: 10.00%; font-family: Verdana">@if(!isset($anotacion->user_id))
                                                     {{$anotacion->cliente->nombre}}
                                                 @else
                                                     {{$anotacion->user->name}}
                                                 @endif</td>
 
+                                            <!-- /.Si es anotacion visible a cliente permite eliminar -->
+
+                                            <td style="width: 5%">@if(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1))
+                                                <form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post">
+                                                    {{csrf_field()}}
+                                                    <input name="_method" type="hidden" value="DELETE">
+
+                                                    <button class="btn btn-danger btn-xs" type="submit">Borrar</button>
+                                                </form>
+                                                    @endif
+                                            </td>
                                         </tr>
                                     @endforeach
 
@@ -647,19 +663,17 @@
     <script>
 
 
-
-
-
-
         $(function() {
             $('#infopresupuesto').hide();
             $('#cambioorden').change(function(){
                 if($('#cambioorden').val() == '3') {
                     $('#infopresupuesto').show();
                     $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
-                        "Diagnostico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} estan listos. \n" +
-                        "Fecha de reparación aproximada: {{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d-m-y') }} \n" +
-                        "Presupuesto de reparación: $ {{$anotacionOt->presupuesto}}  \n" );
+                        "Diagnóstico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo: \n" +
+                        "" +"\n" +
+                        "Diagnóstico: {{$anotacionOt->sintoma}} \n" +
+                        "Presupuesto de reparación: $ {{$anotacionOt->presupuesto}} \n" +
+                        "Fecha de reparación aproximada: {{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d-m-y') }}  \n" );
                 } else {
                     $('#infopresupuesto').hide();
 
@@ -670,7 +684,7 @@
         $(function() {
             $('#cambioorden').change(function(){
                 if($('#cambioorden').val() == '1') {
-                    $('#anotacion').val("--AVISO DE SISTEMA: Orden abierta-- \n" +
+                    $('#anotacion').val("--AVISO DE SISTEMA: Orden abierta a presupuestar-- \n" +
                         " \n")
 
                 }
@@ -756,21 +770,35 @@
         $(function() {
             $('#presupuestoenviado').change(function () {
                 $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
-                    "Diagnostico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} estan listos. \n" +
-                    "Fecha de reparación aproximada: " + $('#fechaentregaenviada').val() +"\n" +
-                    "Presupuesto de reparación: $ " + $('#presupuestoenviado').val() +"\n");
+                    "Diagnóstico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo: \n" +
+                    "" +"\n" +
+                    "Diagnóstico: " + $('#diagnosticoenviado').val() +"\n" +
+                    "Presupuesto de reparación: $ " + $('#presupuestoenviado').val() +"\n" +
+                    "Fecha de reparación aproximada: " + $('#fechaentregaenviada').val() +"\n");
             });
         });
 
         $(function() {
             $('#fechaentregaenviada').change(function () {
                 $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
-                    "Diagnostico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} estan listos. \n" +
-                    "Fecha de reparación aproximada: " + $('#fechaentregaenviada').val() +"\n" +
-                    "Presupuesto de reparación: $ " + $('#presupuestoenviado').val() +"\n");
+                    "Diagnóstico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo: \n" +
+                    "" +"\n" +
+                    "Diagnóstico: " + $('#diagnosticoenviado').val() +"\n" +
+                    "Presupuesto de reparación: $ " + $('#presupuestoenviado').val() +"\n" +
+                    "Fecha de reparación aproximada: " + $('#fechaentregaenviada').val() +"\n");
             });
         });
 
+        $(function() {
+            $('#diagnosticoenviado').change(function () {
+                $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
+                    "Diagnóstico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo: \n" +
+                    "" +"\n" +
+                    "Diagnóstico: " + $('#diagnosticoenviado').val() +"\n" +
+                    "Presupuesto de reparación: $ " + $('#presupuestoenviado').val() +"\n" +
+                    "Fecha de reparación aproximada: " + $('#fechaentregaenviada').val() +"\n");
+            });
+        });
     </script>
 
     <!-- SCRIPT PARA VALIDACION DE MODAL -->

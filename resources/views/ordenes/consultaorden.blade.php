@@ -505,15 +505,15 @@
                                             @if(!isset($anotacion->user_id))<tr style="width: 15.00%; background-color: ghostwhite; font-family: Verdana; font-size: small">
                                             @else()<tr style="width: 15.00%; background-color: orange; font-family: Verdana; font-size: small">
                                             @endif
-                                                <td style="width: 15.00%">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d/m/y H:i') }}</td>
-                                                <td style="white-space: normal;width: 70.00%;word-wrap: break-word">{{$anotacion->anotacion}}</td>
+                                                <td style="width: 15.00%; font-family: Verdana">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d/m/y H:i') }}</td>
+                                                <td style="white-space: pre;width: 70.00%;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
 
                                                 <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
 
                                                     @if(!isset($anotacion->user_id))
-                                                        <td> {{$anotacion->cliente->nombre}}
+                                                    <td style="width: 15.00%; font-family: Verdana"> {{$anotacion->cliente->nombre}}
                                                     @else
-                                                        <td> <b>HotSpot</b>
+                                                    <td style="width: 15.00%; font-family: Verdana"> <b>HotSpot</b>
                                                     @endif
                                                         </td>
 
