@@ -1,6 +1,8 @@
 <?php
 
+use App\Mail\mailingreso;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('dashboard')->middleware('auth');;
+
+Route::get('/email', function (){
+    Mail::to('crjuanporta@gmail.com')->send(new mailingreso());
+});
+
 
 Route::get('/estadodeorden', 'OtController@estadodeorden')->name('estadodeorden');
 Route::get('/consultaorden', 'OtController@consultaorden')->name('consultaorden');

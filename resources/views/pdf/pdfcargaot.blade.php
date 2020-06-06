@@ -89,7 +89,7 @@ www.hotspotcomputacion.com</b>
     </tr>
     <tr>
         <td><b>Categoria: </b></td>
-        <td>{{$orden->equipo->categoriaequipo}}</td>
+        <td>{{$orden->equipo->tipodeequipo->tipodeequipo}}</td>
         <td><b>Password: </b></td>
         <td>{{$orden->equipo->password}}</td>
     </tr>
@@ -235,7 +235,7 @@ www.hotspotcomputacion.com</b>
     </tr>
     <tr>
         <td><b>Categoria: </b></td>
-        <td>{{$orden->equipo->categoriaequipo}}</td>
+        <td>{{$orden->equipo->tipodeequipo->tipodeequipo}}</td>
         <td><b>Password: </b></td>
         <td>{{$orden->equipo->password}}</td>
     </tr>

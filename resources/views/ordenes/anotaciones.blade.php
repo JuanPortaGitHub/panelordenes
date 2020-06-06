@@ -601,7 +601,7 @@
                                             @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 0)) bgcolor="#d3d3d3"
 
                                             @endif style="font-size: small">
-                                            <td style="width: 15.00%; font-family: Verdana">{{ \Carbon\Carbon::parse($anotacionOt->created_at)->format('d/m/y H:i') }}</td>
+                                            <td style="width: 15.00%; font-family: Verdana">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d/m/y H:i') }}</td>
                                             <td style="white-space: pre;width: 70.00%;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
 
                                             <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->

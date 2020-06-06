@@ -113,7 +113,7 @@
                                     <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="inputName">Tecnico a Cargo</label>
-                                                <input type="text" id="Tecnico" class="form-control" value="{{$orden->user->name}}" readonly>
+                                                <input type="text" id="Tecnico" class="form-control" value="" readonly>
                                             </div>
                                     </div>
                                 </div>
@@ -122,13 +122,13 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Detalles">Detalles / Marcas / Roturas</label>
-                                            <textarea id="Detalles" class="form-control" rows="4" readonly>"{{$orden->detalles}}"</textarea>
+                                            <textarea id="Detalles" class="form-control" rows="4" readonly>{{$orden->detalles}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="Sintoma">Sintomas / Reparaciones</label>
-                                            <textarea id="Sintoma" class="form-control" rows="4" readonly>"{{$orden->sintoma}}"</textarea>
+                                            <textarea id="Sintoma" class="form-control" rows="4" readonly>{{$orden->sintoma}}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -143,19 +143,19 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaingreso">Fecha de Ingreso</label>
-                                            <input type="date" id="fechaingreso" class="form-control" value="{{ \Carbon\Carbon::parse($orden->fechaingreso)->format('d/m/y H:i') }}" readonly>
+                                            <input type="text" id="fechaingreso" class="form-control" value="{{ \Carbon\Carbon::parse($orden->fechaingreso)->format('d-m-y H:i') }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="fechaentrega">Fecha de Entrega</label>
-                                            <input type="date" id="fechaentrega" class="form-control" value="{{ \Carbon\Carbon::parse($orden->fechaentrega)->format('d-m-y') }}" readonly>
+                                            <input type="text" id="fechaentrega" class="form-control" value="{{ \Carbon\Carbon::parse($orden->fechaentrega)->format('d-m-y') }}" readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="encargadorecepcion">Encargado Recepcion</label>
-                                            <input type="text" id="encargadorecepcion" class="form-control" value="{{$orden->user->name}}" readonly>
+                                            <input type="text" id="encargadorecepcion" class="form-control" value={{$orden->user->name}} readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -326,9 +326,18 @@
 
                         <div class="col-md-4">
 
-                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".anotacionot">
-                                        <b>Cargar Anotacion</b>
-                                    </button>
+
+
+
+
+                                <label for="consultacliente" class="col-form-label">Estado orden</label>
+                                <input name="consultacliente" id="consultacliente" type="text" class="form-control" value="{{$orden->estado->estadoot}}" disabled>
+
+
+
+                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".anotacionot">
+                                <b>Cargar Anotacion</b>
+                            </button>
 
                         </div>
 
@@ -340,28 +349,7 @@
                         <div class="col-md-4">
 
 
-                                    <div class="form-group row" >
 
-                                        <label for="consultacliente" class="col-form-label">Estado orden</label>
-                                        <input name="consultacliente" id="consultacliente" type="text" class="form-control" value="{{$orden->estado->estadoot}}" disabled>
-
-                                    </div>
-                                    <div class="form-group row"
-
-                                    @if($orden->estado->estadoot!="Presupuestado")
-                                        style="display: none"
-                                    @endif>
-                                        <form action="{{ route('confirmapresupuesto') }}" method="POST">
-                                            {{ csrf_field() }}
-                                            {{ method_field('GET') }}
-
-                                            <div style="display: none"><input name="ot_id" id="ot_id" type="text" class="form-control" value="{{$orden->ot_id}}" required></div>
-
-                                                    <button class="btn btn-info" type="submit" name = "submit" value = "Confirma">Confirmar</button>
-                                                    <button class="btn btn-info" type="submit" name = "submit" value = "Rechaza">Rechazar</button>
-
-                                        </form>
-                                    </div>
 
                         </div>
 
@@ -416,6 +404,14 @@
                                                                     <label for="orden">Orden de Trabajo</label>
 
                                                                     <input name="orden" id="orden" type="text" class="form-control" value="{{$orden->ot_id}}" readonly>
+
+
+                                                                </div>
+
+                                                                <div class="form-group" style="display: none">
+                                                                    <label for="cambioorden">Cambio de estado</label>
+
+                                                                    <input name="cambioorden" id="cambioorden" type="text" class="form-control" value="{{$orden->estado_id}}" readonly>
 
 
                                                                 </div>
@@ -506,7 +502,28 @@
                                             @else()<tr style="width: 15.00%; background-color: orange; font-family: Verdana; font-size: small">
                                             @endif
                                                 <td style="width: 15.00%; font-family: Verdana">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d/m/y H:i') }}</td>
-                                                <td style="white-space: pre;width: 70.00%;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
+                                                <td style="white-space: pre;width: 70.00%;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}
+
+                                                    @if($anotacion->interaccioncliente!=0)
+                                                        <div class="row">
+                                                        <form action="{{ route('confirmapresupuesto') }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                            {{ method_field('GET') }}
+
+                                                            <div style="display: none"><input name="ot_id" id="ot_id" type="text" class="form-control" value="{{$orden->ot_id}}" required></div>
+                                                            <div style="display: none"><input name="anotacionid" id="anotacionid" type="text" class="form-control" value="{{$anotacion->id}}" required></div>
+                                                            <button class="btn btn-info" type="submit" name = "submit" value = "Confirma">Confirmar</button>
+                                                            <button class="btn btn-info" type="submit" name = "submit" value = "Rechaza">Rechazar</button>
+
+                                                        </form>
+                                                        </div>
+                                                    @endif
+
+
+
+
+
+                                                </td>
 
                                                 <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
 

@@ -42,7 +42,7 @@
                                     <th>Fecha Entrega</th>
                                     <th>Categoria</th>
                                     <th>Equipo</th>
-                                    <th>Tecnico</th>
+
                                     <th>Imprimir</th>
 
                                 </tr>
@@ -66,7 +66,7 @@
                                     <td>{{ \Carbon\Carbon::parse($order->fechaentrega)->format('d-m-y') }}</td>
                                     <td>{{$order->Equipo->tipodeequipo->tipodeequipo}}</td>
                                     <td>{{$order->equipo->modelo}}</td>
-                                    <td>{{$order->User->name}}</td>
+
                                     <td><a href="{{route('ordenes.showpdf', $order->ot_id)}}"><i class="fas fa-print"></i></a></td>
                                 </tr>
 
@@ -85,7 +85,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
+
 
                                     <th></th>
                                     <th></th>
@@ -151,7 +151,7 @@
         },
 
     initComplete: function () {
-    this.api().columns([1, 2, 5, 8, 10]).every( function () {
+    this.api().columns([1, 2, 5, 8]).every( function () {
     var column = this;
     var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected></option></select>')
     .appendTo( $(column.footer()).empty() )

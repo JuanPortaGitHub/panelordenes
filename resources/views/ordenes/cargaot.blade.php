@@ -225,7 +225,16 @@
                                 </select>
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <label for="nombretecnico" class="col-sm-2 col-form-label">Tecnico Encargado</label>
+                            <div class="col-sm-10">
+                                <select name="nombretecnico" class="form-control" placeholder="Indicar Tecnico a cargo ...">
+                                    @foreach ($tecnicos as $tecnico)
+                                        <option value="{{ $tecnico['id'] }}">{{ $tecnico['name'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="necesitarepuesto" class="col-sm-2 col-form-label">Repuesto</label>
                             <div class="col-sm-10">

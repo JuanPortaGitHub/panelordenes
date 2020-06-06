@@ -20,7 +20,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $tecnicos = User::all();
-        return view('admin.dashboard', compact('tecnicos'));
+        redirect('ordenes.listaot');
     }
 }

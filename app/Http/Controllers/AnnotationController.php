@@ -62,18 +62,7 @@ class AnnotationController extends Controller
         }
 
 
-        // CAMBIOS EN TABLA ORDENES
 
-        //Obtengo de la view la ot
-        $otabuscar = $request->input('orden');
-
-        //Busco la ot en la base de datos
-        $ordenacambiar=Ot::where('ot_id', '=', $otabuscar)->firstOrFail();
-
-        $ordenacambiar->presupuesto = $request->input('presupuestoenviado');
-        $ordenacambiar->fechaentrega = $request->input('fechaentregaenviada');
-        $ordenacambiar->estado_id = $request->input('cambioorden');
-        $ordenacambiar->save();
 
 
 
@@ -108,9 +97,38 @@ class AnnotationController extends Controller
                             $nuevaanotacion->visiblecliente = 0;
                     }
 
-        //Guarda anotacion
-        $nuevaanotacion->save();
 
+
+
+
+            // CAMBIOS EN TABLA ORDENES
+
+            //Obtengo de la view la ot
+            $otabuscar = $request->input('orden');
+
+            //Busco la ot en la base de datos
+            $ordenacambiar=Ot::where('ot_id', '=', $otabuscar)->firstOrFail();
+
+            $ordenacambiar->presupuesto = $request->input('presupuestoenviado');
+            $ordenacambiar->fechaentrega = $request->input('fechaentregaenviada');
+
+            $ordenacambiar->estado_id = $request->input('cambioorden');
+            $estadonuevo=$ordenacambiar->estado_id;
+            if($estadonuevo != 3){
+
+                $nuevaanotacion->interaccioncliente=0;
+
+            }else{
+                $nuevaanotacion->interaccioncliente=1;
+            };
+
+
+
+            //Guarda anotacion
+            $nuevaanotacion->save();
+
+            //Guarda OT
+            $ordenacambiar->save();
 
 
         }else{ //Alternativa cuando el pincode es 9999 (o sea que anota un cliente)
@@ -227,7 +245,10 @@ class AnnotationController extends Controller
         //Guardo la confirmacion
         $otconfirmadaorechazada->save();
 
-
+        //Cambio el estado de interaccioncliente a 0 en anotacion de presupuesto para que no aparezcan los botones de confirmar y rechazar
+        $anotacionpresupuesto = Annotation::where('id','=', $request->input('anotacionid'))->first();
+        $anotacionpresupuesto->interaccioncliente = 0;
+        $anotacionpresupuesto->save();
 
         return back();
     }

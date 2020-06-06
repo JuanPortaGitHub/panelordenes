@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\mailingreso;
 use Dompdf\Dompdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Annotation;
 use App\area;
@@ -167,6 +169,11 @@ class OtController extends Controller
 
             //Guarda el array
             $nuevaorden->save();
+
+
+            //Mando al view la info de ot
+
+            Mail::to($nuevaorden->cliente->mail)->queue(new mailingreso($nuevaorden));
 
             $orden=$nuevaorden;
 
