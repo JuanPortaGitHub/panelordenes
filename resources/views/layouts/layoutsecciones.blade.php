@@ -183,7 +183,14 @@
           <img src="/../adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+            <select name="area" class="form-control" placeholder="Indicar si corresponde a hardware o software ..." required>
+                <option value={{ Auth::user()->name }}></option>
+                @foreach ($users as $user)
+                    <option value="{{ $user['id'] }}">{{ $user['name'] }}</option>
+                @endforeach
+
+            </select>
+
         </div>
       </div>
 
@@ -196,11 +203,17 @@
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Starter Pages
+                Menu
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="{{route('ordenes.panelusuario', $user_id=Auth::user()->id)}}" class="nav-link active">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Panel Usuario</p>
+                    </a>
+                </li>
               <li class="nav-item">
                 <a href="{{ URL::route('ordenes.create')}}" class="nav-link active">
                   <i class="nav-icon fas fa-edit"></i>
@@ -210,7 +223,7 @@
               <li class="nav-item">
                 <a href="{{ URL::route('ordenes.index')}}" class="nav-link active">
                   <i class="nav-icon fas fa-table"></i>
-                  <p>Listado Ordenes</p>
+                  <p>Listado de Ordenes</p>
                 </a>
               </li>
                 <li class="nav-item">

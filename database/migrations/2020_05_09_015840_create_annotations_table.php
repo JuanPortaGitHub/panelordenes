@@ -20,6 +20,7 @@ class CreateAnnotationsTable extends Migration
             $table->integer('cliente_id')->nullable();
             $table->text('anotacion')->nullable();
             $table->boolean('visiblecliente')->nullable()->default(1);
+            $table->boolean('interaccioncliente')->nullable()->default(0);
             $table->timestamps();
         });
     }

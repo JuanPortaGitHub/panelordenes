@@ -145,13 +145,13 @@ www.hotspotcomputacion.com</b>
     </tr>
     <tr>
     <tr>
-        <td colspan="2" style="alignment: center"><b>Fecha de ingreso: </b>{{$orden->fechaingreso}}</td>
+        <td colspan="2" style="alignment: center"><b>Fecha de ingreso: </b>{{ \Carbon\Carbon::parse($orden->fechaingreso)->format('d-m-y H:i') }}</td>
 
         <td ></td>
         <td style="text-align: center">-------------------------</td>
     </tr>
     <tr class="spaceUnder">
-        <td colspan="2"><b>FECHA ESTIMADA (APROX): {{$orden->fechaentrega}}</b></td>
+        <td colspan="2"><b>FECHA ESTIMADA (APROX): {{ \Carbon\Carbon::parse($orden->fechaentrega)->format('d-m-y') }}</b></td>
 
         <td ></td>
         <td style="text-align: center">Firma Cliente</td>

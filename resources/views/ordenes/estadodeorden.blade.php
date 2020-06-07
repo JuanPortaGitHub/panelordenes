@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>AdminLTE 3 | Starter</title>
+    <title>HotSpot | Consulta de ordenes de Trabajo</title>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="adminlte/plugins/fontawesome-free/css/all.min.css">
@@ -16,6 +16,15 @@
     <link rel="stylesheet" href="adminlte/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        html, body {
+            width: 60%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+
+        }
+        </style>
 </head>
 
 <body>
@@ -23,16 +32,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-4">
-                    <div class="col-sm-4">
-                        <h1></h1>
-                    </div>
 
-                </div>
-            </div><!-- /.container-fluid -->
-        </section>
 
         <!-- Main content -->
 
@@ -66,15 +66,15 @@
 
 
                         <div class="form-group row">
-                            <label for="ot_id" class="col-sm-2 col-form-label">Orden De Trabajo</label>
-                            <div class="col-sm-4">
+                            <label for="ot_id" class="col-form-label">Orden De Trabajo</label>
+                            <div class="col-sm-12">
                                 <input name="ot_id" id="ot_id" type="text" class="form-control" placeholder="Ingrese Nro de Orden ..." >
 
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="passwordot" class="col-sm-2 col-form-label">Contraseña</label>
-                            <div class="col-sm-4">
+                            <label for="passwordot" class="col-form-label">Contraseña</label>
+                            <div class="col-sm-12">
                                 <input name="passwordot" id="passwordot" type="text" class="form-control" placeholder="Ingrese Contraseña de Ingreso ..." >
 
                             </div>

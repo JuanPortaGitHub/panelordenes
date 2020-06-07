@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="/../adminlte/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>
 
 <body>
@@ -97,26 +98,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="reparadoconexito">Reparado</label>
-                                                <input type="text" id="reparadoconexito" class="form-control" value="{{$orden->reparaexito->reparadoconexito}}" readonly>
-                                            </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="categoriareparacion">Categoria Reparacion</label>
-                                                <input type="text" id="categoriareparacion" class="form-control" value="{{$orden->categoria->categoriareparacion}}" readonly>
-                                            </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="inputName">Tecnico a Cargo</label>
-                                                <input type="text" id="Tecnico" class="form-control" value="" readonly>
-                                            </div>
-                                    </div>
-                                </div>
+
 
                                 <div class="row">
                                     <div class="col-md-12">
@@ -154,8 +136,8 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="encargadorecepcion">Encargado Recepcion</label>
-                                            <input type="text" id="encargadorecepcion" class="form-control" value={{$orden->user->name}} readonly>
+                                            <label for="inputName">Tecnico a Cargo</label>
+                                            <input type="text" id="Tecnico" class="form-control" value="" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -331,12 +313,13 @@
 
 
                                 <label for="consultacliente" class="col-form-label">Estado orden</label>
+
                                 <input name="consultacliente" id="consultacliente" type="text" class="form-control" value="{{$orden->estado->estadoot}}" disabled>
 
 
 
-                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".anotacionot">
-                                <b>Cargar Anotacion</b>
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target=".anotacionot">
+                                <b>Consultar</b>
                             </button>
 
                         </div>
@@ -391,7 +374,8 @@
 
 
                                                             <div class="card-header">
-                                                                <h3 class="card-title"><b>Ingresar Anotacion</b></h3>
+                                                                <div class="row"><h3 class="card-title"><b>Escribe cualquier duda o consulta sobre tu orden de trabajo. </b> </h3></div>
+                                                                <div class="row">Las consultas serán leídas y respondidas por nuestros técnicos a la mayor brevedad</div>
                                                             </div>
 
 
@@ -425,9 +409,9 @@
                                                                 </div>
 
                                                                 <div class="form-group">
-                                                                    <label for="anotacion">Anotacion</label>
 
-                                                                    <textarea class="form-control" rows="4" placeholder="Anotacion ..." name="anotacion" id="anotacion"></textarea>
+
+                                                                    <textarea class="form-control" rows="4" placeholder="Consulta ..." name="anotacion" id="anotacion"></textarea>
 
                                                                 </div>
                                                                 <div class="form-group" style="display:none">
@@ -477,8 +461,8 @@
                         <div class="row">
                         <div class="col-md-12">
 
-                                <div class="card-body table-responsive p-0" style="height:600px">
-                                    <table class="table table-head-fixed text-nowrap ">
+                            <div class="card-body table-responsive p-0" style="height:600px">
+                                <table class="table table-head-fixed text-nowrap">
 
 
 
@@ -502,28 +486,8 @@
                                             @else()<tr style="width: 15.00%; background-color: orange; font-family: Verdana; font-size: small">
                                             @endif
                                                 <td style="width: 15.00%; font-family: Verdana">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d/m/y H:i') }}</td>
-                                                <td style="white-space: pre;width: 70.00%;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}
-
-                                                    @if($anotacion->interaccioncliente!=0)
-                                                        <div class="row">
-                                                        <form action="{{ route('confirmapresupuesto') }}" method="POST">
-                                                            {{ csrf_field() }}
-                                                            {{ method_field('GET') }}
-
-                                                            <div style="display: none"><input name="ot_id" id="ot_id" type="text" class="form-control" value="{{$orden->ot_id}}" required></div>
-                                                            <div style="display: none"><input name="anotacionid" id="anotacionid" type="text" class="form-control" value="{{$anotacion->id}}" required></div>
-                                                            <button class="btn btn-info" type="submit" name = "submit" value = "Confirma">Confirmar</button>
-                                                            <button class="btn btn-info" type="submit" name = "submit" value = "Rechaza">Rechazar</button>
-
-                                                        </form>
-                                                        </div>
-                                                    @endif
-
-
-
-
-
-                                                </td>
+                                                <td style="white-space: pre;width: 70.00%;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}@if($anotacion->interaccioncliente!=0)<form action="{{ route('confirmapresupuesto') }}" method="POST">{{ csrf_field() }}{{ method_field('GET') }}<div style="display: none"><input name="ot_id" id="ot_id" type="text" class="form-control" value="{{$orden->ot_id}}" required></div><div style="display: none"><input name="anotacionid" id="anotacionid" type="text" class="form-control" value="{{$anotacion->id}}" required></div>
+<button class="btn btn-secondary btn-sm" type="submit" name = "submit" value = "Confirma">Confirmar</button> <button class="btn btn-secondary btn-sm" type="submit" name = "submit" value = "Rechaza">Rechazar</button></form>@endif</td>
 
                                                 <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
 

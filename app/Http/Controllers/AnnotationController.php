@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
+
+use App\Mail\entregado;
+use App\Mail\listo;
+use App\Mail\presup;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Annotation;
@@ -101,6 +107,7 @@ class AnnotationController extends Controller
 
 
 
+
             // CAMBIOS EN TABLA ORDENES
 
             //Obtengo de la view la ot
@@ -111,9 +118,10 @@ class AnnotationController extends Controller
 
             $ordenacambiar->presupuesto = $request->input('presupuestoenviado');
             $ordenacambiar->fechaentrega = $request->input('fechaentregaenviada');
-
+            $ordenacambiar->sintoma = $request->input('diagnosticoenviado');
             $ordenacambiar->estado_id = $request->input('cambioorden');
             $estadonuevo=$ordenacambiar->estado_id;
+
             if($estadonuevo != 3){
 
                 $nuevaanotacion->interaccioncliente=0;
@@ -121,6 +129,23 @@ class AnnotationController extends Controller
             }else{
                 $nuevaanotacion->interaccioncliente=1;
             };
+
+
+            //mando mail en base a si esta presupuestada, lista o con encuesta (esta ultima si tiene tildado el checkbox)
+            if($estadonuevo == 3){
+
+                Mail::to($ordenacambiar->cliente->mail)->queue(new presup($ordenacambiar));
+
+            }elseif($estadonuevo == 7){
+
+                Mail::to($ordenacambiar->cliente->mail)->queue(new listo($ordenacambiar));
+
+            }elseif($estadonuevo == 8 and $request->input('encuestacliente'==true)){
+
+                Mail::to($ordenacambiar->cliente->mail)->queue(new entregado($ordenacambiar));
+
+            };
+
 
 
 

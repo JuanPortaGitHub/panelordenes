@@ -77,7 +77,8 @@ class Ot extends Model
 
     protected $fillable = [
 
-        'estado_id'
+        'estado_id',
+        'sintoma'
 
     ];
 

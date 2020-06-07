@@ -324,5 +324,18 @@ class OtController extends Controller
 
         return view ("pdf.pdfcargaot", compact ("orden"));
     }
+    public function panel($user_id)
+    {
+        $orders=Ot::where('user_id',$user_id)->get();
+
+        return view ("ordenes.panelusuario", compact ("orders"));
+    }
+
+    public function listausuarios()
+    {
+        $users=User::all();
+
+        return view('layouts.layoutsecciones', compact('users'));
+    }
 
 }

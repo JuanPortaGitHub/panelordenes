@@ -463,7 +463,7 @@
                         <form METHOD="post" action="{{ route('annotations.store') }}" class="form-horizontal" autocomplete="off">
                         {{csrf_field()}}
 
-                        <!-- Seccion Titular -->
+                        <!-- Seccion Titular IMPORTANTE EL ENVIO DE FORMULARIO SE HACE ABAJO CON UN AJAX MODIFICAR AHI-->
 
 
 
@@ -508,6 +508,10 @@
 
                                     </select>
 
+                                    <div class="form-check" id="encuesta" style="display: none">
+                                        <input name="encuestacliente" type="checkbox" class="form-check-input" id="encuestacliente" checked>
+                                        <label class="form-check-label" for="encuestacliente">Enviar encuesta a cliente</label>
+                                    </div>
 
                                 </div>
 
@@ -515,7 +519,7 @@
                                 <div class="form-group" id="infopresupuesto" name="infopresupuesto">
                                     <div class="form-group">
                                         <label for="diagnosticoenviado">Diagnóstico / Trabajo a realizar</label>
-                                        <input name="diagnosticoenviado" id="diagnosticoenviado" type="text" class="form-control" value="{{$anotacionOt->sintoma}}">
+                                        <textarea class="form-control" rows="3"  name="diagnosticoenviado" id="diagnosticoenviado" style="font-size: small">{{$anotacionOt->sintoma}}</textarea>
                                     </div>
 
                                     <div class="form-group">
@@ -535,6 +539,9 @@
                                     <textarea class="form-control" rows="6" placeholder="Anotacion ..." name="anotacion" id="anotacion" style="font-size: small"></textarea>
 
                                 </div>
+
+
+
                                 <div class="form-group">
                                     <label for="tecnico_id">Pincode</label>
 
@@ -754,6 +761,7 @@
         $(function() {
             $('#cambioorden').change(function(){
                 if($('#cambioorden').val() == '8') {
+                    $('#encuesta').show();
                     $('#anotacion').val("--AVISO DE SISTEMA: Orden finalizada-- \n" +
                         " \n")
 
@@ -821,8 +829,9 @@
                         visiblecliente: jQuery('#visiblecliente').val(),
                         presupuestoenviado: jQuery('#presupuestoenviado').val(),
                         fechaentregaenviada: jQuery('#fechaentregaenviada').val(),
+                        diagnosticoenviado: jQuery('#diagnosticoenviado').val(),
                         cambioorden: jQuery('#cambioorden').val(),
-
+                        encuestacliente: $('input#encuestacliente').prop('checked')
                     },
                     success: function(result){
                         if(result.errors)

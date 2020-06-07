@@ -38,6 +38,10 @@ Route::get('/orden/{ot_id}','OtController@anotaciones')->name('ordenes.anotacion
 
 Route::get('/pdf/{ot_id}','OtController@showpdf')->name('ordenes.showpdf')->middleware('auth');;
 
+
+//Ruta para panel de usuario
+Route::get('/panel/{user_id}','OtController@panel')->name('ordenes.panelusuario')->middleware('auth');;
+
 Route::resource('ordenes', 'OtController')->middleware('auth');;
 Route::resource('clientes', 'ClientesController')->middleware('auth');;
 Route::resource('equipos', 'EquiposController')->middleware('auth');
