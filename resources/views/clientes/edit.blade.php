@@ -46,7 +46,7 @@
         <section class="content">
 
             <form METHOD="post" action="{{ route('clientes.update',$cliente->id) }}" class="form-horizontal" autocomplete="off">
-            {{csrf_field()}}
+                {{csrf_field()}}
             <!-- ESTO ES PARA EL UPDATE NOMAS -->
             @method('PUT')
 

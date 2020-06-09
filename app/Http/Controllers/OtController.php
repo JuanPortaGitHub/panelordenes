@@ -160,12 +160,7 @@ class OtController extends Controller
 
 
 
-            /*//Imprime
-            $dompdf = new Dompdf();
-            $dompdf->loadHtml("pdf.pdfcargaot", compact ("orden"));
-            $dompdf->render();
-            $dompdf->stream();
-*/
+
 
             //Guarda el array
             $nuevaorden->save();
@@ -178,11 +173,17 @@ class OtController extends Controller
             $orden=$nuevaorden;
 
 
+            //Descarga PDF
+
+            $pdf = \PDF::loadView('pdf.pdfcargaot', compact('orden'));
+
+        return $pdf->stream();
+
         //Arma la variable $orders para pasarla a la lista (idem que en el index) para poder abrir la lista de ordenes luego de guardar
 
             //$orders=Ot::all();
 
-        return view ("pdf.pdfcargaot", compact ("orden"));
+
 
     }
 
@@ -319,16 +320,26 @@ class OtController extends Controller
     }
     public function showpdf($ot_id)
     {
+
+
         $orden=Ot::where('ot_id',$ot_id)->firstOrFail();
+        $pdf = \PDF::loadView('pdf.pdfcargaot', compact('orden'));
+
+        return $pdf->stream();
 
 
-        return view ("pdf.pdfcargaot", compact ("orden"));
     }
     public function panel($user_id)
     {
+
+        $user=User::where('id', '=',$user_id)->firstOrFail();
         $orders=Ot::where('user_id',$user_id)->get();
 
-        return view ("ordenes.panelusuario", compact ("orders"));
+
+
+        $annotations=Annotation::all();
+
+        return view ("ordenes.panelusuario", compact ('orders', 'user', 'annotations'));
     }
 
     public function listausuarios()

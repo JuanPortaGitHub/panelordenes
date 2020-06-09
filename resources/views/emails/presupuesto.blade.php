@@ -12,7 +12,7 @@ Ver orden de trabajo
 @endcomponent
 
 
-    <b>HotSpot Servicio Técnico</b>
+    --HotSpot Servicio Técnico--
 
     Rondeau 189 - (0351) 4220777
 

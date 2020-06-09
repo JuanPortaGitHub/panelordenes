@@ -132,13 +132,13 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="fechaingreso">Fecha de Ingreso</label>
-                                        <input type="text" id="fechaingreso" class="form-control" value="{{ \Carbon\Carbon::parse($anotacionOt->fechaingreso)->format('d-m-y H:i') }}" readonly>
+                                        <input type="text" id="fechaingreso" class="form-control" value="{{ \Carbon\Carbon::parse($anotacionOt->fechaingreso)->format('d/m/y H:i') }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="fechaentrega">Fecha de Entrega</label>
-                                        <input type="text" id="fechaentrega" class="form-control" value="{{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d-m-y') }}" readonly>
+                                        <input type="text" id="fechaentrega" class="form-control" value="{{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d/m/y') }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -524,12 +524,12 @@
 
                                     <div class="form-group">
                                         <label for="presupuestoenviado">Presupuesto</label>
-                                        <input name="presupuestoenviado" id="presupuestoenviado" type="text" class="form-control" value="{{$anotacionOt->presupuesto}}">
+                                        <input name="presupuestoenviado" id="presupuestoenviado" type="text" class="form-control" value={{$anotacionOt->presupuesto}}>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="fechaentregaenviada">Fecha reparación aproximada</label>
-                                        <input name="fechaentregaenviada" id="fechaentregaenviada" type="text" class="form-control" value="{{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d-m-y') }}">
+                                        <input name="fechaentregaenviada" id="fechaentregaenviada" type="text" class="form-control" value={{\Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d/m/y')}}>
                                     </div>
                                 </div>
 
@@ -680,7 +680,7 @@
                         "" +"\n" +
                         "Diagnóstico: {{$anotacionOt->sintoma}} \n" +
                         "Presupuesto de reparación: $ {{$anotacionOt->presupuesto}} \n" +
-                        "Fecha de reparación aproximada: {{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d-m-y') }}  \n" );
+                        "Fecha de reparación aproximada: {{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d/m/y') }}  \n" );
                 } else {
                     $('#infopresupuesto').hide();
 
@@ -728,7 +728,7 @@
             $('#cambioorden').change(function(){
                 if($('#cambioorden').val() == '5') {
                     $('#anotacion').val("--AVISO DE SISTEMA: Orden confirmada por cliente-- \n" +
-                        "Fecha de reparación aproximada: {{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d-m-y') }} \n" +
+                        "Fecha de reparación aproximada: {{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d/m/y') }} \n" +
                         "Presupuesto de reparación: $ {{$anotacionOt->presupuesto}}  \n" );
                 }
             });

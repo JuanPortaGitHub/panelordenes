@@ -13,7 +13,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><b>Listado Ordenes de Trabajo</b></h1>
+                        <h1><b>Panel de {{$user->name}}</b></h1>
                     </div>
 
                 </div>
@@ -29,7 +29,7 @@
                         <div class="card-body">
                             <table id="listaordenes" class="table table-responsive table-bordered table-striped">
                                 <thead>
-                                <tr style="font-size: 90%" align="center">
+                                <tr>
 
                                     <th>Orden</th>
                                     <th>Suc</th>
@@ -62,8 +62,8 @@
                                             <td>{{$order->cliente->nombre}}</td>
                                             <td>{{$order->estado->estadoot}}</td>
 
-                                            <td>{{ \Carbon\Carbon::parse($order->fechaingreso)->format('d-m-y H:i') }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($order->fechaentrega)->format('d-m-y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($order->fechaingreso)->format('d/m/y H:i') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($order->fechaentrega)->format('d/m/y') }}</td>
                                             <td>{{$order->Equipo->tipodeequipo->tipodeequipo}}</td>
                                             <td>{{$order->equipo->modelo}}</td>
 
@@ -103,6 +103,81 @@
                 <!-- /.col -->
             </div>
             <!-- /.row -->
+
+
+
+
+
+
+
+
+
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+
+                        <div class="card-body">
+                            <table id="anotaciones" class="table table-responsive table-bordered table-striped table-head-fixed text-nowrap">
+                                <thead>
+                                <tr style="font-size: 90%" align="center">
+
+                                    <th>Orden</th>
+                                    <th>Fecha</th>
+                                    <th>Anotacion</th>
+                                    <th>Cliente</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+
+                                    @foreach($annotations as $annotation)
+
+                                        <tr style="font-size: 80%" align="center">
+
+                                            <td><a href="{{route('ordenes.anotaciones', $annotation->ot_id)}}"><b>{{$annotation->ot_id}}</b></a></td>
+                                            <td>{{ \Carbon\Carbon::parse($annotation->created_at)->format('d/m/y H:i') }}</td>
+                                            <td style="white-space: pre">{{$annotation->anotacion}}</td>
+                                            <td>{{$annotation->ot->cliente->apellido}} {{$annotation->ot->cliente->nombre}}</td>
+
+                                        </tr>
+
+                                    @endforeach
+
+
+
+
+                                </tbody>
+                                <tfoot>
+                                <tr style="font-size: 90%" align="center">
+
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+
+
+
+
+
+
+
+
         </section>
         <!-- /.content -->
     </div>
@@ -152,6 +227,48 @@
 
                 initComplete: function () {
                     this.api().columns([1, 2, 5, 8]).every( function () {
+                        var column = this;
+                        var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected></option></select>')
+                            .appendTo( $(column.footer()).empty() )
+                            .on( 'change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+
+                                );
+
+                                column
+                                    .search( val ? '^'+val+'$' : '', true, false )
+                                    .draw();
+                            } );
+
+
+                        column.data().unique().sort().each( function ( d, j ) {
+                            select.append( '<option value="'+d+'">'+d+'</option>' )
+                        } );
+                    } );
+                },"order": [[ 0, "desc" ]]
+            });
+        });
+
+
+
+    </script>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('#anotaciones').dataTable({
+
+
+
+                rowCallback: function(row, data, index){
+
+
+                },
+
+                initComplete: function () {
+                    this.api().columns([]).every( function () {
                         var column = this;
                         var select = $('<select  class="browser-default custom-select form-control-sm"><option value="" selected></option></select>')
                             .appendTo( $(column.footer()).empty() )
