@@ -333,13 +333,28 @@ class OtController extends Controller
     {
 
         $user=User::where('id', '=',$user_id)->firstOrFail();
+
         $orders=Ot::where('user_id',$user_id)->get();
 
+        $userid=$user->id;
+
+        $annotations=DB::table('annotations')
+            ->join('ots', 'ots.ot_id', '=', 'annotations.ot_id')
+            ->select('annotations.anotacion', 'annotations.created_at','annotations.ot_id', 'ots.user_id')
+            ->where('ots.user_id','=',$userid)
+            ->get();
 
 
-        $annotations=Annotation::all();
+        /*$annotations = Annotation::wherehas(['ot' => function($query) use ($userid) {
+            $query->where('user_id','=',$userid);
+        }])->get();
+        */
+
+
 
         return view ("ordenes.panelusuario", compact ('orders', 'user', 'annotations'));
+
+
     }
 
     public function listausuarios()

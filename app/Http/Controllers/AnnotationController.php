@@ -60,6 +60,7 @@ class AnnotationController extends Controller
             'orden' => 'required',
             'anotacion' => 'required',
             'pincode' => 'required',
+
         ]);
 
         if ($validator->fails())

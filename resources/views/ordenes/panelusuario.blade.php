@@ -126,7 +126,7 @@
                                     <th>Orden</th>
                                     <th>Fecha</th>
                                     <th>Anotacion</th>
-                                    <th>Cliente</th>
+
 
                                 </tr>
                                 </thead>
@@ -139,9 +139,9 @@
                                         <tr style="font-size: 80%" align="center">
 
                                             <td><a href="{{route('ordenes.anotaciones', $annotation->ot_id)}}"><b>{{$annotation->ot_id}}</b></a></td>
-                                            <td>{{ \Carbon\Carbon::parse($annotation->created_at)->format('d/m/y H:i') }}</td>
+                                            <td>{{$annotation->created_at}}</td>
                                             <td style="white-space: pre">{{$annotation->anotacion}}</td>
-                                            <td>{{$annotation->ot->cliente->apellido}} {{$annotation->ot->cliente->nombre}}</td>
+
 
                                         </tr>
 
@@ -157,7 +157,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
+
                                 </tr>
                                 </tfoot>
                             </table>
