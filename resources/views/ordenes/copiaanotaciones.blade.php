@@ -168,35 +168,35 @@
 
 
 
-                @include('modalformularios.modalupdateorden')
+            @include('modalformularios.modalupdateorden')
 
 
 
 
                 <!-- /.Parte visible incial (se esconde cuando se pide mas informacion -->
-                    <div class="card-body" id="datosinicialesot">
+                <div class="card-body" id="datosinicialesot">
 
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="estadoot">ESTADO</label>
-                                    <input type="text" id="estadoot" class="form-control" value="{{$anotacionOt->estado->estadoot}}" readonly>
-                                </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="estadoot">ESTADO</label>
+                                <input type="text" id="estadoot" class="form-control" value="{{$anotacionOt->estado->estadoot}}" readonly>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="Presupuesto">Presupuesto</label>
-                                    <input type="number" id="Presupuesto" class="form-control" value="{{$anotacionOt->presupuesto}}" readonly>
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="Presupuesto">Presupuesto</label>
+                                <input type="number" id="Presupuesto" class="form-control" value="{{$anotacionOt->presupuesto}}" readonly>
                             </div>
                         </div>
                     </div>
+                </div>
 
                 </div>
 
 
-                <!-- Informacion de cliente -->
+            <!-- Informacion de cliente -->
 
                 <div class="col-md-6">
 
@@ -295,7 +295,7 @@
 
 
 
-                    <!-- Informacion de equipo -->
+                <!-- Informacion de equipo -->
 
                     <div class="card card-secondary collapsed-card">
                         <div class="card-header">
@@ -388,28 +388,28 @@
 
 
 
-                @include('modalformularios.modalupdateequipo')
+        @include('modalformularios.modalupdateequipo')
 
 
-                <!-- /.Parte visible incial (se esconde cuando se pide mas informacion -->
-                    <div class="card-body" id="datosinicialesequipo">
+        <!-- /.Parte visible incial (se esconde cuando se pide mas informacion -->
+            <div class="card-body" id="datosinicialesequipo">
 
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="Categoria">Categoria</label>
-                                    <input type="text" id="Categoria" class="form-control" value="{{$anotacionOt->equipo->tipodeequipo->tipodeequipo}}" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="Modelo">Modelo</label>
-                                    <input type="text" id="Modelo" class="form-control" value="{{$anotacionOt->equipo->modelo}}" readonly>
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Categoria">Categoria</label>
+                            <input type="text" id="Categoria" class="form-control" value="{{$anotacionOt->equipo->tipodeequipo->tipodeequipo}}" readonly>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="Modelo">Modelo</label>
+                            <input type="text" id="Modelo" class="form-control" value="{{$anotacionOt->equipo->modelo}}" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -418,7 +418,7 @@
             </div>
 
 
-            <!-- SECCION ANOTACIONES -->
+        <!-- SECCION ANOTACIONES -->
 
 
 
@@ -622,13 +622,13 @@
                                             <!-- /.Si es anotacion visible a cliente permite eliminar -->
 
                                             <td style="width: 5%">@if(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1))
-                                                    <form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post">
-                                                        {{csrf_field()}}
-                                                        <input name="_method" type="hidden" value="DELETE">
+                                                <form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post">
+                                                    {{csrf_field()}}
+                                                    <input name="_method" type="hidden" value="DELETE">
 
-                                                        <button class="btn btn-danger btn-xs" type="submit">Borrar</button>
-                                                    </form>
-                                                @endif
+                                                    <button class="btn btn-danger btn-xs" type="submit">Borrar</button>
+                                                </form>
+                                                    @endif
                                             </td>
                                         </tr>
                                     @endforeach

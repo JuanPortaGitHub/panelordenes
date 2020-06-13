@@ -59,13 +59,17 @@ class AnnotationController extends Controller
         $validator = \Validator::make($request->all(), [
             'orden' => 'required',
             'anotacion' => 'required',
-            'pincode' => 'required|exists:users,pincode',
+            'pincode' => 'required',
+
         ]);
 
         if ($validator->fails())
         {
             return response()->json(['errors'=>$validator->errors()->all()]);
         }
+
+
+
 
 
 
