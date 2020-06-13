@@ -457,13 +457,18 @@
 
         <div class="modal fade anotacionot" tabindex="-1" role="document" aria-labelledby="anotacionot" aria-hidden="true" id="anotacionot">
             <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="alert alert-danger" style="display:none"></div>
-                    <div class="card card-warning">
-                        <form METHOD="post" action="{{ route('annotations.store') }}" class="form-horizontal" autocomplete="off">
-                        {{csrf_field()}}
+                <div id="loading-screen" style="display: none; position: absolute; left: 50%; top: 50%;
+                z-index: 1000;
+                height: 80px;
+                width: 80px;">
+                    <img src="../adminlte/img/5-0.gif" height="40">
+                    <b>Cargando...</b>
+                </div>
+                <div class="modal-content" id="contenido">
 
-                        <!-- Seccion Titular IMPORTANTE EL ENVIO DE FORMULARIO SE HACE ABAJO CON UN AJAX MODIFICAR AHI-->
+                    <div class="card card-warning">
+
+
 
 
 
@@ -472,23 +477,24 @@
                                 <h3 class="card-title"><b>Ingresar a Orden de Trabajo</b></h3>
                             </div>
 
+                        <!-- Seccion Titular IMPORTANTE EL ENVIO DE FORMULARIO SE HACE ABAJO CON UN AJAX MODIFICAR AHI-->
 
 
                             <!-- Seccion contenido Anotacion> -->
 
-                            <div class="card-body">
+                            <div class="modal-body form-horizontal">
+                                <form class="form-horizontal" METHOD="post" action="{{ route('annotations.store') }}"  autocomplete="off">
+                                    {{csrf_field()}}
+
+
 
                                 <div class="form-group" style="display: none">
                                     <label for="orden">Orden de Trabajo</label>
-
                                     <input name="orden" id="orden" type="text" class="form-control" value="{{$anotacionOt->ot_id}}">
-
-
                                 </div>
-
+                                    <div class="row">
                                 <div class="form-group">
                                     <label for="visiblecliente">Aviso a cliente</label>
-
 
                                     <select name="visiblecliente" id="visiblecliente" class="form-control" placeholder="" required>
                                         <option value="No visible" selected>No visible a cliente</option>
@@ -514,6 +520,7 @@
                                     </div>
 
                                 </div>
+                                    </div>
 
 
                                 <div class="form-group" id="infopresupuesto" name="infopresupuesto">
@@ -521,7 +528,7 @@
                                         <label for="diagnosticoenviado">Diagnóstico / Trabajo a realizar</label>
                                         <textarea class="form-control" rows="3"  name="diagnosticoenviado" id="diagnosticoenviado" style="font-size: small">{{$anotacionOt->sintoma}}</textarea>
                                     </div>
-
+                            <div class="row">
                                     <div class="form-group">
                                         <label for="presupuestoenviado">Presupuesto</label>
                                         <input name="presupuestoenviado" id="presupuestoenviado" type="text" class="form-control" value={{$anotacionOt->presupuesto}}>
@@ -531,8 +538,8 @@
                                         <label for="fechaentregaenviada">Fecha reparación aproximada</label>
                                         <input name="fechaentregaenviada" id="fechaentregaenviada" type="date" class="form-control" value={{$anotacionOt->fechaentrega}}>
                                     </div>
-                                </div>
-
+                            </div>
+                                    </div>
                                 <div class="form-group">
                                     <label for="anotacion">Anotacion</label>
 
@@ -544,10 +551,7 @@
 
                                 <div class="form-group">
                                     <label for="tecnico_id">Pincode</label>
-
                                     <input name="pincode" id="pincode" type="password" class="form-control" placeholder="Pin ...">
-
-
                                 </div>
 
 
@@ -557,14 +561,17 @@
 
                                 <!-- Botones de Formulario -->
                                 <div class="card-footer">
-
+                                    <div id="botoningreso">
                                     <button  class="btn btn-info" id="ajaxSubmit">Ingresar</button>
+                                    </div>
+
 
                                 </div>
+                                </form>
                             </div>
+                        <div class="alert alert-danger" style="display:none"></div>
 
 
-                        </form>
                     </div>
                 </div>
             </div>
@@ -809,10 +816,16 @@
         });
     </script>
 
+
+
+
+
     <!-- SCRIPT PARA VALIDACION DE MODAL -->
     <script>
         jQuery(document).ready(function(){
             jQuery('#ajaxSubmit').click(function(e){
+                $('#contenido').hide();
+                $('#loading-screen').show();
                 e.preventDefault();
                 $.ajaxSetup({
                     headers: {
@@ -834,9 +847,10 @@
                         encuestacliente: $('input#encuestacliente').prop('checked')
                     },
                     success: function(result){
-
+                        $('#loading-screen').hide();
                         if(result.errors)
                         {
+                            $('#contenido').show();
                             jQuery('.alert-danger').html('');
 
                             jQuery.each(result.errors, function(key, value){

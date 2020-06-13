@@ -362,10 +362,16 @@
 
                     <div class="modal fade anotacionot" tabindex="-1" role="dialog" aria-labelledby="anotacionot" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
+
+                            <div id="loading-screen" style="display: none; position: absolute; left: 50%; top: 50%; z-index: 1000; height: 80px; width: 80px;">
+                                <img src="../adminlte/img/5-0.gif" height="40">
+                                <b>Cargando...</b>
+                            </div>
+
+                            <div class="modal-content" id="contenido">
 
                                     <div class="card card-warning">
-                                                    <form METHOD="post" action="{{ route('annotations.store') }}" class="form-horizontal" autocomplete="off">
+                                                    <form METHOD="get" action="{{ route('storecliente') }}" class="form-horizontal" autocomplete="off">
                                                     {{csrf_field()}}
 
                                                     <!-- Seccion Titular -->
@@ -425,7 +431,7 @@
 
                                                                 <!-- Botones de Formulario -->
                                                                 <div class="card-footer">
-                                                                    <button type="submit" class="btn btn-info">Ingresar</button>
+                                                                    <button  class="btn btn-info" id="ajaxSubmit">Ingresar</button>
                                                                     <button type="reset" class="btn btn-default float-right">Limpiar</button>
                                                                 </div>
                                                             </div>
@@ -433,6 +439,7 @@
 
                                                     </form>
                                     </div>
+                                <div class="alert alert-danger" style="display:none"></div>
                             </div>
                         </div>
                     </div>
@@ -528,7 +535,48 @@
 
     <!-- /.content-wrapper -->
 
+        <!-- SCRIPT PARA VALIDACION DE MODAL -->
+        <script>
+            jQuery(document).ready(function(){
+                jQuery('#ajaxSubmit').click(function(e){
+                    $('#contenido').hide();
+                    $('#loading-screen').show();
+                    e.preventDefault();
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    jQuery.ajax({
+                        url: "{{ route('storecliente') }}",
+                        method: 'GET',
+                        data: {
+                            orden: jQuery('#orden').val(),
+                            anotacion: jQuery('#anotacion').val(),
+                            iddecliente: jQuery('#iddecliente').val(),
+                        },
+                        success: function(result){
+                            $('#loading-screen').hide();
+                            if(result.errors)
+                            {
+                                $('#contenido').show();
+                                jQuery('.alert-danger').html('');
 
+                                jQuery.each(result.errors, function(key, value){
+                                    jQuery('.alert-danger').show();
+                                    jQuery('.alert-danger').append('<li>'+value+'</li>');
+                                });
+                            }
+                            else
+                            {
+                                jQuery('.alert-danger').hide();
+                                jQuery('.anotacionot').hide();
+                                location.reload();
+                            }
+                        }});
+                });
+            });
+        </script>
 
 
     <!-- jQuery -->

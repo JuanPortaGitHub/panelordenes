@@ -83,8 +83,6 @@ class AnnotationController extends Controller
                     //PASOS CONSULTA DE PINCODE
                     $pin = $request->input('pincode'); //Obtengo pincode de formulario (puede ser formulario de ordenes/anotaciones o de consultaorden (de cliente)
 
-        if($pin<9999){ //el pincode que identifica los clientes es 9999, cualquier otro nro entra en el if para identificar que usuario/tecnico hizo la anotacion
-
                     $tecnico = DB::table('users')->where('pincode', $pin)->first(); //hago consulta a BD para saber cual es el ID usuario/tecnico al que corresponde el pin
 
                     $nuevaanotacion->user_id = $tecnico->id; //Asocio el id del usuario/tecnico para grabar en la anotacion
@@ -153,15 +151,7 @@ class AnnotationController extends Controller
             $ordenacambiar->save();
 
 
-        }else{ //Alternativa cuando el pincode es 9999 (o sea que anota un cliente)
 
-                    $iddecliente = $request->input('iddecliente'); //obtengo el id de cliente
-                    $nuevaanotacion->cliente_id = $iddecliente; //asocio id de cliente a columna cliente_id de tabla anotaciones
-                    $nuevaanotacion->visiblecliente = 1;
-
-        $nuevaanotacion->save(); //guardo anotacion
-
-        }
 
         return back();
 
@@ -275,7 +265,42 @@ class AnnotationController extends Controller
         return back();
     }
 
+    public function storecliente(Request $request){
+        {
 
+            $validator = \Validator::make($request->all(), [
+                'orden' => 'required',
+                'anotacion' => 'required',
+            ]);
+
+            if ($validator->fails())
+            {
+                return response()->json(['errors'=>$validator->errors()->all()]);
+            }
+
+
+
+
+            // CAMBIOS EN TABLA ANOTACIONES
+
+            $nuevaanotacion = new Annotation();
+
+
+                $nuevaanotacion->ot_id = $request->input('orden');
+                $nuevaanotacion->anotacion = $request->input('anotacion');
+                $iddecliente = $request->input('iddecliente'); //obtengo el id de cliente
+                $nuevaanotacion->cliente_id = $iddecliente; //asocio id de cliente a columna cliente_id de tabla anotaciones
+                $nuevaanotacion->visiblecliente = 1;
+
+                $nuevaanotacion->save(); //guardo anotacion
+
+
+
+            return back();
+
+        }
+
+    }
 
 
 

@@ -28,6 +28,7 @@ Route::get('/email', function (){
 Route::get('/estadodeorden', 'OtController@estadodeorden')->name('estadodeorden');
 Route::get('/consultaorden', 'OtController@consultaorden')->name('consultaorden');
 Route::get('/confirmapresupuesto', 'AnnotationController@confirmapresupuesto')->name('confirmapresupuesto')->middleware('auth');
+Route::get('/anotacioncliente', 'AnnotationController@storecliente')->name('storecliente');
 
 
 //Ruta para obtener la lista de clientes en la creacion de ordenes de trabajo (para busqueda y autocompletar)
