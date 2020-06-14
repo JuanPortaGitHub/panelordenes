@@ -46,7 +46,7 @@
 
         <section class="content">
 
-            <form METHOD="get" target="_blank" action="{{ route('consultaorden') }}" class="form-horizontal" autocomplete="off">
+            <form METHOD="GET" target="_blank" action="{{ route('consultaorden') }}" class="form-horizontal" autocomplete="off">
             {{csrf_field()}}
 
             <!-- Seccion titular -->
@@ -55,15 +55,16 @@
 
                 <div class="card card-warning">
                     <div class="card-header">
-                        <h3 class="card-title"><b>Estado Orden De trabajo</b></h3>
+                        <h3 style="text-align: center"><b>Estado orden de trabajo</b></h3>
+
                     </div>
 
 
                     <!-- Seccion contenido -->
 
-                    <div class="card-body">
+                    <div class="card-body" id="contenido">
 
-
+                        <h6 style="text-align: center">Ingrese el nro de orden y contraseña para obtener información y hacer consultas sobre la reparación de su equipo</h6>
 
                         <div class="form-group row">
                             <label for="ot_id" class="col-form-label">Orden De Trabajo</label>
@@ -81,17 +82,27 @@
                         </div>
                         <!-- Botones de Formulario -->
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-info">Buscar</button>
-
+                            <button  class="btn btn-info" id="carga">Ingresar</button>
+                            <div id="loading-screen" style="display: none">
+                                <img src="../adminlte/img/5-0.gif" height="40">
+                                <b>Cargando...</b>
+                            </div>
                         </div>
 
                     </div>
                 </div>
 
             </form>
+            <div class="alert alert-danger" style="display:none"></div>
         </section>
             <!-- CIERRE DE FORMULARIO CONSULTA OT -->
     </div>
+
+
+
+
+
+
 
 </body>
 </html>

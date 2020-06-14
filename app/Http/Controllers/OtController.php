@@ -290,6 +290,16 @@ class OtController extends Controller
     public function consultaorden(Request $request){
 
 
+        $validator = \Validator::make($request->all(), [
+            'ot_id' => 'required',
+            'passwordot' => 'required|exists:ots,passwordot',
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
+
         //PARA VALIDAR QUE OT Y PASSWORD ESTAN BIEN
         //Obtenemos de campos ot_id y passwordot de view estadodeorden
         $otconsultada = $request->input('ot_id');

@@ -431,7 +431,7 @@
 
                                                                 <!-- Botones de Formulario -->
                                                                 <div class="card-footer">
-                                                                    <button  class="btn btn-info" id="ajaxSubmit">Ingresar</button>
+                                                                    <button  class="btn btn-info" id="ajaxSubmit">Ingresar consulta</button>
                                                                     <button type="reset" class="btn btn-default float-right">Limpiar</button>
                                                                 </div>
                                                             </div>
