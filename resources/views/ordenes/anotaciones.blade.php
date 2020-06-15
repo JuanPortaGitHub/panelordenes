@@ -784,34 +784,44 @@
 
         $(function() {
             $('#presupuestoenviado').change(function () {
+                var fecha=$('#fechaentregaenviada').val();
+
+                var nueva=fecha.split(" ")[0].split("-").reverse().join("-");
                 $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
                     "Diagnóstico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo: \n" +
                     "" +"\n" +
                     "Diagnóstico: " + $('#diagnosticoenviado').val() +"\n" +
                     "Presupuesto de reparación: $ " + $('#presupuestoenviado').val() +"\n" +
-                    "Fecha de reparación aproximada: " + $('#fechaentregaenviada').val() +"\n");
+                    "Fecha de reparación aproximada: " + nueva);
             });
         });
 
         $(function() {
             $('#fechaentregaenviada').change(function () {
+                var fecha=$('#fechaentregaenviada').val();
+
+                var nueva=fecha.split(" ")[0].split("-").reverse().join("-");
+
                 $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
                     "Diagnóstico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo: \n" +
                     "" +"\n" +
                     "Diagnóstico: " + $('#diagnosticoenviado').val() +"\n" +
                     "Presupuesto de reparación: $ " + $('#presupuestoenviado').val() +"\n" +
-                    "Fecha de reparación aproximada: " + $('#fechaentregaenviada').val() +"\n");
+                    "Fecha de reparación aproximada: " + nueva);
             });
         });
 
         $(function() {
             $('#diagnosticoenviado').change(function () {
+                var fecha=$('#fechaentregaenviada').val();
+
+                var nueva=fecha.split(" ")[0].split("-").reverse().join("-");
                 $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
                     "Diagnóstico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo: \n" +
                     "" +"\n" +
                     "Diagnóstico: " + $('#diagnosticoenviado').val() +"\n" +
                     "Presupuesto de reparación: $ " + $('#presupuestoenviado').val() +"\n" +
-                    "Fecha de reparación aproximada: " + $('#fechaentregaenviada').val() +"\n");
+                    "Fecha de reparación aproximada: " + nueva);
             });
         });
     </script>
