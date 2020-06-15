@@ -193,7 +193,7 @@
                         <div class="form-group row">
                             <label for="sucursal" class="col-sm-2 col-form-label">Sucursal</label>
                             <div class="col-sm-10">
-                                <select name="sucursal" class="form-control" placeholder="Sucursal ..." required>
+                                <select name="sucursal" id="sucursal" class="form-control" placeholder="Sucursal ..." required>
                                     <option value=""></option>
                                     @foreach ($sucursales as $sucursal)
                                         <option value="{{ $sucursal['id'] }}">{{ $sucursal['sucursal'] }}</option>
@@ -204,7 +204,7 @@
                         <div class="form-group row">
                             <label for="area" class="col-sm-2 col-form-label">Area Reparacion</label>
                             <div class="col-sm-10">
-                                <select name="area" class="form-control" placeholder="Indicar si corresponde a hardware o software ..." required>
+                                <select name="area" id="area" class="form-control" placeholder="Indicar si corresponde a hardware o software ..." required>
                                     <option value=""></option>
                                     @foreach ($areas as $area)
                                         <option value="{{ $area['id'] }}">{{ $area['areas'] }}</option>
@@ -214,27 +214,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="estado" class="col-sm-2 col-form-label">Estado</label>
+                            <label for="nombretecnico1" class="col-sm-2 col-form-label">Tecnico Encargado</label>
                             <div class="col-sm-10">
-                                <select name="estado" class="form-control" placeholder="Indicar estado de la orden ..." required>
-
-                                    <option value="{{ $estados[0]->id }}">{{ $estados[0]->estadoot }}</option>
-                                    <option value="{{ $estados[1]->id }}">{{ $estados[1]->estadoot }}</option>
-                                    <option value="{{ $estados[4]->id }}">{{ $estados[4]->estadoot }}</option>
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="nombretecnico" class="col-sm-2 col-form-label">Tecnico Encargado</label>
-                            <div class="col-sm-10">
-                                <select name="nombretecnico" class="form-control" placeholder="Indicar Tecnico a cargo ...">
+                                <select name="nombretecnico" id="nombretecnico" class="form-control" placeholder="Indicar Tecnico a cargo ..." required>
+                                    <option value=""></option>
                                     @foreach ($tecnicos as $tecnico)
                                         <option value="{{ $tecnico['id'] }}">{{ $tecnico['name'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <label for="necesitarepuesto" class="col-sm-2 col-form-label">Repuesto</label>
                             <div class="col-sm-10">
@@ -266,6 +256,18 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="estado" class="col-sm-2 col-form-label">Estado</label>
+                            <div class="col-sm-10">
+                                <select name="estado" class="form-control" placeholder="Indicar estado de la orden ..." required>
+
+                                    <option value="{{ $estados[0]->id }}">{{ $estados[0]->estadoot }}</option>
+                                    <option value="{{ $estados[1]->id }}">{{ $estados[1]->estadoot }}</option>
+                                    <option value="{{ $estados[4]->id }}">{{ $estados[4]->estadoot }}</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="fechaingreso" class="col-sm-2 col-form-label">Fecha Ingreso</label>
                             <div class="col-sm-10">
                                 <input name="fechaingreso" type="datetime-local" class="form-control" value="{{now()->format('Y-m-d\TH:i')}}" readonly required>
@@ -274,7 +276,7 @@
                         <div class="form-group row">
                             <label for="fechaentrega" class="col-sm-2 col-form-label">Fecha Entrega</label>
                             <div class="col-sm-10">
-                                <input name="fechaentrega" type="date" class="form-control" required value={{ $fechaentrega }}>
+                                <input name="fechaentrega" type="date" class="form-control" required value={{ $fechaentrega }} required>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -414,6 +416,62 @@
         });
 
     });
+</script>
+<script>
+
+    $(document).ready(function() {
+
+    $(function() {
+        $('#area').change(function(){
+            if($('#area').val() == '1'){
+            $('#nombretecnico').val("7")
+
+
+            }
+        });
+    });
+    });
+
+
+    $(function() {
+        $('#area').change(function(){
+            if($('#area').val() == '2'&&$('#sucursal').val() == '1') {
+                $('#nombretecnico').val("8")
+            }
+                if($('#area').val() == '2'&&$('#sucursal').val() == '2'){
+                    $('#nombretecnico').val("9")
+
+            }
+        });
+
+    });
+
+    $(function() {
+        $('#sucursal').change(function(){
+            if($('#area').val() == '1'){
+                $('#nombretecnico').val("7")
+
+
+            }
+        });
+    });
+
+
+    $(function() {
+        $('#sucursal').change(function(){
+            if($('#area').val() == '2'&&$('#sucursal').val() == '1') {
+                $('#nombretecnico').val("8")
+            }
+            if($('#area').val() == '2'&&$('#sucursal').val() == '2'){
+                $('#nombretecnico').val("9")
+
+            }
+        });
+
+    });
+
+
+
 </script>
 
 <!-- jQuery -->

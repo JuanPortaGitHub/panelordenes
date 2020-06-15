@@ -16,18 +16,12 @@
     <link rel="stylesheet" href="adminlte/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <style>
-        html, body {
-            width: 60%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
 
-        }
-        </style>
 </head>
 
 <body>
+
+
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -93,7 +87,18 @@
                 </div>
 
             </form>
-            <div class="alert alert-danger" style="display:none"></div>
+            @if(count($errors))
+                <div class="alert alert-danger">
+
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+
+                </div>
+
+            @endif
         </section>
             <!-- CIERRE DE FORMULARIO CONSULTA OT -->
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EstadodeordenRequest;
 use App\Mail\mailingreso;
 use Dompdf\Dompdf;
 use Carbon\Carbon;
@@ -287,20 +288,14 @@ class OtController extends Controller
     //Obtiene parametros de "estadoconsulta" y va a consultaorden para que lleve a la pagina de informacion de la orden
 
 
-    public function consultaorden(Request $request){
+    public function consultaorden(EstadodeordenRequest $request){
 
-
-        $validator = \Validator::make($request->all(), [
-            'ot_id' => 'required',
-            'passwordot' => 'required|exists:ots,passwordot',
-        ]);
-
-        if ($validator->fails())
-        {
-            return response()->json(['errors'=>$validator->errors()->all()]);
-        }
 
         //PARA VALIDAR QUE OT Y PASSWORD ESTAN BIEN
+
+
+
+
         //Obtenemos de campos ot_id y passwordot de view estadodeorden
         $otconsultada = $request->input('ot_id');
         $passwordconsultado = $request->input('passwordot');
