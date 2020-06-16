@@ -16,7 +16,7 @@ Ver orden de trabajo
 
     Rondeau 189 - (0351) 4220777
 
-    Dr. Achaval Rodriguez 6 - (0351) 4256090
+    Dr. Achaval Rodriguez 14 - (0351) 4256090
 
     www.hotspotcomputacion.com
 @endcomponent
