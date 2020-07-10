@@ -1,5 +1,6 @@
 @extends('layouts.layoutsecciones')
-
+<link rel="stylesheet" href="../adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="../adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 @section('content')
 
 
@@ -22,89 +23,89 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
+            <div class="card">
 
-                        <div class="card-body">
-                            <table id="listaordenes" class="table table-responsive table-bordered table-striped">
-                                <thead>
-                                <tr style="font-size: 90%" align="center">
+                <div class="card-body">
+                    <table id="listaordenes" class="table-bordered display responsive" style="width:100%">
 
-                                    <th>Orden</th>
-                                    <th>Suc</th>
-                                    <th>Tipo</th>
-                                    <th>Apellido</th>
-                                    <th>Nombre</th>
-                                    <th>Estado</th>
+                                        <thead>
+                                        <tr style="text-align: center; height: 2em">
 
-                                    <th>Fecha Ingreso</th>
-                                    <th>Fecha Entrega</th>
-                                    <th>Categoria</th>
-                                    <th>Equipo</th>
+                                            <th>Orden</th>
+                                            <th>Suc</th>
+                                            <th>Tipo</th>
+                                            <th>Apellido</th>
+                                            <th>Nombre</th>
+                                            <th>Estado</th>
 
-                                    <th>Imprimir</th>
+                                            <th>Fecha Ingreso</th>
+                                            <th>Fecha Entrega</th>
+                                            <th>Categoria</th>
+                                            <th>Equipo</th>
 
-                                </tr>
-                                </thead>
-                                <tbody>
+                                            <th>Imprimir</th>
 
-
-                                @if($orders)
-                                    @foreach($orders as $order)
-
-                                <tr style="font-size: 80%" align="center">
-
-                                    <td><a href="{{route('ordenes.anotaciones', $order->ot_id)}}"><b>{{$order->ot_id}}</b></a></td>
-                                    <td>{{$order->sucursal->sucursal}}</td>
-                                    <td>{{$order->area->areas}}</td>
-                                    <td>{{$order->cliente->apellido}}</td>
-                                    <td>{{$order->cliente->nombre}}</td>
-                                    <td>{{$order->estado->estadoot}}</td>
-
-                                    <td>{{ \Carbon\Carbon::parse($order->fechaingreso)->format('d-m-y H:i') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($order->fechaentrega)->format('d-m-y') }}</td>
-                                    <td>{{$order->Equipo->tipodeequipo->tipodeequipo}}</td>
-                                    <td>{{$order->equipo->modelo}}</td>
-
-                                    <td><a href="{{route('ordenes.showpdf', $order->ot_id)}}"><i class="fas fa-print"></i></a></td>
-                                </tr>
-
-                                    @endforeach
-
-                                @endif
+                                        </tr>
+                                        </thead>
+                                        <tbody>
 
 
-                                </tbody>
-                                <tfoot>
-                                <tr style="font-size: 90%" align="center">
+                                        @if($orders)
+                                            @foreach($orders as $order)
 
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                        <tr style="text-align:center; height: 2em">
+
+                                            <td><a href="{{route('ordenes.anotaciones', $order->ot_id)}}"><b>{{$order->ot_id}}</b></a></td>
+                                            <td>{{$order->sucursal->sucursal}}</td>
+                                            <td>{{$order->area->areas}}</td>
+                                            <td>{{$order->cliente->apellido}}</td>
+                                            <td>{{$order->cliente->nombre}}</td>
+                                            <td>{{$order->estado->estadoot}}</td>
+
+                                            <td>{{ \Carbon\Carbon::parse($order->fechaingreso)->format('d-m-y H:i') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($order->fechaentrega)->format('d-m-y') }}</td>
+                                            <td>{{$order->Equipo->tipodeequipo->tipodeequipo}}</td>
+                                            <td>{{$order->equipo->modelo}}</td>
+
+                                            <td><a href="{{route('ordenes.showpdf', $order->ot_id)}}"><i class="fas fa-print"></i></a></td>
+
+                                        </tr>
+
+                                            @endforeach
+
+                                        @endif
 
 
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+
+
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
+
+
         </section>
         <!-- /.content -->
+
+
+
+
     </div>
     <!-- /.content-wrapper -->
 
@@ -129,7 +130,24 @@
     $(document).ready(function () {
     $('#listaordenes').dataTable({
 
+        "language": {
+            "paginate": {
+                "next": "Siguiente",
+                "previous": "Anterior",
+            },
+            "search": "Buscar:",
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "No se encuentra",
+            "info": "Muestra página _PAGE_ de _PAGES_",
+            "infoEmpty": "No hay anotaciones",
+            "infoFiltered": "(Filtrado de _MAX_ registros totales)",
 
+        },
+
+
+        "autoWidth": true,
+
+        "ordering": false,
 
         rowCallback: function(row, data, index){
             if(data[5] == 'Urgente'){
@@ -178,7 +196,6 @@
 
 
     </script>
-
 
     <!-- Bootstrap 4 -->
     <script src="../adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

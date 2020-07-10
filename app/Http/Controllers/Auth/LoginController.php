@@ -26,7 +26,7 @@ class LoginController extends Controller
          *
          * @var string
          */
-        //protected $redirectTo = '/ordenes';
+        protected $redirectTo = '/ordenes';
 
         /**
          * Create a new controller instance.
@@ -38,17 +38,4 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    /*public function login(LoginRequest $request)
-    {
-
-        $user = User::select('id')->where('user_name', $request->user_name)->where('pin', $request->pin)->first();
-
-        if ($user) {
-            Auth::loginUsingId($user->id);
-            return redirect()->intended('/dashboard');
-        } else {
-            return redirect()->back()->with('app_warning', 'Credenciales Invalidas!')->withInput();
-        }
-
-    }*/
 }

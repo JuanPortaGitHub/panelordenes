@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\mailingreso;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
@@ -18,16 +19,17 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('dashboard')->middleware('auth');;
+Route::view('/', 'index');
+Route::get('/panelot', 'HomeController@index')->name('dashboard')->middleware('auth');
 
 Route::get('/email', function (){
     Mail::to('crjuanporta@gmail.com')->send(new mailingreso());
 });
 
 
-Route::get('/estadodeorden', 'OtController@estadodeorden')->name('estadodeorden');
-Route::get('/consultaorden', 'OtController@consultaorden')->name('consultaorden');
-Route::get('/confirmapresupuesto', 'AnnotationController@confirmapresupuesto')->name('confirmapresupuesto')->middleware('auth');
+Route::get('/orden/consulta', 'OtController@estadodeorden')->name('estadodeorden');
+Route::get('/orden/estado', 'OtController@consultaorden')->name('consultaorden');
+Route::get('/confirmapresupuesto', 'AnnotationController@confirmapresupuesto')->name('confirmapresupuesto');
 Route::get('/anotacioncliente', 'AnnotationController@storecliente')->name('storecliente');
 
 
@@ -49,6 +51,27 @@ Route::resource('equipos', 'EquiposController')->middleware('auth');
 Route::resource('annotations', 'AnnotationController')->middleware('auth');
 
 
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
+
+
+
+Route::get('/cleareverything', function () {
+    $clearcache = Artisan::call('cache:clear');
+    echo "Cache cleared<br>";
+
+    $clearview = Artisan::call('view:clear');
+    echo "View cleared<br>";
+
+    $clearconfig = Artisan::call('config:cache');
+    echo "Config cleared<br>";
+
+    $cleardebugbar = Artisan::call('debugbar:clear');
+    echo "Debug Bar cleared<br>";
+});
 
 
 

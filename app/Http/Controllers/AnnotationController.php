@@ -80,75 +80,76 @@ class AnnotationController extends Controller
 
 
 
-                    //PASOS CONSULTA DE PINCODE
-                    $pin = $request->input('pincode'); //Obtengo pincode de formulario (puede ser formulario de ordenes/anotaciones o de consultaorden (de cliente)
+        //PASOS CONSULTA DE PINCODE
+        $pin = $request->input('pincode'); //Obtengo pincode de formulario (puede ser formulario de ordenes/anotaciones o de consultaorden (de cliente)
 
-                    $tecnico = DB::table('users')->where('pincode', $pin)->first(); //hago consulta a BD para saber cual es el ID usuario/tecnico al que corresponde el pin
+        $tecnico = DB::table('users')->where('pincode', $pin)->first();
+        //hago consulta a BD para saber cual es el ID usuario/tecnico al que corresponde el pin
 
-                    $nuevaanotacion->user_id = $tecnico->id; //Asocio el id del usuario/tecnico para grabar en la anotacion
-
-
-
-                    //PASOS para verificar que el checkbox visiblecliente esta o no tildado
-                    if($request->input('visiblecliente')== "Visible"){
-                        //Checkbox checked
-                            $nuevaanotacion->visiblecliente = 1;
-                    }else{
-                        //Checkbox not checked
-                            $nuevaanotacion->visiblecliente = 0;
-                    }
+        $nuevaanotacion->user_id = $tecnico->id; //Asocio el id del usuario/tecnico para grabar en la anotacion
 
 
 
-
-
-
-            // CAMBIOS EN TABLA ORDENES
-
-            //Obtengo de la view la ot
-            $otabuscar = $request->input('orden');
-
-            //Busco la ot en la base de datos
-            $ordenacambiar=Ot::where('ot_id', '=', $otabuscar)->firstOrFail();
-
-            $ordenacambiar->presupuesto = $request->input('presupuestoenviado');
-            $ordenacambiar->fechaentrega = $request->input('fechaentregaenviada');
-            $ordenacambiar->sintoma = $request->input('diagnosticoenviado');
-            $ordenacambiar->estado_id = $request->input('cambioorden');
-            $estadonuevo=$ordenacambiar->estado_id;
-
-            if($estadonuevo != 3){
-
-                $nuevaanotacion->interaccioncliente=0;
-
-            }else{
-                $nuevaanotacion->interaccioncliente=1;
-            };
-
-
-            //mando mail en base a si esta presupuestada, lista o con encuesta (esta ultima si tiene tildado el checkbox)
-            if($estadonuevo == 3){
-
-                Mail::to($ordenacambiar->cliente->mail)->queue(new presup($ordenacambiar));
-
-            }elseif($estadonuevo == 7){
-
-                Mail::to($ordenacambiar->cliente->mail)->queue(new listo($ordenacambiar));
-
-            }elseif($estadonuevo == 8 and $request->input('encuestacliente'==true)){
-
-                Mail::to($ordenacambiar->cliente->mail)->queue(new entregado($ordenacambiar));
-
-            };
+        //PASOS para verificar que el checkbox visiblecliente esta o no tildado
+        if($request->input('visiblecliente')== "Visible"){
+            //Checkbox checked
+            $nuevaanotacion->visiblecliente = 1;
+        }else{
+            //Checkbox not checked
+            $nuevaanotacion->visiblecliente = 0;
+        }
 
 
 
 
-            //Guarda anotacion
-            $nuevaanotacion->save();
 
-            //Guarda OT
-            $ordenacambiar->save();
+
+        // CAMBIOS EN TABLA ORDENES
+
+        //Obtengo de la view la ot
+        $otabuscar = $request->input('orden');
+
+        //Busco la ot en la base de datos
+        $ordenacambiar=Ot::where('ot_id', '=', $otabuscar)->firstOrFail();
+
+        $ordenacambiar->presupuesto = $request->input('presupuestoenviado');
+        $ordenacambiar->fechaentrega = $request->input('fechaentregaenviada');
+        $ordenacambiar->sintoma = $request->input('diagnosticoenviado');
+        $ordenacambiar->estado_id = $request->input('cambioorden');
+        $estadonuevo=$ordenacambiar->estado_id;
+
+        if($estadonuevo != 3){
+
+            $nuevaanotacion->interaccioncliente=0;
+
+        }else{
+            $nuevaanotacion->interaccioncliente=1;
+        };
+
+
+        //mando mail en base a si esta presupuestada, lista o con encuesta (esta ultima si tiene tildado el checkbox)
+        if($estadonuevo == 3){
+
+            Mail::to($ordenacambiar->cliente->mail)->queue(new presup($ordenacambiar));
+
+        }elseif($estadonuevo == 7){
+
+            Mail::to($ordenacambiar->cliente->mail)->queue(new listo($ordenacambiar));
+
+        }elseif($estadonuevo == 8 and $request->input('encuestacliente'==true)){
+
+            Mail::to($ordenacambiar->cliente->mail)->queue(new entregado($ordenacambiar));
+
+        };
+
+
+
+
+        //Guarda anotacion
+        $nuevaanotacion->save();
+
+        //Guarda OT
+        $ordenacambiar->save();
 
 
 
@@ -239,7 +240,7 @@ class AnnotationController extends Controller
             $nuevaanotacion->save();
 
 
-        //Si se presiona el boton submit con valor Rechaza cambia a estado 6 (rechazado)
+            //Si se presiona el boton submit con valor Rechaza cambia a estado 6 (rechazado)
         } else if($request->get('submit') == 'Rechaza') {
 
             $otconfirmadaorechazada->estado_id=6;
@@ -286,13 +287,13 @@ class AnnotationController extends Controller
             $nuevaanotacion = new Annotation();
 
 
-                $nuevaanotacion->ot_id = $request->input('orden');
-                $nuevaanotacion->anotacion = $request->input('anotacion');
-                $iddecliente = $request->input('iddecliente'); //obtengo el id de cliente
-                $nuevaanotacion->cliente_id = $iddecliente; //asocio id de cliente a columna cliente_id de tabla anotaciones
-                $nuevaanotacion->visiblecliente = 1;
+            $nuevaanotacion->ot_id = $request->input('orden');
+            $nuevaanotacion->anotacion = $request->input('anotacion');
+            $iddecliente = $request->input('iddecliente'); //obtengo el id de cliente
+            $nuevaanotacion->cliente_id = $iddecliente; //asocio id de cliente a columna cliente_id de tabla anotaciones
+            $nuevaanotacion->visiblecliente = 1;
 
-                $nuevaanotacion->save(); //guardo anotacion
+            $nuevaanotacion->save(); //guardo anotacion
 
 
 

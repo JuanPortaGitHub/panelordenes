@@ -160,7 +160,7 @@ www.hotspotcomputacion.com</b>
         <td colspan="4" style="font-size: xx-small;border-bottom: 1pt solid black;border-top: 1pt solid black">IMPORTANTE: 1- El cliente declara con su firma que los datos ingresados corresponden con lo entragado y con el trabajo a realizar 2- La fecha de reparacion es siempre estimativa. 3- En trabajos de software, el cliente tiene un plazo de 48hs para realizar reclamos de garantia sin costo. Sino se considera de conformidad. 4- Para retirar el equipo, el cliente debera presentar esta orden de trabajo. Pasados los 30 días a partir de la fecha de recepcion, se facturará un cargo diario en concepto de deposito. En caso de no ser retirado dentro de los 90 días a partir de la fecha, será considerado abandonado en los terminos de los articulos 2375/2524/2525 del Código Civil.</td>
     </tr>
     <tr style="border-top: 1px solid black">
-        <td colspan="4" style="text-align: center; background-color: lightgrey">Ingresa a <b>www.hotspotcomputacion.com/estadodeorden</b></td>
+        <td colspan="4" style="text-align: center; background-color: lightgrey">Ingresa a <b>www.hotspotcomputacion.com/orden/estado</b></td>
 
     </tr>
     <tr>
@@ -306,7 +306,7 @@ www.hotspotcomputacion.com</b>
         <td colspan="4" style="font-size: xx-small;border-bottom: 1pt solid black;border-top: 1pt solid black">IMPORTANTE: 1- El cliente declara con su firma que los datos ingresados corresponden con lo entragado y con el trabajo a realizar 2- La fecha de reparacion es siempre estimativa. 3- En trabajos de software, el cliente tiene un plazo de 48hs para realizar reclamos de garantia sin costo. Sino se considera de conformidad. 4- Para retirar el equipo, el cliente debera presentar esta orden de trabajo. Pasados los 30 días a partir de la fecha de recepcion, se facturará un cargo diario en concepto de deposito. En caso de no ser retirado dentro de los 90 días a partir de la fecha, será considerado abandonado en los terminos de los articulos 2375/2524/2525 del Código Civil.</td>
     </tr>
     <tr style="border-top: 1px solid black">
-        <td colspan="4" style="text-align: center; background-color: lightgrey">Ingresa a <b>www.hotspotcomputacion.com/estadodeorden</b></td>
+        <td colspan="4" style="text-align: center; background-color: lightgrey">Ingresa a <b>www.hotspotcomputacion.com/orden/estado</b></td>
 
     </tr>
     <tr>

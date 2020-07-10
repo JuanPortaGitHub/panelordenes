@@ -19,6 +19,7 @@
 
 
 
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -194,7 +195,7 @@
 
               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                   @foreach ($users as $user)
-                      <a class="dropdown-item" href="{{route('ordenes.panelusuario', $user->id)}}">{{$user->name}}</a>
+                      <a class="dropdown-item" href="{{route('ordenes.panelusuario', $user->id)}}"><p style="color: black"><b>{{$user->name}}</b></p></a>
                   @endforeach
 
               </div>
@@ -285,8 +286,41 @@
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-      <h5>Title</h5>
-      <p>Sidebar content</p>
+      <h5>Menu</h5>
+
+        <div class="dropdown show">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Elegir usuario
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                @foreach ($users as $user)
+                    <a class="dropdown-item" href="{{route('ordenes.panelusuario', $user->id)}}"><p style="color: black"><b>{{$user->name}}</b></p></a>
+                @endforeach
+
+            </div>
+        </div>
+
+            <a href="{{route('ordenes.panelusuario', $user_id=Auth::user()->id)}}">
+                <p>Panel Usuario</p>
+            </a>
+
+            <a href="{{ URL::route('ordenes.create')}}">
+                <p>Carga Ordenes</p>
+            </a>
+
+            <a href="{{ URL::route('ordenes.index')}}">
+                <p>Listado de Ordenes</p>
+            </a>
+
+            <a href="{{ URL::route('clientes.index')}}">
+                <p>Listado Clientes</p>
+            </a>
+
+            <a href="#">
+
+                <p>Panel Admin</p>
+            </a>
     </div>
   </aside>
   <!-- /.control-sidebar -->
@@ -295,7 +329,7 @@
   <footer class="main-footer">
     <!-- To the right -->
     <div class="float-right d-none d-sm-inline">
-      Anything you want
+
     </div>
     <!-- Default to the left -->
     <strong>Copyright &copy; 2020 <a href="www.hotspotcomputacion.com">HotSpot Servicio Técnico</a>.</strong>

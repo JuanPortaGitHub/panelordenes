@@ -118,7 +118,7 @@ class OtController extends Controller
 
             if($compruebaultimaOT===Null){
 
-                $ultimaOT=6100;
+                $ultimaOT=9000;
                 $nuevaorden->ot_id = $ultimaOT+1;
             }else{
 
@@ -339,21 +339,21 @@ class OtController extends Controller
 
         $user=User::where('id', '=',$user_id)->firstOrFail();
 
-        $orders=Ot::where('user_id',$user_id)->get();
+        $orders=Ot::where('user_id',$user_id)->orderby('ot_id', 'desc')->get();
 
         $userid=$user->id;
 
         $annotations=DB::table('annotations')
+
+            //Combino tabla anotaciones, clientes y usuario(tecnicos) para hacer consulta solo de anotaciones correspondientes a ordenes del tecnico
+            ->orderby('ot_id', 'desc')
+            ->leftjoin('users','users.id','=', 'annotations.user_id')
+            ->leftjoin('clientes','clientes.id','=', 'annotations.cliente_id')
             ->join('ots', 'ots.ot_id', '=', 'annotations.ot_id')
-            ->select('annotations.anotacion', 'annotations.created_at','annotations.ot_id', 'ots.user_id')
+            ->select('annotations.anotacion', 'annotations.created_at','annotations.ot_id', 'users.name as tecnico','clientes.apellido as apellidocliente','clientes.nombre as nombrecliente','ots.user_id')
             ->where('ots.user_id','=',$userid)
+
             ->get();
-
-
-        /*$annotations = Annotation::wherehas(['ot' => function($query) use ($userid) {
-            $query->where('user_id','=',$userid);
-        }])->get();
-        */
 
 
 

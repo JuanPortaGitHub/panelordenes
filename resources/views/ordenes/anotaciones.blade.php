@@ -1,5 +1,7 @@
 @extends('layouts.layoutsecciones')
-
+<!-- DataTables -->
+<link rel="stylesheet" href="../adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="../adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 @section('content')
 
 
@@ -473,18 +475,18 @@
 
 
 
-                            <div class="card-header">
-                                <h3 class="card-title"><b>Ingresar a Orden de Trabajo</b></h3>
-                            </div>
+                        <div class="card-header">
+                            <h3 class="card-title"><b>Ingresar a Orden de Trabajo</b></h3>
+                        </div>
 
                         <!-- Seccion Titular IMPORTANTE EL ENVIO DE FORMULARIO SE HACE ABAJO CON UN AJAX MODIFICAR AHI-->
 
 
-                            <!-- Seccion contenido Anotacion> -->
+                        <!-- Seccion contenido Anotacion> -->
 
-                            <div class="modal-body form-horizontal">
-                                <form class="form-horizontal" METHOD="post" action="{{ route('annotations.store') }}"  autocomplete="off">
-                                    {{csrf_field()}}
+                        <div class="modal-body form-horizontal">
+                            <form class="form-horizontal" METHOD="post" action="{{ route('annotations.store') }}"  autocomplete="off">
+                                {{csrf_field()}}
 
 
 
@@ -492,35 +494,35 @@
                                     <label for="orden">Orden de Trabajo</label>
                                     <input name="orden" id="orden" type="text" class="form-control" value="{{$anotacionOt->ot_id}}">
                                 </div>
-                                    <div class="row">
-                                <div class="form-group">
-                                    <label for="visiblecliente">Aviso a cliente</label>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="visiblecliente">Aviso a cliente</label>
 
-                                    <select name="visiblecliente" id="visiblecliente" class="form-control" placeholder="" required>
-                                        <option value="No visible" selected>No visible a cliente</option>
-                                        <option value="Visible">Visible a cliente</option>
-                                    </select>
+                                        <select name="visiblecliente" id="visiblecliente" class="form-control" placeholder="" required>
+                                            <option value="No visible" selected>No visible a cliente</option>
+                                            <option value="Visible">Visible a cliente</option>
+                                        </select>
 
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="cambioorden">Cambiar estado</label>
-
-                                    <select name="cambioorden" id="cambioorden" class="form-control" required>
-                                        <option selected value="{{$anotacionOt->estado['id']}}">Sin cambio de estado</option>
-                                        @foreach ($estados as $estado)
-                                            <option value="{{ $estado['id'] }}">{{ $estado['estadoot'] }}</option>
-                                        @endforeach
-
-                                    </select>
-
-                                    <div class="form-check" id="encuesta" style="display: none">
-                                        <input name="encuestacliente" type="checkbox" class="form-check-input" id="encuestacliente" checked>
-                                        <label class="form-check-label" for="encuestacliente">Enviar encuesta a cliente</label>
                                     </div>
 
-                                </div>
+                                    <div class="form-group">
+                                        <label for="cambioorden">Cambiar estado</label>
+
+                                        <select name="cambioorden" id="cambioorden" class="form-control" required>
+                                            <option selected value="{{$anotacionOt->estado['id']}}">Sin cambio de estado</option>
+                                            @foreach ($estados as $estado)
+                                                <option value="{{ $estado['id'] }}">{{ $estado['estadoot'] }}</option>
+                                            @endforeach
+
+                                        </select>
+
+                                        <div class="form-check" id="encuesta" style="display: none">
+                                            <input name="encuestacliente" type="checkbox" class="form-check-input" id="encuestacliente" checked>
+                                            <label class="form-check-label" for="encuestacliente">Enviar encuesta a cliente</label>
+                                        </div>
+
                                     </div>
+                                </div>
 
 
                                 <div class="form-group" id="infopresupuesto" name="infopresupuesto">
@@ -528,18 +530,18 @@
                                         <label for="diagnosticoenviado">Diagnóstico / Trabajo a realizar</label>
                                         <textarea class="form-control" rows="3"  name="diagnosticoenviado" id="diagnosticoenviado" style="font-size: small">{{$anotacionOt->sintoma}}</textarea>
                                     </div>
-                            <div class="row">
-                                    <div class="form-group">
-                                        <label for="presupuestoenviado">Presupuesto</label>
-                                        <input name="presupuestoenviado" id="presupuestoenviado" type="text" class="form-control" value={{$anotacionOt->presupuesto}}>
-                                    </div>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <label for="presupuestoenviado">Presupuesto</label>
+                                            <input name="presupuestoenviado" id="presupuestoenviado" type="text" class="form-control" value={{$anotacionOt->presupuesto}}>
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label for="fechaentregaenviada">Fecha reparación aproximada</label>
-                                        <input name="fechaentregaenviada" id="fechaentregaenviada" type="date" class="form-control" value={{$anotacionOt->fechaentrega}}>
+                                        <div class="form-group">
+                                            <label for="fechaentregaenviada">Fecha reparación aproximada</label>
+                                            <input name="fechaentregaenviada" id="fechaentregaenviada" type="date" class="form-control" value={{$anotacionOt->fechaentrega}}>
+                                        </div>
                                     </div>
-                            </div>
-                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="anotacion">Anotacion</label>
 
@@ -562,13 +564,13 @@
                                 <!-- Botones de Formulario -->
                                 <div class="card-footer">
                                     <div id="botoningreso">
-                                    <button  class="btn btn-info" id="ajaxSubmit">Ingresar</button>
+                                        <button  class="btn btn-info" id="ajaxSubmit">Ingresar</button>
                                     </div>
 
 
                                 </div>
-                                </form>
-                            </div>
+                            </form>
+                        </div>
                         <div class="alert alert-danger" style="display:none"></div>
 
 
@@ -584,84 +586,77 @@
 
         <!-- /.Tabla listado de anotaciones -->
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="row">
-                        <div class="col-md-12">
 
-                            <div class="card-body table-responsive p-0" style="height:600px">
-                                <table class="table table-head-fixed text-nowrap">
-
-
-
-                                    <thead>
-                                    <tr>
-                                        <th style="width: 15.00%">Fecha</th>
-                                        <th style="width: 70.00%">Anotacion</th>
-                                        <th style="width: 10.00%">Usuario</th>
-                                        <th style="width: 5.00%">Borrar</th>
-
-
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-
-                                    @foreach($anotaciones as $anotacion)
-                                        <tr
-                                            @if(isset($anotacion->cliente_id) && $anotacion->visiblecliente == 1) bgcolor="#ffffe0"
-                                            @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1)) bgcolor="#8fbc8f"
-                                            @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 0)) bgcolor="#d3d3d3"
-
-                                            @endif style="font-size: small">
-                                            <td style="width: 15.00%; font-family: Verdana">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d-m-y H:i') }}</td>
-                                            <td style="white-space: pre;width: 70.00%;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
-
-                                            <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
-
-                                            <td style="width: 10.00%; font-family: Verdana">@if(!isset($anotacion->user_id))
-                                                    {{$anotacion->cliente->nombre}}
-                                                @else
-                                                    {{$anotacion->user->name}}
-                                                @endif</td>
-
-                                            <!-- /.Si es anotacion visible a cliente permite eliminar -->
-
-                                            <td style="width: 5%">@if(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1))
-                                                    <form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post">
-                                                        {{csrf_field()}}
-                                                        <input name="_method" type="hidden" value="DELETE">
-
-                                                        <button class="btn btn-danger btn-xs" type="submit">Borrar</button>
-                                                    </form>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
-
-                                    </tbody>
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- /.card-body -->
-                </div>
-                <!-- /.card -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Lista de Anotaciones</h3>
             </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="anotaciones" class="table compact table-bordered" style="font-size: small; white-space: pre-wrap;word-wrap: break-word; width: 100%">
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Usuario</th>
+                        <th>Anotacion</th>
+
+                        <th>Borrar</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+                    @foreach($anotaciones as $anotacion)
+                        <tr
+                            @if(isset($anotacion->cliente_id) && $anotacion->visiblecliente == 1) bgcolor="#ffffe0"
+                            @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1)) bgcolor="#8fbc8f"
+                            @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 0)) bgcolor="#d3d3d3"
+
+                            @endif style="font-size: small">
+                            <td style="font-family: Verdana">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d-m-y H:i') }}</td>
+
+                            <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
+
+                            <td style="font-family: Verdana; white-space: normal">@if(!isset($anotacion->user_id))
+                                    {{$anotacion->cliente->nombre}}
+                                @else
+                                    {{$anotacion->user->name}}
+                                @endif</td>
+
+                            <td style="white-space: pre-wrap ;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
+
+
+
+                            <!-- /.Si es anotacion visible a cliente permite eliminar -->
+
+                            <td style="white-space: normal">@if(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1))<form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post"><input name="_method" type="hidden" value="DELETE"><button class="btn btn-danger btn-xs" type="submit">Borrar</button></form>@endif</td>
+                        </tr>
+                    @endforeach
+
+
+                    </tbody>
+
+                </table>
+            </div>
+            <!-- /.card-body -->
         </div>
+        <!-- /.card -->
+
+
         <!-- /.row -->
+
+
 
 
     </div><!-- /.container-fluid -->
 
-    <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
+
+
+
+
+
 
 
 
@@ -671,7 +666,36 @@
 
 @section("scriptextra")
 
+    <script>
+        $(function () {
 
+            $('#anotaciones').DataTable({
+                "language": {
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                    },
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se encuentra",
+                    "info": "Muestra pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay anotaciones",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+
+                },
+                "lengthChange": false,
+
+                "autoWidth": false,
+                "responsive": true,
+                "paging": true,
+
+                "searching": false,
+                "ordering": false,
+                "info": true,
+
+            });
+
+        });
+    </script>
     <!-- SCRIPT PARA INFORMACION AUTOMATICA EN ANOTACION SEGUN ESTADO -->
 
     <script>
@@ -758,7 +782,7 @@
                     $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
                         "Hola {{$anotacionOt->cliente->nombre}}!! \n" +
                         "Te informamos que tu equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo para ser retirado. \n" +
-                        "Nuestros horarios son: Lunes a Viernes de 10 a 14 y 16 a 21hs. \n" +
+                        "Nuestros horarios son: Lunes a Viernes de 10 a 19hs. \n" +
                         "Te esperamos!! \n")
 
                 }
@@ -903,6 +927,10 @@
     <script src="../adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../adminlte/js/adminlte.min.js"></script>
-
+    <!-- DataTables -->
+    <script src="../adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="../adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="../adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
 @endsection

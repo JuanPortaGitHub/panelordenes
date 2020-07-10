@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Routing\Route;
 
 class HomeController extends Controller
 {
@@ -20,6 +21,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        redirect('ordenes.listaot');
+        return view('ordenes.listaot');
     }
 }

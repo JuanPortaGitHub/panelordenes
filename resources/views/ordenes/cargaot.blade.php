@@ -20,12 +20,12 @@
         <!-- Main content -->
 
 
-        <!-- Boton modal carga cliente -->
 
 
-        <div class="col-6">
 
+            <div class="col-md-12">
 
+            <!-- Boton modal carga cliente -->
 
     @include('modalformularios.modalcargacliente')
 
@@ -46,6 +46,9 @@
             <form METHOD="post" action="{{ route('ordenes.store') }}" class="form-horizontal">
             {{csrf_field()}}
 
+
+                <div class="row">
+                    <div class="col-md-6">
             <!-- Seccion Titular Cliente -->
 
 
@@ -177,8 +180,13 @@
                         </div>
                     </div>
                 </div>
+                </div>
 
+                </div>
 
+                <div class="row">
+
+                <div class="col-md-6">
 
                 <div class="card card-warning">
                     <!-- Seccion Titular Orden de Trabajo -->
@@ -252,7 +260,7 @@
                         <div class="form-group row">
                             <label for="presupuesto" class="col-sm-2 col-form-label">Presupuesto</label>
                             <div class="col-sm-10">
-                                <input name="Presupuesto" type="number" class="form-control" placeholder="Indicar presupuesto del trabajo ..."  required>
+                                <input name="Presupuesto" type="number" class="form-control" placeholder="Indicar presupuesto del trabajo ..." >
                             </div>
                         </div>
                         <div class="form-group row">
@@ -288,7 +296,8 @@
 
                     </div>
                 </div>
-
+                </div>
+                </div>
 
 
                     <!-- Boton de Carga de Orden. Llama a modal para carga de pin -->
@@ -349,14 +358,15 @@
 
             </form>
         </section>
-        </div>
+            </div>
+    </div>
             <!-- CIERRE DE FORMULARIO CARGA OT -->
 
 
 
 
 
-    </div>
+
 
     <!-- /.content-wrapper -->
 

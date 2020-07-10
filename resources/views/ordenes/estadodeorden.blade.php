@@ -1,113 +1,134 @@
-
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="es">
 <head>
-
-    <meta charset="utf-8">
+    <title>Ordenes de Trabajo - HotSpot</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="/adminlte/img/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/../fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/../fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/../vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/../vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/../vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/../vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/../vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/../css/util.css">
+    <link rel="stylesheet" type="text/css" href="/../css/main.css">
+    <!--===============================================================================================-->
 
-    <title>HotSpot | Consulta de ordenes de Trabajo</title>
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="adminlte/plugins/fontawesome-free/css/all.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="adminlte/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
 </head>
-
 <body>
 
 
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-
-
-        <!-- Main content -->
 
 
 
+<div class="limiter" >
+
+    <div class="container-login100" style="background-image: url('/../../images/Fondo.png');">
+
+        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
 
 
 
 
-        <!-- FORMULARIO DE CONSULTA OT CLIENTE -->
-
-        <section class="content">
-
-            <form METHOD="GET" target="_blank" action="{{ route('consultaorden') }}" class="form-horizontal" autocomplete="off">
-            {{csrf_field()}}
-
-            <!-- Seccion titular -->
 
 
 
-                <div class="card card-warning">
-                    <div class="card-header">
-                        <h3 style="text-align: center"><b>Estado orden de trabajo</b></h3>
+                <form action="{{ route('consultaorden') }}" class="login100-form validate-form flex-sb flex-w" >
+                    {{csrf_field()}}
+                    <span class="login100-form-title p-b-32" style="text-align: center">
+                        <b>HotSpot</b>
+					</span>
+					<span class="login100-form-title p-b-32" style="text-align: center">
 
+                        <b>Ordenes de Trabajo</b>
+					</span>
+                    <p class="login-box-msg" style="text-align: center">Ingrese el nº de orden y contraseña para obtener información y hacer consultas sobre la reparación de su equipo</p>
+
+                    <span class="txt1 p-b-11">
+						Nro de orden
+					</span>
+                    <div class="wrap-input100 validate-input m-b-36">
+                        <input class="input100" type="text" name="ot_id" id="ot_id">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <span class="txt1 p-b-11">
+						Contraseña
+					</span>
+                    <div class="wrap-input100 validate-input m-b-12">
+						<span class="btn-show-pass">
+
+						</span>
+                        <input class="input100" type="text" name="passwordot" id="passwordot" >
+                        <span class="focus-input100"></span>
                     </div>
 
 
-                    <!-- Seccion contenido -->
 
-                    <div class="card-body" id="contenido">
-
-                        <h6 style="text-align: center">Ingrese el nro de orden y contraseña para obtener información y hacer consultas sobre la reparación de su equipo</h6>
-
-                        <div class="form-group row">
-                            <label for="ot_id" class="col-form-label">Orden De Trabajo</label>
-                            <div class="col-sm-12">
-                                <input name="ot_id" id="ot_id" type="text" class="form-control" placeholder="Ingrese Nro de Orden ..." >
-
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="passwordot" class="col-form-label">Contraseña</label>
-                            <div class="col-sm-12">
-                                <input name="passwordot" id="passwordot" type="text" class="form-control" placeholder="Ingrese Contraseña de Ingreso ..." >
-
-                            </div>
-                        </div>
-                        <!-- Botones de Formulario -->
-                        <div class="card-footer">
-                            <button  class="btn btn-info" id="carga">Ingresar</button>
-                            <div id="loading-screen" style="display: none">
-                                <img src="../adminlte/img/5-0.gif" height="40">
-                                <b>Cargando...</b>
-                            </div>
-                        </div>
-
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Ingreso
+                        </button>
                     </div>
-                </div>
 
-            </form>
-            @if(count($errors))
-                <div class="alert alert-danger">
+                </form>
 
-                    <ul>
+
+
+                @if(count($errors))
+                    <div class="alert alert-danger" style="text-align: center">
+
+
                         @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            <p>{{ $error }}</p>
                         @endforeach
-                    </ul>
-
-                </div>
-
-            @endif
-        </section>
-            <!-- CIERRE DE FORMULARIO CONSULTA OT -->
-    </div>
 
 
+                    </div>
+
+                @endif
+
+
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+</div>
 
 
 
+<div id="dropDownSelect1"></div>
 
+<!--===============================================================================================-->
+<script src="/../vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="/../vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+<script src="/../vendor/bootstrap/js/popper.js"></script>
+<script src="/../vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="/../vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="/../vendor/daterangepicker/moment.min.js"></script>
+<script src="/../vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+<script src="/../vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+<script src="/../js/main.js"></script>
 
 </body>
-</html>
