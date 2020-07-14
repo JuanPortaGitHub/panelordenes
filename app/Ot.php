@@ -19,6 +19,9 @@ use App\estado;
 
 class Ot extends Model
 {
+
+
+
     public function equipo(){
 
         return $this->belongsTo(Equipo::class);
@@ -69,7 +72,7 @@ class Ot extends Model
         return $this->hasMany('App\Annotation','ot_id','ot_id');
 
     }
-    
+
     public function area(){
 
         return $this->belongsTo('App\area');

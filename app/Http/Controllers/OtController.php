@@ -15,7 +15,6 @@ use App\Ot;
 use App\Reparaexito;
 use App\tipodeequipo;
 use Illuminate\Http\Request;
-
 use App\Cliente;
 use App\Equipo;
 use App\User;
@@ -24,6 +23,7 @@ use App\Confirmacion;
 use App\estado;
 use App\Sucursal;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class OtController extends Controller
 {
@@ -34,15 +34,70 @@ class OtController extends Controller
      */
 
 
-    public function index()
+    public function index(Request $request)
     {
+        $listasucursales = Sucursal::all();
+        $areas = area::all();
+        $estados = estado::all();
+        $tipoequipos= tipodeequipo::all();
 
 
 
-        $orders=Ot::all()->sortByDesc("ot_id");
+        $orders = Ot::query();
 
-        return view('ordenes.listaot', compact('orders'));
+        if ($request->input('busqueda')){
+            $busqueda = $request->get('busqueda');
+            $orders = $orders = Ot::join( 'clientes', 'clientes.id', '=', 'cliente_id')
+                ->where('ot_id', 'LIKE', "%$busqueda%")
+                ->orwhere('clientes.apellido', 'LIKE', "%$busqueda%")
+                ->orwhere('clientes.nombre', 'LIKE', "%$busqueda%");
+
+            $orders = $orders->orderby('ot_id','DESC')->paginate(10)
+                ->appends([
+
+                    'busqueda'=> request('busqueda'),
+
+                ]);
+
+        }
+
+          elseif ($request->input('areabusqueda') or $request->input('estadobusqueda')or $request->input('sucursalbusqueda') )
+              {
+
+            $busquedadearea = $request->get('areabusqueda');
+            $busquedadeestado = $request->get('estadobusqueda');
+            $busquedadesucursal = $request->get('sucursalbusqueda');
+            $busquedadeequipo = $request->get('equipobusqueda');
+
+            $orders = $orders = Ot::join( 'areas', 'areas.id', '=', 'area_id')
+                ->join( 'estados', 'estados.id', '=', 'estado_id')
+                ->join( "sucursals", "sucursals.id", "=", "sucursal_id")
+                //->join( "tipodeequipos", "tipodeequipos.id", "=", "sucursal_id")
+            ->where('areas.areas', 'LIKE', $busquedadearea)
+            ->where('estados.estadoot', 'LIKE', $busquedadeestado)
+            ->where('sucursals.sucursal', 'LIKE', $busquedadesucursal);
+
+
+
+            $orders = $orders->orderby('ot_id','DESC')->paginate(10)
+                ->appends([
+
+                    'areabusqueda'=> request('areabusqueda'),
+                    'estadobusqueda'=> request('estadobusqueda'),
+                    'sucursalbusqueda'=> request('sucursalbusqueda'),
+                ]);
+
+        }
+
+        else {
+            $orders = Ot::orderby('ot_id','DESC')->paginate(10);
+        }
+
+        return view('ordenes.listaot', compact('orders', 'areas','estados', 'listasucursales','tipoequipos'));
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.

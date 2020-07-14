@@ -200,7 +200,7 @@ class AnnotationController extends Controller
      */
     public function destroy($id)
     {
-        Annotation::find($id)->delete();
+        Annotation::findOrFail($id)->delete();
         return back();
     }
 

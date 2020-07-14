@@ -43,7 +43,7 @@
                                     <th>Categoria</th>
                                     <th>Equipo</th>
 
-                                    <th>Imprimir</th>
+
 
                                 </tr>
                                 </thead>
@@ -67,7 +67,7 @@
                                             <td>{{$order->Equipo->tipodeequipo->tipodeequipo}}</td>
                                             <td>{{$order->equipo->modelo}}</td>
 
-                                            <td><a href="{{route('ordenes.showpdf', $order->ot_id)}}"><i class="fas fa-print"></i></a></td>
+
                                         </tr>
 
                                     @endforeach
@@ -91,7 +91,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
+
                                 </tr>
                                 </tfoot>
                             </table>

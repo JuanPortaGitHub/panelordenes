@@ -1,10 +1,13 @@
 <?php
 
 use App\Mail\mailingreso;
+use App\Ot;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Yajra\DataTables\DataTables;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,11 +55,18 @@ Route::resource('annotations', 'AnnotationController')->middleware('auth');
 
 
 
+
+
+
+
+
+
+
+
 Route::get('/clear-cache', function() {
     Artisan::call('cache:clear');
     return "Cache is cleared";
 });
-
 
 
 Route::get('/cleareverything', function () {
