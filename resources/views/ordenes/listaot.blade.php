@@ -151,40 +151,40 @@
 
                                     <td><a href="{{route('ordenes.showpdf', $order->ot_id)}}"><i class="fas fa-print"></i></a></td>
 
-</tr>
+                                    </tr>
 
-@endforeach
+                                    @endforeach
 
-@endif
-
-
-</tbody>
-<tfoot>
-<tr>
-
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
+                                    @endif
 
 
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</tfoot>
-</table>
-<div class="row">
-<div class="col-12 d-flex justify-content-end pt-4">
-    {{$orders->links()}}
-</div>
-</div>
-</div>
-</div>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+
+
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                        </tr>
+                                    </tfoot>
+                        </table>
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end pt-4">
+                            {{$orders->links()}}
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 </section>

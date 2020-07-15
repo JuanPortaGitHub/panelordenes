@@ -136,7 +136,7 @@ class AnnotationController extends Controller
 
             Mail::to($ordenacambiar->cliente->mail)->queue(new listo($ordenacambiar));
 
-        }elseif($estadonuevo == 8 and $request->input('encuestacliente'==true)){
+        }elseif($estadonuevo == 8 || $request->input('encuestacliente'==true)){
 
             Mail::to($ordenacambiar->cliente->mail)->queue(new entregado($ordenacambiar));
 

@@ -389,14 +389,62 @@ class OtController extends Controller
 
 
     }
-    public function panel($user_id)
+    public function panel($user_id, Request $request)
     {
+
+
+
+        $listasucursales = Sucursal::all();
+        $areas = area::all();
+        $estados = estado::all();
+        $tipoequipos= tipodeequipo::all();
 
         $user=User::where('id', '=',$user_id)->firstOrFail();
 
-        $orders=Ot::where('user_id',$user_id)->orderby('ot_id', 'desc')->get();
-
         $userid=$user->id;
+
+
+        if ($request->input('areabusqueda') or $request->input('estadobusqueda')or $request->input('sucursalbusqueda') )
+        {
+
+
+
+
+
+            $busquedadearea = $request->get('areabusqueda');
+            $busquedadeestado = $request->get('estadobusqueda');
+            $busquedadesucursal = $request->get('sucursalbusqueda');
+            $busquedadeequipo = $request->get('equipobusqueda');
+
+            $orders = $orders = Ot::join( 'areas', 'areas.id', '=', 'area_id')
+                ->join( 'estados', 'estados.id', '=', 'estado_id')
+                ->join( "sucursals", "sucursals.id", "=", "sucursal_id")
+                //->join( "tipodeequipos", "tipodeequipos.id", "=", "sucursal_id")
+                ->where('areas.areas', 'LIKE', $busquedadearea)
+                ->where('estados.estadoot', 'LIKE', $busquedadeestado)
+                ->where('sucursals.sucursal', 'LIKE', $busquedadesucursal)
+                ->where('user_id',$user_id);
+
+
+
+            $orders = $orders->orderby('ot_id','DESC')->paginate(10)
+                ->appends([
+
+                    'areabusqueda'=> request('areabusqueda'),
+                    'estadobusqueda'=> request('estadobusqueda'),
+                    'sucursalbusqueda'=> request('sucursalbusqueda'),
+                ]);
+
+        }
+
+        else {
+            $orders=Ot::where('user_id',$user_id)->orderby('ot_id', 'desc')->paginate(10);
+        }
+
+
+
+
+
 
         $annotations=DB::table('annotations')
 
@@ -412,7 +460,7 @@ class OtController extends Controller
 
 
 
-        return view ("ordenes.panelusuario", compact ('orders', 'user', 'annotations'));
+        return view ("ordenes.panelusuario", compact ('orders', 'user', 'annotations', 'listasucursales','areas','estados','tipoequipos'));
 
 
     }

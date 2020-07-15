@@ -81,7 +81,7 @@
                         <div class="form-group row" style="display: none">
                             <label for="idclient" class="col-sm-2 col-form-label">ID</label>
                             <div class="col-sm-10">
-                                <input name="idclient" id="idclient" type="text" class="form-control" placeholder="ID ...">
+                                <input name="idclient" id="idclient" type="text" class="form-control" placeholder="ID ..." required>
 
                             </div>
                         </div>

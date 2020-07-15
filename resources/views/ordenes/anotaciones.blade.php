@@ -631,7 +631,7 @@
 
                             <!-- /.Si es anotacion visible a cliente permite eliminar -->
 
-                            <td style="white-space: normal">@if(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1))<form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post"><input name="_method" type="hidden" value="DELETE"><button class="btn btn-danger btn-xs" type="submit">Borrar</button></form>@endif</td>
+                            <td style="white-space: normal">@if(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1))<form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post">@csrf @method('DELETE')<button class="btn btn-danger btn-xs" type="submit">Borrar</button></form>@endif</td>
                         </tr>
                     @endforeach
 
