@@ -10,11 +10,110 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
+
+
+
+
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><b>Panel de {{$user->name}}</b></h1>
+                        <h1><b>Consultas de clientes</b></h1>
+                    </div>
+
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+
+
+
+        <div class="card">
+
+            <div class="card-body">
+                <table id="anotaciones" class="table-bordered display responsive" style="width:100%; font-size: small;white-space: pre-wrap;word-wrap: break-word">
+
+                    <thead>
+                    <tr style="text-align: center; font-size: medium; height: 2em">
+
+                        <th style="height: 2em">Orden</th>
+                        <th>Fecha</th>
+                        <th>Anotacion</th>
+                        <th>Usuario</th>
+
+                    </tr>
+                    </thead>
+
+
+
+                    <tbody>
+
+
+
+                    @foreach($annotations as $annotation)
+                        @if(!isset($annotation->tecnico))
+                            <tr style="text-align:center; height: 2em; background-color: lightpink">
+
+                                <td style="font-family: Verdana;height: 2em"><a href="{{route('ordenes.anotaciones', $annotation->ot_id)}}"><b>{{$annotation->ot_id}}</b></a></td>
+                                <td style="white-space: nowrap;font-family: Verdana">{{$annotation->created_at}}</td>
+                                <td style="font-family: Verdana">{{$annotation->anotacion}}</td>
+                                <td style="font-family: Verdana">{{$annotation->apellidocliente}} {{$annotation->nombrecliente}}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+
+
+
+
+                    </tbody>
+
+
+
+
+                    <tfoot>
+                    <tr>
+
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1><b>Panel de {{$user->name}} </b></h1>
+                        <h1>Cantidad de Ordenes
+                            @if( Request::get('sucursalbusqueda') or Request::get('areabusqueda') or Request::get('estadobusqueda')or Request::get('equipobusqueda'))
+                                Filtradas: <b>{{$orders->total()}}</b>
+                            @else a Realizar: <b>{{$orders->total()}}</b>
+                                @endif</h1>
                     </div>
 
                 </div>
@@ -106,11 +205,10 @@
                                         <tr style="text-align:center; height: 3em">
 
                                             <td><a href="{{route('ordenes.anotaciones', $order->ot_id)}}"><b>{{$order->ot_id}}</b></a></td>
-                                            @if( Request::get('sucursalbusqueda') or Request::get('areabusqueda') or Request::get('estadobusqueda'))
-                                                <td>{{$order->sucursal}}</td>
-                                            @else
-                                                <td>{{$order->sucursal->sucursal}}</td>
-                                            @endif
+
+
+
+                                            <td>{{$order->sucursal->sucursal}}</td>
                                             <td>{{$order->area->areas}}</td>
                                             <td>{{$order->cliente->apellido}}</td>
                                             <td>{{$order->cliente->nombre}}</td>
@@ -143,6 +241,7 @@
                                     @endforeach
 
                                 @endif
+
 
 
                                 </tbody>
@@ -183,74 +282,6 @@
 
 
 
-            <section class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1><b>Consultas de clientes</b></h1>
-                        </div>
-
-                    </div>
-                </div><!-- /.container-fluid -->
-            </section>
-
-
-
-
-            <div class="card">
-
-                <div class="card-body">
-                    <table id="anotaciones" class="table-bordered display responsive" style="width:100%; font-size: small;white-space: pre-wrap;word-wrap: break-word">
-
-                        <thead>
-                        <tr style="text-align: center; font-size: medium; height: 2em">
-
-                            <th style="height: 2em">Orden</th>
-                            <th>Fecha</th>
-                            <th>Anotacion</th>
-                            <th>Usuario</th>
-
-                        </tr>
-                        </thead>
-
-
-
-                        <tbody>
-
-
-
-                        @foreach($annotations as $annotation)
-                                @if(!isset($annotation->tecnico))
-                            <tr style="text-align:center; height: 2em; background-color: lightpink">
-
-                                <td style="font-family: Verdana;height: 2em"><a href="{{route('ordenes.anotaciones', $annotation->ot_id)}}"><b>{{$annotation->ot_id}}</b></a></td>
-                                <td style="white-space: nowrap;font-family: Verdana">{{$annotation->created_at}}</td>
-                                <td style="font-family: Verdana">{{$annotation->anotacion}}</td>
-                                <td style="font-family: Verdana">{{$annotation->apellidocliente}} {{$annotation->nombrecliente}}</td>
-                            </tr>
-                                @endif
-                        @endforeach
-
-
-
-
-                        </tbody>
-
-
-
-
-                        <tfoot>
-                        <tr>
-
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
 
 
 

@@ -14,7 +14,11 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1><b>Listado Ordenes de Trabajo</b></h1>
+                        <h2><b>Listado Ordenes de Trabajo </b> </h2>
+                        <h1>@if( Request::get('sucursalbusqueda') or Request::get('areabusqueda') or Request::get('estadobusqueda')or Request::get('equipobusqueda')or Request::get('tecnicobusqueda'))
+                                Filtro de Ordenes: <b>{{$orders->total()}}</b>
+                            @else <b>Sin Filtro</b>
+                            @endif</h1>
                     </div>
 
                 </div>
@@ -44,43 +48,52 @@
 
                     </form>
                     <form class="form-inline ml-3">
-                            <label class="form-label">Sucursal</label>
-                            <select name="sucursalbusqueda" id="sucursalbusqueda" class="form-control">
+                        <label class="form-label">Sucursal</label>
+                        <select name="sucursalbusqueda" id="sucursalbusqueda" class="form-control">
 
-                                <option value=""></option>
-                                @foreach ($listasucursales as $sucursallista)
-                                    <option value="{{ $sucursallista['sucursal'] }}">{{ $sucursallista['sucursal'] }}</option>
-                                @endforeach
+                            <option value=""></option>
+                            @foreach ($listasucursales as $sucursallista)
+                                <option value="{{ $sucursallista['sucursal'] }}">{{ $sucursallista['sucursal'] }}</option>
+                            @endforeach
 
-                            </select>
-                            <label class="form-label">Area</label>
-                            <select name="areabusqueda" id="areabusqueda" class="form-control">
+                        </select>
+                        <label class="form-label">Area</label>
+                        <select name="areabusqueda" id="areabusqueda" class="form-control">
 
-                                <option value=""></option>
-                                @foreach ($areas as $area)
-                                    <option value="{{ $area['areas'] }}">{{ $area['areas'] }}</option>
-                                @endforeach
+                            <option value=""></option>
+                            @foreach ($areas as $area)
+                                <option value="{{ $area['areas'] }}">{{ $area['areas'] }}</option>
+                            @endforeach
 
-                            </select>
-                            <label class="form-label">Estado</label>
-                            <select name="estadobusqueda" id="estadobusqueda" class="form-control">
+                        </select>
+                        <label class="form-label">Estado</label>
+                        <select name="estadobusqueda" id="estadobusqueda" class="form-control">
 
-                                <option value=""></option>
-                                @foreach ($estados as $estado)
-                                    <option value="{{ $estado['estadoot'] }}">{{ $estado['estadoot'] }}</option>
-                                @endforeach
+                            <option value=""></option>
+                            @foreach ($estados as $estado)
+                                <option value="{{ $estado['estadoot'] }}">{{ $estado['estadoot'] }}</option>
+                            @endforeach
 
-                            </select>
-                            <label class="form-label">Categoria</label>
-                            <select name="equipobusqueda" id="equipobusqueda" class="form-control">
+                        </select>
+                        <label class="form-label">Categoria</label>
+                        <select name="equipobusqueda" id="equipobusqueda" class="form-control">
 
-                                <option value=""></option>
-                                @foreach ($tipoequipos as $tipoequipo)
-                                    <option value="{{ $tipoequipo['id'] }}">{{ $tipoequipo['tipodeequipo'] }}</option>
-                                @endforeach
+                            <option value=""></option>
+                            @foreach ($tipoequipos as $tipoequipo)
+                                <option value="{{ $tipoequipo['id'] }}">{{ $tipoequipo['tipodeequipo'] }}</option>
+                            @endforeach
 
-                            </select>
+                        </select>
 
+                        <label class="form-label">Tecnico</label>
+                        <select name="tecnicobusqueda" id="tecnicobusqueda" class="form-control">
+
+                            <option value=""></option>
+                            @foreach ($tecnicos as $tecnico)
+                                <option value="{{ $tecnico['id'] }}">{{ $tecnico['name'] }}</option>
+                            @endforeach
+
+                        </select>
                         <div class="input-group-append">
                             <button class="btn btn-navbar" type="submit">
                                 <i class="fas fa-search"></i>
@@ -119,11 +132,7 @@
                                 <tr style="text-align:center; height: 3em">
 
                                     <td><a href="{{route('ordenes.anotaciones', $order->ot_id)}}"><b>{{$order->ot_id}}</b></a></td>
-                                    @if( Request::get('sucursalbusqueda') or Request::get('areabusqueda') or Request::get('estadobusqueda'))
-                                    <td>{{$order->sucursal}}</td>
-                                    @else
                                     <td>{{$order->sucursal->sucursal}}</td>
-                                    @endif
                                     <td>{{$order->area->areas}}</td>
                                     <td>{{$order->cliente->apellido}}</td>
                                     <td>{{$order->cliente->nombre}}</td>

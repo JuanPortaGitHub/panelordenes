@@ -79,11 +79,15 @@ class Ot extends Model
 
     }
 
+
+
     protected $fillable = [
 
         'estado_id',
         'sintoma'
 
     ];
+
+
 
 }

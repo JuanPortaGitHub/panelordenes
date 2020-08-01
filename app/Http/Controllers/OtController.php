@@ -40,6 +40,7 @@ class OtController extends Controller
         $areas = area::all();
         $estados = estado::all();
         $tipoequipos= tipodeequipo::all();
+        $tecnicos= User::all();
 
 
 
@@ -61,39 +62,50 @@ class OtController extends Controller
 
         }
 
-          elseif ($request->input('areabusqueda') or $request->input('estadobusqueda')or $request->input('sucursalbusqueda') )
+          elseif ($request->input('areabusqueda')
+              or $request->input('estadobusqueda')
+              or $request->input('sucursalbusqueda')
+              or $request->input('equipobusqueda')
+              or $request->input('tecnicobusqueda'))
               {
 
-            $busquedadearea = $request->get('areabusqueda');
-            $busquedadeestado = $request->get('estadobusqueda');
-            $busquedadesucursal = $request->get('sucursalbusqueda');
-            $busquedadeequipo = $request->get('equipobusqueda');
-
-            $orders = $orders = Ot::join( 'areas', 'areas.id', '=', 'area_id')
-                ->join( 'estados', 'estados.id', '=', 'estado_id')
-                ->join( "sucursals", "sucursals.id", "=", "sucursal_id")
-                //->join( "tipodeequipos", "tipodeequipos.id", "=", "sucursal_id")
-            ->where('areas.areas', 'LIKE', $busquedadearea)
-            ->where('estados.estadoot', 'LIKE', $busquedadeestado)
-            ->where('sucursals.sucursal', 'LIKE', $busquedadesucursal);
+                  $busquedadearea = $request->get('areabusqueda');
+                  $busquedadeestado = $request->get('estadobusqueda');
+                  $busquedadesucursal = $request->get('sucursalbusqueda');
+                  $busquedadeequipo = $request->get('equipobusqueda');
+                  $busquedadetecnico = $request->get('tecnicobusqueda');
 
 
 
-            $orders = $orders->orderby('ot_id','DESC')->paginate(10)
-                ->appends([
+                  $orders = Ot::
+                      wherehas('sucursal', function ($query) use ($busquedadesucursal)  {
+                          $query->where('sucursal','LIKE',$busquedadesucursal);
+                      })->WhereHas('area', function ($query) use ($busquedadearea) {
+                          $query->where('areas', 'LIKE',$busquedadearea);
+                      })->WhereHas('estado', function ($query) use ($busquedadeestado) {
+                          $query->where('estadoot', 'LIKE',$busquedadeestado);
+                      })->WhereHas('equipo', function ($query) use ($busquedadeequipo) {
+                          $query->where('tipodeequipo_id', 'LIKE',$busquedadeequipo);
+                      })->WhereHas('user', function ($query) use ($busquedadetecnico) {
+                          $query->where('id', 'LIKE',$busquedadetecnico);
+                      })
+                      ->orderby('ot_id','DESC')->paginate(10)
+                      ->appends([
 
-                    'areabusqueda'=> request('areabusqueda'),
-                    'estadobusqueda'=> request('estadobusqueda'),
-                    'sucursalbusqueda'=> request('sucursalbusqueda'),
-                ]);
+                          'areabusqueda'=> request('areabusqueda'),
+                          'estadobusqueda'=> request('estadobusqueda'),
+                          'sucursalbusqueda'=> request('sucursalbusqueda'),
+                          'equipobusqueda'=> request('equipobusqueda'),
+                          'tecnicobusqueda'=> request('tecnicobusqueda'),
+                      ]);
 
-        }
+              }
 
         else {
             $orders = Ot::orderby('ot_id','DESC')->paginate(10);
         }
 
-        return view('ordenes.listaot', compact('orders', 'areas','estados', 'listasucursales','tipoequipos'));
+        return view('ordenes.listaot', compact('orders', 'areas','estados', 'listasucursales','tipoequipos','tecnicos'));
     }
 
 
@@ -221,6 +233,21 @@ class OtController extends Controller
             //Guarda el array
             $nuevaorden->save();
 
+            //Crea anotacion con informacion inicial
+            $firstannotation= new annotation();
+            $firstannotation->anotacion = 'Datos de ingreso:
+Detalles: ' .$nuevaorden->detalles . '
+Sintoma: ' .$nuevaorden->sintoma . '
+Fecha de entrega : ' . $nuevaorden->fechaentrega . '
+Sucursal: ' . $nuevaorden->sucursal->sucursal . '
+Area: ' . $nuevaorden->area->areas . '
+Estado: ' . $nuevaorden->estado->estadoot . '
+Presupuesto: ' . $nuevaorden->presupuesto;
+
+            $firstannotation->ot_id = $nuevaorden->ot_id;
+            $firstannotation->visiblecliente=0;
+            $firstannotation->user_id=$tecnico->id;
+            $firstannotation->save();
 
             //Mando al view la info de ot
 
@@ -258,7 +285,6 @@ class OtController extends Controller
      */
     public function show($id)
     {
-
 
 
 
@@ -328,6 +354,7 @@ class OtController extends Controller
 
 
     //ESTAS SON FUNCIONES DE CONTROLADOR PARA QUE EL CLIENTE PUEDA VER EL ESTADO DE SU ORDEN
+
 
     //Funcion para la consulta
 
@@ -404,7 +431,7 @@ class OtController extends Controller
         $userid=$user->id;
 
 
-        if ($request->input('areabusqueda') or $request->input('estadobusqueda')or $request->input('sucursalbusqueda') )
+        if ($request->input('areabusqueda') or $request->input('estadobusqueda')or $request->input('sucursalbusqueda') or $request->input('equipobusqueda'))
         {
 
 
@@ -416,31 +443,38 @@ class OtController extends Controller
             $busquedadesucursal = $request->get('sucursalbusqueda');
             $busquedadeequipo = $request->get('equipobusqueda');
 
-            $orders = $orders = Ot::join( 'areas', 'areas.id', '=', 'area_id')
-                ->join( 'estados', 'estados.id', '=', 'estado_id')
-                ->join( "sucursals", "sucursals.id", "=", "sucursal_id")
-                //->join( "tipodeequipos", "tipodeequipos.id", "=", "sucursal_id")
-                ->where('areas.areas', 'LIKE', $busquedadearea)
-                ->where('estados.estadoot', 'LIKE', $busquedadeestado)
-                ->where('sucursals.sucursal', 'LIKE', $busquedadesucursal)
-                ->where('user_id',$user_id);
 
 
-
-            $orders = $orders->orderby('ot_id','DESC')->paginate(10)
+            $orders = Ot::where('user_id',$user_id)
+               ->wherehas('sucursal', function ($query) use ($busquedadesucursal)  {
+                $query->where('sucursal','LIKE',$busquedadesucursal);
+            })->WhereHas('area', function ($query) use ($busquedadearea) {
+                $query->where('areas', 'LIKE',$busquedadearea);
+            })->WhereHas('estado', function ($query) use ($busquedadeestado) {
+                $query->where('estadoot', 'LIKE',$busquedadeestado);
+            })->WhereHas('equipo', function ($query) use ($busquedadeequipo) {
+                $query->where('tipodeequipo_id', 'LIKE',$busquedadeequipo);
+            })
+                ->orderby('ot_id','DESC')->paginate(10)
                 ->appends([
 
                     'areabusqueda'=> request('areabusqueda'),
                     'estadobusqueda'=> request('estadobusqueda'),
                     'sucursalbusqueda'=> request('sucursalbusqueda'),
+                    'equipobusqueda'=> request('equipobusqueda'),
                 ]);
 
         }
 
         else {
-            $orders=Ot::where('user_id',$user_id)->orderby('ot_id', 'desc')->paginate(10);
+            $orders=Ot::
+                where('user_id',$user_id)
+                ->where('estado_id','!=','8')
+                ->where('estado_id','!=','7')
+                ->where('estado_id','!=','3')
+                ->orderby('ot_id', 'desc')
+                ->paginate(10);
         }
-
 
 
 
@@ -457,6 +491,12 @@ class OtController extends Controller
             ->where('ots.user_id','=',$userid)
 
             ->get();
+
+
+        /*$annotations = Annotation::wherehas(['ot' => function($query) use ($userid) {
+            $query->where('user_id','=',$userid);
+        }])->get();
+        */
 
 
 

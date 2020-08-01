@@ -19,7 +19,8 @@
         "laravel/ui": "^2.0",
         "mpdf/mpdf": "^8.0",
         "nesbot/carbon": "^2.34",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "~9.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

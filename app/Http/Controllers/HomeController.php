@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ot;
 use App\User;
 use Illuminate\Routing\Route;
 
@@ -23,4 +24,6 @@ class HomeController extends Controller
     {
         return view('ordenes.listaot');
     }
+
+
 }

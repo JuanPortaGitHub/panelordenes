@@ -39,9 +39,7 @@
 
     <tr style="border-bottom: 4px solid black;">
         <td colspan="2" style= "font-size:large"><b>ORDEN DE TRABAJO</b></td>
-
-
-        <td style="text-align: center; font-size: x-large"> <b>Nº {{$orden->ot_id}}</b></td>
+        <td style="text-align: center; font-size: x-large; font-family: Helvetica, sans-serif"> {{$orden->area->areas}} <b><span style="font-size: x-large" >Nº {{$orden->ot_id}}</span> </b></td>
         <td style="text-align: right; font-size: small"><b>Contraseña: </b>{{$orden->passwordot}}</td>
     </tr>
 
@@ -185,9 +183,7 @@ www.hotspotcomputacion.com</b>
 
     <tr style="border-bottom: 4px solid black;">
         <td colspan="2" style= "font-size:large"><b>ORDEN DE TRABAJO</b></td>
-
-
-        <td style="text-align: center; font-size: x-large"> <b>Nº {{$orden->ot_id}}</b></td>
+        <td style="text-align: center; font-size: x-large; font-family: Helvetica, sans-serif"> {{$orden->area->areas}} <b><span style="font-size: x-large" >Nº {{$orden->ot_id}}</span> </b></td>
         <td style="text-align: right; font-size: small"><b>Contraseña: </b>{{$orden->passwordot}}</td>
     </tr>
 

@@ -2,6 +2,7 @@
 
 use App\Mail\mailingreso;
 use App\Ot;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -57,9 +58,14 @@ Route::resource('annotations', 'AnnotationController')->middleware('auth');
 
 
 
+Route::get('/searchredirect', function(Request $request){
+
+    $otbuscada = $request->get('search');
+    $route = "orden/$otbuscada";
+    return redirect($route);
 
 
-
+});
 
 
 

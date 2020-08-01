@@ -194,10 +194,13 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="/../adminlte/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
+      <div class="user-panel mt-3 pb-3 mb-3">
+          <form class="navbar-form navbar-left" role="search" action="{{url('searchredirect')}}">
+              <div class="form-group">
+                  <input type="number" class="form-control" name='search' placeholder="Buscar nro. orden..." />
+              </div>
+
+          </form>
       </div>
 
 
@@ -269,6 +272,9 @@
 
         </ul>
       </nav>
+        <li class="nav-item">
+        </li>
+
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -303,6 +309,16 @@
       <h5>Menu</h5>
 
         <div class="dropdown show">
+
+            <div>
+                <form class="navbar-form navbar-left" role="search" action="{{url('searchredirect')}}">
+                    <div class="form-group">
+                        <input type="number" class="form-control" name='search' placeholder="Buscar nro. orden..." />
+                    </div>
+
+                </form>
+            </div>
+
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Elegir usuario
             </a>
@@ -331,10 +347,7 @@
                 <p>Listado Clientes</p>
             </a>
 
-            <a href="#">
 
-                <p>Panel Admin</p>
-            </a>
     </div>
   </aside>
   <!-- /.control-sidebar -->

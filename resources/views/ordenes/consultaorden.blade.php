@@ -535,7 +535,7 @@
                         "previous": "Anterior",
                     },
                     "lengthMenu": "Mostrar _MENU_ registros por página",
-                    "zeroRecords": "No se encuentra",
+                    "zeroRecords": "No hay anotaciones",
                     "info": "Muestra página _PAGE_ de _PAGES_",
                     "infoEmpty": "No hay anotaciones",
                     "infoFiltered": "(Filtrado de _MAX_ registros totales)",

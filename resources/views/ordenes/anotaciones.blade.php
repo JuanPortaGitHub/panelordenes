@@ -231,13 +231,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Celular">Celular</label>
-                                        <input type="number" id="Celular" class="form-control" value="{{$anotacionOt->cliente->telefono}}" readonly>
+                                        <input type="number" id="Celular" class="form-control" value="{{$anotacionOt->cliente->celular}}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Telefono">Telefono</label>
-                                        <input type="number" id="Telefono" class="form-control" value="{{$anotacionOt->cliente->celular}}" readonly>
+                                        <input type="number" id="Telefono" class="form-control" value="{{$anotacionOt->cliente->telefono}}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -433,6 +433,7 @@
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".anotacionot" id="open">
                     <b>Cargar Actualización</b>
                 </button>
+
             </div>
 
             <div class="col-md-3">
@@ -509,23 +510,48 @@
                                         <label for="cambioorden">Cambiar estado</label>
 
                                         <select name="cambioorden" id="cambioorden" class="form-control" required>
-                                            <option selected value="{{$anotacionOt->estado['id']}}">Sin cambio de estado</option>
+                                            <option selected value="Sin cambio">Sin cambio de estado</option>
                                             @foreach ($estados as $estado)
                                                 <option value="{{ $estado['id'] }}">{{ $estado['estadoot'] }}</option>
                                             @endforeach
 
                                         </select>
 
-                                        <div class="form-check" id="encuesta" style="display: none">
-                                            <input name="encuestacliente" type="checkbox" class="form-check-input" id="encuestacliente" checked>
-                                            <label class="form-check-label" for="encuestacliente">Enviar encuesta a cliente</label>
-                                        </div>
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cambiotecnico">Cambio técnico</label>
+
+                                        <select name="cambiotecnico" id="cambiotecnico" class="form-control" required>
+                                            <option selected value="Sin cambio">Sin cambio</option>
+                                            @foreach ($tecnicos as $tecnico)
+                                                <option value="{{ $tecnico['id'] }}">{{ $tecnico['name'] }}</option>
+                                            @endforeach
+
+                                        </select>
+
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cambioarea">Cambio area</label>
+
+                                        <select name="cambioarea" id="cambioarea" class="form-control" required>
+                                            <option selected value="Sin cambio">Sin cambio</option>
+                                            @foreach ($areas as $area)
+                                                <option value="{{ $area['id'] }}">{{ $area['areas'] }}</option>
+                                            @endforeach
+
+                                        </select>
+
+
 
                                     </div>
                                 </div>
 
 
-                                <div class="form-group" id="infopresupuesto" name="infopresupuesto">
+                                <div class="form-group" id="infopresupuesto" name="infopresupuesto" style="display:none">
                                     <div class="form-group">
                                         <label for="diagnosticoenviado">Diagnóstico / Trabajo a realizar</label>
                                         <textarea class="form-control" rows="3"  name="diagnosticoenviado" id="diagnosticoenviado" style="font-size: small">{{$anotacionOt->sintoma}}</textarea>
@@ -596,11 +622,11 @@
                 <table id="anotaciones" class="table compact table-bordered" style="font-size: small; white-space: pre-wrap;word-wrap: break-word; width: 100%">
                     <thead>
                     <tr>
-                        <th>Fecha</th>
-                        <th>Usuario</th>
-                        <th>Anotacion</th>
+                        <th class="all">Fecha</th>
+                        <th class="all">Usuario</th>
+                        <th class="desktop">Anotacion</th>
 
-                        <th>Borrar</th>
+                        <th class="all">Borrar</th>
 
 
                     </tr>
@@ -702,14 +728,15 @@
 
 
         $(function() {
-            $('#infopresupuesto').hide();
             $('#cambioorden').change(function(){
+
+
                 if($('#cambioorden').val() == '3') {
                     $('#infopresupuesto').show();
                     $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
                         "Diagnóstico y/o presupuesto de su equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo: \n" +
                         "" +"\n" +
-                        "Diagnóstico: {{$anotacionOt->sintoma}} \n" +
+                        "Diagnóstico: " + @json($anotacionOt->sintoma) + "\n" +
                         "Presupuesto de reparación: $ {{$anotacionOt->presupuesto}} \n" +
                         "Fecha de reparación aproximada: {{ \Carbon\Carbon::parse($anotacionOt->fechaentrega)->format('d-m-y') }}  \n" );
                 } else {
@@ -718,6 +745,12 @@
                 }
             });
         });
+
+
+
+
+
+
 
         $(function() {
             $('#cambioorden').change(function(){
@@ -878,7 +911,9 @@
                         fechaentregaenviada: jQuery('#fechaentregaenviada').val(),
                         diagnosticoenviado: jQuery('#diagnosticoenviado').val(),
                         cambioorden: jQuery('#cambioorden').val(),
-                        encuestacliente: $('input#encuestacliente').prop('checked')
+                        cambiotecnico: jQuery('#cambiotecnico').val(),
+                        cambioarea: jQuery('#cambioarea').val(),
+
                     },
                     success: function(result){
                         $('#loading-screen').hide();

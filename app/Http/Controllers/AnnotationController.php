@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-
+use App\Mail\notificacion;
 use App\Mail\entregado;
 use App\Mail\listo;
 use App\Mail\presup;
@@ -90,14 +90,7 @@ class AnnotationController extends Controller
 
 
 
-        //PASOS para verificar que el checkbox visiblecliente esta o no tildado
-        if($request->input('visiblecliente')== "Visible"){
-            //Checkbox checked
-            $nuevaanotacion->visiblecliente = 1;
-        }else{
-            //Checkbox not checked
-            $nuevaanotacion->visiblecliente = 0;
-        }
+
 
 
 
@@ -110,13 +103,70 @@ class AnnotationController extends Controller
         $otabuscar = $request->input('orden');
 
         //Busco la ot en la base de datos
-        $ordenacambiar=Ot::where('ot_id', '=', $otabuscar)->firstOrFail();
+        $ordenacambiar=Ot::where('ot_id', '=', $otabuscar)->first();
 
         $ordenacambiar->presupuesto = $request->input('presupuestoenviado');
         $ordenacambiar->fechaentrega = $request->input('fechaentregaenviada');
         $ordenacambiar->sintoma = $request->input('diagnosticoenviado');
-        $ordenacambiar->estado_id = $request->input('cambioorden');
         $estadonuevo=$ordenacambiar->estado_id;
+
+
+
+
+        //Si la orden cambia de estado lo actualiza, sino sigue como esta guardando un parametro para el envio de mails
+        if ($request->input('cambioorden')!= "Sin cambio"){
+
+            $ordenacambiar->estado_id = $request->input('cambioorden');
+            $estadonuevo=$ordenacambiar->estado_id;
+        };
+
+        if ($request->input('cambiotecnico')!= "Sin cambio"){
+
+            $ordenacambiar->user_id = $request->input('cambioorden');
+            echo $ordenacambiar->user_id;
+        };
+
+        if ($request->input('cambioarea')!= "Sin cambio"){
+
+            $ordenacambiar->area_id = $request->input('cambioorden');
+
+        };
+
+
+
+        //PASOS para verificar que el checkbox visiblecliente esta o no tildado
+        if($request->input('visiblecliente')== "Visible"){
+
+            //Checkbox checked
+            $nuevaanotacion->visiblecliente = 1;
+
+            //mando mail en base a si esta presupuestada, lista o con encuesta (esta ultima si tiene tildado el checkbox)
+            //si no hay cambio de estado manda el de notificacion (para no enviar 2 veces uno de presupuesto ante una consulta)
+
+            if($request->input('cambioorden')== "Sin cambio"){
+
+                Mail::to($ordenacambiar->cliente->mail)->queue(new notificacion($ordenacambiar));
+
+            }elseif($estadonuevo == 8){
+
+                Mail::to($ordenacambiar->cliente->mail)->queue(new entregado($ordenacambiar));
+
+            }elseif($estadonuevo == 3){
+
+                Mail::to($ordenacambiar->cliente->mail)->queue(new presup($ordenacambiar));
+
+            }else{
+                Mail::to($ordenacambiar->cliente->mail)->queue(new notificacion($ordenacambiar));
+            };
+
+
+        }else{
+            //Checkbox not checked
+            $nuevaanotacion->visiblecliente = 0;
+        }
+
+
+        //Verifico que pida interaccion con cliente (cuando esta presupuestado)
 
         if($estadonuevo != 3){
 
@@ -127,20 +177,6 @@ class AnnotationController extends Controller
         };
 
 
-        //mando mail en base a si esta presupuestada, lista o con encuesta (esta ultima si tiene tildado el checkbox)
-        if($estadonuevo == 3){
-
-            Mail::to($ordenacambiar->cliente->mail)->queue(new presup($ordenacambiar));
-
-        }elseif($estadonuevo == 7){
-
-            Mail::to($ordenacambiar->cliente->mail)->queue(new listo($ordenacambiar));
-
-        }elseif($estadonuevo == 8 || $request->input('encuestacliente'==true)){
-
-            Mail::to($ordenacambiar->cliente->mail)->queue(new entregado($ordenacambiar));
-
-        };
 
 
 
@@ -157,6 +193,7 @@ class AnnotationController extends Controller
         return back();
 
     }
+
 
     /**
      * Display the specified resource.
