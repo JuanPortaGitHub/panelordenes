@@ -185,13 +185,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Celular">Celular</label>
-                                        <input type="number" style="font-size: small"  id="Celular" class="form-control" value="{{$orden->cliente->telefono}}" readonly>
+                                        <input type="number" style="font-size: small"  id="Celular" class="form-control" value="{{$orden->cliente->celular}}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Telefono">Telefono</label>
-                                        <input type="number" style="font-size: small"  id="Telefono" class="form-control" value="{{$orden->cliente->celular}}" readonly>
+                                        <input type="number" style="font-size: small"  id="Telefono" class="form-control" value="{{$orden->cliente->telefono}}" readonly>
                                     </div>
                                 </div>
                             </div>

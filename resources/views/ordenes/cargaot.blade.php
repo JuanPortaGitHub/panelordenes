@@ -260,7 +260,7 @@
                         <div class="form-group row">
                             <label for="presupuesto" class="col-sm-2 col-form-label">Presupuesto</label>
                             <div class="col-sm-10">
-                                <input name="Presupuesto" type="number" class="form-control" placeholder="Indicar presupuesto del trabajo ..." >
+                                <input name="Presupuesto" type="text" class="form-control" placeholder="Indicar presupuesto del trabajo ..." >
                             </div>
                         </div>
                         <div class="form-group row">
@@ -318,7 +318,7 @@
 
 
                 <!-- Modal Carga de Pin -->
-                <div class="modal fade cargaot" tabindex="-1" role="dialog" aria-labelledby="cargaot" aria-hidden="true">
+                <div class="modal fade cargaot" tabindex="-1" role="dialog" aria-labelledby="cargaot" aria-hidden="true" id="carga">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">
 
@@ -326,7 +326,7 @@
 
                                     <!-- Seccion contenido Anotacion> -->
 
-                                    <div class="card-body">
+                                    <div class="card-body" id="cargapin">
 
 
 
@@ -339,12 +339,19 @@
 
 
                                         <!-- Botones de Formulario -->
-                                        <div class="card-footer">
-                                            <button type="submit" class="btn btn-info">Ingresar</button>
+                                        <div class="card-footer" >
+                                            <button type="submit" class="btn btn-info" id="ajaxsubmit">Ingresar</button>
 
                                         </div>
-                                    </div>
 
+                                    </div>
+                            <div id="loading-screen" style="display: none; position: absolute; left: 50%; top: 50%;
+                z-index: 1000;
+                height: 80px;
+                width: 80px;">
+                                <img src="../adminlte/img/5-0.gif" height="40">
+                                <b>Cargando...</b>
+                            </div>
 
 
 
@@ -483,6 +490,19 @@
 
 
 </script>
+
+
+<script>
+    jQuery(document).ready(function(){
+        jQuery('#ajaxsubmit').click(function(e){
+            $('#cargapin').hide();
+            $('#loading-screen').show();
+
+
+        });
+    });
+</script>
+
 
 <!-- jQuery -->
 

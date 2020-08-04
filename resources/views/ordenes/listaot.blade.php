@@ -189,7 +189,7 @@
                         </table>
                     <div class="row">
                         <div class="col-12 d-flex justify-content-end pt-4">
-                            {{$orders->links()}}
+                            {{$orders->onEachSide(1)->links()}}
                         </div>
                     </div>
                 </div>

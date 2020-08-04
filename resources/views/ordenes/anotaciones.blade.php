@@ -40,30 +40,136 @@
 
 
 
-                <!-- Informacion de Orden -->
+
 
                 <div class="col-md-6">
 
-                    <div class="card card-primary collapsed-card">
+                    <!-- /.Tabla listado de anotaciones -->
+
+
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title"><b>Anotaciones de Orden {{$anotacionOt->ot_id}}</b></h3>
+
+                            <div class="card-tools">
+
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" id="btnanotaciones"><i class="fas fa-minus"></i>
+                                </button>
+
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <table id="anotaciones" class="table compact table-bordered" style="font-size: small; white-space: pre-wrap;word-wrap: break-word; width: 100%">
+                                <thead>
+                                <tr>
+                                    <th class="all">Fecha</th>
+                                    <th class="all">Usuario</th>
+                                    <th class="desktop">Anotacion</th>
+
+                                    <th class="all">Borrar</th>
+
+
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                @foreach($anotaciones as $anotacion)
+                                    <tr
+                                        @if(isset($anotacion->cliente_id) && $anotacion->visiblecliente == 1) bgcolor="#ffffe0"
+                                        @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1)) bgcolor="#8fbc8f"
+                                        @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 0)) bgcolor="#d3d3d3"
+
+                                        @endif style="font-size: small">
+                                        <td style="font-family: Verdana">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d-m-y H:i') }}</td>
+
+                                        <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
+
+                                        <td style="font-family: Verdana; white-space: normal">@if(!isset($anotacion->user_id))
+                                                {{$anotacion->cliente->nombre}}
+                                            @else
+                                                {{$anotacion->user->name}}
+                                            @endif</td>
+
+                                        <td style="white-space: pre-wrap ;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
+
+
+
+                                        <!-- /.Si es anotacion visible a cliente permite eliminar -->
+
+                                        <td style="white-space: normal">@if(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1))<form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post">@csrf @method('DELETE')<button class="btn btn-danger btn-xs" type="submit">Borrar</button></form>@endif</td>
+                                    </tr>
+                                @endforeach
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                        </div>
+                        <!-- /.card-body -->
+                    <!-- /.card -->
+
+
+
+                    <!-- /.Boton carga anotacion nueva (acciona modal) -->
+                    <div class="col-md-3" style="margin-bottom: 15px">
+
+
+
+                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".anotacionot" id="open">
+                            <b>Cargar Actualización</b>
+                        </button>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                    </div>
+                </div>
+
+
+
+                <!-- Informacion de Orden -->
+
+
+                <div class="col-md-6">
+                    <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Datos Orden Nº <b>{{$anotacionOt->ot_id}}</b></h3>
 
                             <div class="card-tools">
 
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse" id="btnlessinfoot"><i class="fas fa-plus"></i>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" id="btnlessinfoot"><i class="fas fa-minus"></i>
                                 </button>
 
                             </div>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="estadoot">ESTADO</label>
                                         <input type="text" id="estadoot" class="form-control" value="{{$anotacionOt->estado->estadoot}}" readonly>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="inputName">Tecnico a Cargo</label>
+                                        <input type="text" id="Tecnico" class="form-control" value="{{$anotacionOt->user->name}}" readonly>
+                                    </div>
 
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
@@ -88,26 +194,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="reparadoconexito">Reparado</label>
-                                        <input type="text" id="reparadoconexito" class="form-control" value="{{$anotacionOt->reparaexito->reparadoconexito}}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="categoriareparacion">Categoria Reparacion</label>
-                                        <input type="text" id="categoriareparacion" class="form-control" value="{{$anotacionOt->categoria->categoriareparacion}}" readonly>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="inputName">Tecnico a Cargo</label>
-                                        <input type="text" id="Tecnico" class="form-control" value="{{$anotacionOt->user->name}}" readonly>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -128,7 +215,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="Presupuesto">Presupuesto</label>
-                                        <input type="number" id="Presupuesto" class="form-control" value="{{$anotacionOt->presupuesto}}" readonly>
+                                        <input type="text" id="Presupuesto" class="form-control" value="{{$anotacionOt->presupuesto}}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
@@ -176,7 +263,7 @@
 
 
                 <!-- /.Parte visible incial (se esconde cuando se pide mas informacion -->
-                    <div class="card-body" id="datosinicialesot">
+                    <div class="card-body" id="datosinicialesot" style="display:none;">
 
 
                         <div class="row">
@@ -195,12 +282,11 @@
                         </div>
                     </div>
 
-                </div>
 
 
-                <!-- Informacion de cliente -->
+                    <!-- Informacion de cliente -->
 
-                <div class="col-md-6">
+
 
                     <div class="card card-secondary collapsed-card">
                         <div class="card-header">
@@ -425,28 +511,7 @@
 
 
 
-            <!-- /.Boton carga anotacion nueva (acciona modal) -->
-            <div class="col-md-3">
 
-
-
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".anotacionot" id="open">
-                    <b>Cargar Actualización</b>
-                </button>
-
-            </div>
-
-            <div class="col-md-3">
-
-            </div>
-
-            <div class="col-md-3">
-
-            </div>
-
-            <div class="col-md-3">
-
-            </div>
 
 
         </div>
@@ -520,7 +585,7 @@
 
 
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" style="display: none">
                                         <label for="cambiotecnico">Cambio técnico</label>
 
                                         <select name="cambiotecnico" id="cambiotecnico" class="form-control" required>
@@ -534,7 +599,7 @@
 
 
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" style="display: none">
                                         <label for="cambioarea">Cambio area</label>
 
                                         <select name="cambioarea" id="cambioarea" class="form-control" required>
@@ -610,65 +675,7 @@
 
 
 
-        <!-- /.Tabla listado de anotaciones -->
 
-
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Lista de Anotaciones</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-                <table id="anotaciones" class="table compact table-bordered" style="font-size: small; white-space: pre-wrap;word-wrap: break-word; width: 100%">
-                    <thead>
-                    <tr>
-                        <th class="all">Fecha</th>
-                        <th class="all">Usuario</th>
-                        <th class="desktop">Anotacion</th>
-
-                        <th class="all">Borrar</th>
-
-
-                    </tr>
-                    </thead>
-                    <tbody>
-
-
-                    @foreach($anotaciones as $anotacion)
-                        <tr
-                            @if(isset($anotacion->cliente_id) && $anotacion->visiblecliente == 1) bgcolor="#ffffe0"
-                            @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1)) bgcolor="#8fbc8f"
-                            @elseif(isset($anotacion->user_id) && ($anotacion->visiblecliente == 0)) bgcolor="#d3d3d3"
-
-                            @endif style="font-size: small">
-                            <td style="font-family: Verdana">{{ \Carbon\Carbon::parse($anotacion->created_at)->format('d-m-y H:i') }}</td>
-
-                            <!-- /.COMBINA la columna user_id (de tecnicos) y cliente_id (de cliente) en una sola columna -->
-
-                            <td style="font-family: Verdana; white-space: normal">@if(!isset($anotacion->user_id))
-                                    {{$anotacion->cliente->nombre}}
-                                @else
-                                    {{$anotacion->user->name}}
-                                @endif</td>
-
-                            <td style="white-space: pre-wrap ;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
-
-
-
-                            <!-- /.Si es anotacion visible a cliente permite eliminar -->
-
-                            <td style="white-space: normal">@if(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1))<form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post">@csrf @method('DELETE')<button class="btn btn-danger btn-xs" type="submit">Borrar</button></form>@endif</td>
-                        </tr>
-                    @endforeach
-
-
-                    </tbody>
-
-                </table>
-            </div>
-            <!-- /.card-body -->
-        </div>
-        <!-- /.card -->
 
 
         <!-- /.row -->
@@ -813,10 +820,9 @@
             $('#cambioorden').change(function(){
                 if($('#cambioorden').val() == '7') {
                     $('#anotacion').val("--AVISO DE SISTEMA-- \n" +
-                        "Hola {{$anotacionOt->cliente->nombre}}!! \n" +
-                        "Te informamos que tu equipo Orden de Trabajo Nº {{$anotacionOt->ot_id}} esta listo para ser retirado. \n" +
-                        "Nuestros horarios son: Lunes a Viernes de 10 a 19hs. \n" +
-                        "Te esperamos!! \n")
+                        "Hola {{$anotacionOt->cliente->nombre}} \n" +
+                        "Te informamos que tu equipo esta listo para ser retirado. \n" +
+                        "Nuestros horarios son: Lunes a Viernes de 10 a 19hs. \n")
 
                 }
             });

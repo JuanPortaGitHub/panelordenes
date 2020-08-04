@@ -6,7 +6,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
 
-            <div class="card card-warning">
+            <div>
                 <form METHOD="post" action="{{ route('ordenes.update',$anotacionOt->id) }}" class="form-horizontal" autocomplete="off">
                     {{csrf_field()}}
                     <!-- ESTO ES PARA EL UPDATE NOMAS -->
@@ -30,7 +30,7 @@
                             <label for="idcliente">Orden ID</label>
                             <input name="idcliente" id="idcliente" type="text" class="form-control" value="{{$anotacionOt->id}}" required>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none">
                             <label for="estadoorden">ESTADO</label>
                             <select name="estadoorden" class="form-control" required>
                                 <option selected value="{{$anotacionOt->estado['id']}}">{{ $anotacionOt->estado['estadoot']}}</option>
@@ -51,7 +51,7 @@
 
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="display: none">
                             <label for="reparadoorden">Reparado</label>
                             <select name="reparadoorden" class="form-control" required>
                                 <option selected value="{{$anotacionOt->reparaexito['id']}}">{{ $anotacionOt->reparaexito['reparadoconexito']}}</option>
