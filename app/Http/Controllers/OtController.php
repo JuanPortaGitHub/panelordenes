@@ -15,6 +15,7 @@ use App\Ot;
 use App\Reparaexito;
 use App\tipodeequipo;
 use Illuminate\Http\Request;
+
 use App\Cliente;
 use App\Equipo;
 use App\User;
@@ -23,7 +24,6 @@ use App\Confirmacion;
 use App\estado;
 use App\Sucursal;
 use Illuminate\Support\Facades\DB;
-use Yajra\DataTables\DataTables;
 
 class OtController extends Controller
 {
@@ -62,44 +62,43 @@ class OtController extends Controller
 
         }
 
-          elseif ($request->input('areabusqueda')
-              or $request->input('estadobusqueda')
-              or $request->input('sucursalbusqueda')
-              or $request->input('equipobusqueda')
-              or $request->input('tecnicobusqueda'))
-              {
+        elseif ($request->input('areabusqueda')
+            or $request->input('estadobusqueda')
+            or $request->input('sucursalbusqueda')
+            or $request->input('equipobusqueda')
+            or $request->input('tecnicobusqueda'))
+        {
 
-                  $busquedadearea = $request->get('areabusqueda');
-                  $busquedadeestado = $request->get('estadobusqueda');
-                  $busquedadesucursal = $request->get('sucursalbusqueda');
-                  $busquedadeequipo = $request->get('equipobusqueda');
-                  $busquedadetecnico = $request->get('tecnicobusqueda');
+            $busquedadearea = $request->get('areabusqueda');
+            $busquedadeestado = $request->get('estadobusqueda');
+            $busquedadesucursal = $request->get('sucursalbusqueda');
+            $busquedadeequipo = $request->get('equipobusqueda');
+            $busquedadetecnico = $request->get('tecnicobusqueda');
 
 
 
-                  $orders = Ot::
-                      wherehas('sucursal', function ($query) use ($busquedadesucursal)  {
-                          $query->where('sucursal','LIKE',$busquedadesucursal);
-                      })->WhereHas('area', function ($query) use ($busquedadearea) {
-                          $query->where('areas', 'LIKE',$busquedadearea);
-                      })->WhereHas('estado', function ($query) use ($busquedadeestado) {
-                          $query->where('estadoot', 'LIKE',$busquedadeestado);
-                      })->WhereHas('equipo', function ($query) use ($busquedadeequipo) {
-                          $query->where('tipodeequipo_id', 'LIKE',$busquedadeequipo);
-                      })->WhereHas('user', function ($query) use ($busquedadetecnico) {
-                          $query->where('id', 'LIKE',$busquedadetecnico);
-                      })
-                      ->orderby('ot_id','DESC')->paginate(10)
-                      ->appends([
+            $orders = Ot::
+            wherehas('sucursal', function ($query) use ($busquedadesucursal)  {
+                $query->where('sucursal','LIKE',$busquedadesucursal);
+            })->WhereHas('area', function ($query) use ($busquedadearea) {
+                $query->where('areas', 'LIKE',$busquedadearea);
+            })->WhereHas('estado', function ($query) use ($busquedadeestado) {
+                $query->where('estadoot', 'LIKE',$busquedadeestado);
+            })->WhereHas('equipo', function ($query) use ($busquedadeequipo) {
+                $query->where('tipodeequipo_id', 'LIKE',$busquedadeequipo);
+            })->WhereHas('user', function ($query) use ($busquedadetecnico) {
+                $query->where('id', 'LIKE',$busquedadetecnico);
+            })
+                ->orderby('ot_id','DESC')->paginate(10)
+                ->appends([
 
-                          'areabusqueda'=> request('areabusqueda'),
-                          'estadobusqueda'=> request('estadobusqueda'),
-                          'sucursalbusqueda'=> request('sucursalbusqueda'),
-                          'equipobusqueda'=> request('equipobusqueda'),
-                          'tecnicobusqueda'=> request('tecnicobusqueda'),
-                      ]);
-
-              }
+                    'areabusqueda'=> request('areabusqueda'),
+                    'estadobusqueda'=> request('estadobusqueda'),
+                    'sucursalbusqueda'=> request('sucursalbusqueda'),
+                    'equipobusqueda'=> request('equipobusqueda'),
+                    'tecnicobusqueda'=> request('tecnicobusqueda'),
+                ]);
+        }
 
         else {
             $orders = Ot::orderby('ot_id','DESC')->paginate(10);
@@ -143,7 +142,7 @@ class OtController extends Controller
     }
 
 
-     /**
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -152,22 +151,55 @@ class OtController extends Controller
     public function store(Request $request)
     {
 
+        $validator = \Validator::make($request->all(), [
 
+            'pincode' => 'required|exists:users,pincode',
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()->all()]);
+        }
 
 
 
         // Parte que carga datos en base de datos Equipo
 
-         $nuevoequipo = new Equipo();
+        $nuevoequipo = new Equipo();
 
-            $nuevoequipo->tipodeequipo_id = $request->input('tipodeequipo');
-            $nuevoequipo->modelo = $request->input('modeloequipo');
-            $nuevoequipo->password = $request->input('passwordequipo');
-            $nuevoequipo->cargador = (bool) $request->input('cargador');
-            $nuevoequipo->bateria = (bool) $request->input('bateria');
-            $nuevoequipo->bolsofunda = (bool) $request->input('bolsofunda');
+        $nuevoequipo->tipodeequipo_id = $request->input('tipodeequipo_id');
+        $nuevoequipo->modelo = $request->input('modeloequipo');
+        $nuevoequipo->password = $request->input('passwordequipo');
 
-            $nuevoequipo->save();
+
+        $haycargador = $_POST['cargador'];
+
+        if(isset($haycargador)){
+
+            $nuevoequipo->cargador = 1;
+
+        }else{
+
+            $nuevoequipo->cargador = 0;
+
+            };
+
+
+
+        if($_POST['bateria'] == true){
+
+            $nuevoequipo->bateria = 1;
+
+        }else{
+
+            $nuevoequipo->bateria = 0;
+
+        };
+
+
+        $nuevoequipo->bolsofunda = (bool) $request->input('bolsofunda');
+
+        $nuevoequipo->save();
 
 
 
@@ -176,66 +208,66 @@ class OtController extends Controller
 
         // Parte que carga datos en base de datos OT
 
-         $nuevaorden = new Ot();
+        $nuevaorden = new Ot();
 
-            //Comprueba si ya hay una orden de trabajo, si no existe, pone 1 mas del determinado manualmente por $ultimaOT
-            //Si ya hay un registro, se fija cual es la ultima orden y suma 1
+        //Comprueba si ya hay una orden de trabajo, si no existe, pone 1 mas del determinado manualmente por $ultimaOT
+        //Si ya hay un registro, se fija cual es la ultima orden y suma 1
 
-            $compruebaultimaOT=Ot::latest()->first();
+        $compruebaultimaOT=Ot::latest()->first();
 
-            if($compruebaultimaOT===Null){
+        if($compruebaultimaOT===Null){
 
-                $ultimaOT=9000;
-                $nuevaorden->ot_id = $ultimaOT+1;
-            }else{
+            $ultimaOT=9000;
+            $nuevaorden->ot_id = $ultimaOT+1;
+        }else{
 
             $ultimaOT=Ot::latest()->first()->ot_id;
             $nuevaorden->ot_id = $ultimaOT+1;
 
-            }
+        }
 
-            //Carga en el array $nuevaorden del resto de los campos
+        //Carga en el array $nuevaorden del resto de los campos
 
-            $nuevaorden->cliente_id = $request->input('idclient');
-            $nuevaorden->detalles = $request->input('detalles');
-            $nuevaorden->sintoma = $request->input('sintoma');
-            $nuevaorden->fechaingreso = $request->input('fechaingreso');
-            $nuevaorden->fechaentrega = $request->input('fechaentrega');
-            $nuevaorden->sucursal_id = $request->input('sucursal');
-            $nuevaorden->estado_id = $request->input('estado');
-            $nuevaorden->confirmacion_id = $request->input('confirmacion');
-            $nuevaorden->area_id = $request->input('area');
-            $nuevaorden->repuesto_id = $request->input('necesitarepuesto');
-            $nuevaorden->presupuesto = $request->input('Presupuesto');
-            $nuevaorden->passwordot = $request->input('passwordot');
-            $nuevaorden->user_id = $request->input('nombretecnico');
-
-
-
-
-
-
-            //Asocia el id de equipo con el correspondiente de OT
-            $nuevaorden->equipo_id = $nuevoequipo->id;
-
-
-
-            //PASOS CONSULTA DE PINCODE
-            $tecnicopin = $request->input('pincode'); //Obtengo pincode de formulario
-            $tecnico = DB::table('users')->where('pincode', $tecnicopin)->first(); //hago consulta a BD para saber cual es el ID usuario al que corresponde el pin
-            $nuevaorden->recibidopor_id = $tecnico->name; //Asocio el id del usuario para grabar en la orden quien la hizo
+        $nuevaorden->cliente_id = $request->input('idclient');
+        $nuevaorden->detalles = $request->input('detalles');
+        $nuevaorden->sintoma = $request->input('sintoma');
+        $nuevaorden->fechaingreso = $request->input('fechaingreso');
+        $nuevaorden->fechaentrega = $request->input('fechaentrega');
+        $nuevaorden->sucursal_id = $request->input('sucursal');
+        $nuevaorden->estado_id = $request->input('estado_id');
+        $nuevaorden->confirmacion_id = $request->input('confirmacion');
+        $nuevaorden->area_id = $request->input('area');
+        $nuevaorden->repuesto_id = $request->input('necesitarepuesto');
+        $nuevaorden->presupuesto = $request->input('presupuesto');
+        $nuevaorden->passwordot = $request->input('passwordot');
+        $nuevaorden->user_id = $request->input('nombretecnico');
 
 
 
 
 
 
-            //Guarda el array
-            $nuevaorden->save();
+        //Asocia el id de equipo con el correspondiente de OT
+        $nuevaorden->equipo_id = $nuevoequipo->id;
 
-            //Crea anotacion con informacion inicial
-            $firstannotation= new annotation();
-            $firstannotation->anotacion = 'Datos de ingreso:
+
+
+        //PASOS CONSULTA DE PINCODE
+        $tecnicopin = $request->input('pincode'); //Obtengo pincode de formulario
+        $tecnico = DB::table('users')->where('pincode', $tecnicopin)->first(); //hago consulta a BD para saber cual es el ID usuario al que corresponde el pin
+        $nuevaorden->recibidopor_id = $tecnico->name; //Asocio el id del usuario para grabar en la orden quien la hizo
+
+
+
+
+
+
+        //Guarda el array
+        $nuevaorden->save();
+
+        //Crea anotacion con informacion inicial
+        $firstannotation= new annotation();
+        $firstannotation->anotacion = 'Datos de ingreso:
 Detalles: ' .$nuevaorden->detalles . '
 Sintoma: ' .$nuevaorden->sintoma . '
 Fecha de entrega : ' . $nuevaorden->fechaentrega . '
@@ -244,27 +276,27 @@ Area: ' . $nuevaorden->area->areas . '
 Estado: ' . $nuevaorden->estado->estadoot . '
 Presupuesto: ' . $nuevaorden->presupuesto;
 
-            $firstannotation->ot_id = $nuevaorden->ot_id;
-            $firstannotation->visiblecliente=0;
-            $firstannotation->user_id=$tecnico->id;
-            $firstannotation->save();
+        $firstannotation->ot_id = $nuevaorden->ot_id;
+        $firstannotation->visiblecliente=0;
+        $firstannotation->user_id=$tecnico->id;
+        $firstannotation->save();
 
-            //Mando al view la info de ot
+        //Mando al view la info de ot
 
-            Mail::to($nuevaorden->cliente->mail)->queue(new mailingreso($nuevaorden));
+        Mail::to($nuevaorden->cliente->mail)->queue(new mailingreso($nuevaorden));
 
-            $orden=$nuevaorden;
+        $orden=$nuevaorden;
 
 
-            //Descarga PDF
+        //Descarga PDF
 
-            $pdf = \PDF::loadView('pdf.pdfcargaot', compact('orden'));
+        $pdf = \PDF::loadView('pdf.pdfcargaot', compact('orden'));
 
         return $pdf->stream();
 
         //Arma la variable $orders para pasarla a la lista (idem que en el index) para poder abrir la lista de ordenes luego de guardar
 
-            //$orders=Ot::all();
+        //$orders=Ot::all();
 
 
 
@@ -285,6 +317,7 @@ Presupuesto: ' . $nuevaorden->presupuesto;
      */
     public function show($id)
     {
+
 
 
 
@@ -355,7 +388,6 @@ Presupuesto: ' . $nuevaorden->presupuesto;
 
     //ESTAS SON FUNCIONES DE CONTROLADOR PARA QUE EL CLIENTE PUEDA VER EL ESTADO DE SU ORDEN
 
-
     //Funcion para la consulta
 
     public function estadodeorden(){
@@ -384,17 +416,17 @@ Presupuesto: ' . $nuevaorden->presupuesto;
 
         //hacemos consulta cuando se cumplan ambas condiciones
         $orden=Ot::where('ot_id',$otconsultada)
-                  ->where('passwordot',$passwordconsultado)
-                    ->firstOrFail();
+            ->where('passwordot',$passwordconsultado)
+            ->firstOrFail();
 
 
 
 
         //PARA OBTENER LISTA DE ANOTACIONES VISIBLES CORRESPONDIENTES A LA OT
         $anotacionOt=Annotation::where('ot_id', '=', $orden->ot_id)
-                                ->where('visiblecliente', '=', 1)
-                                ->orderby('id', 'desc')
-                                ->get();
+            ->where('visiblecliente', '=', 1)
+            ->orderby('id', 'desc')
+            ->get();
 
 
         //Para completar informacion a mostrar
@@ -446,15 +478,15 @@ Presupuesto: ' . $nuevaorden->presupuesto;
 
 
             $orders = Ot::where('user_id',$user_id)
-               ->wherehas('sucursal', function ($query) use ($busquedadesucursal)  {
-                $query->where('sucursal','LIKE',$busquedadesucursal);
-            })->WhereHas('area', function ($query) use ($busquedadearea) {
-                $query->where('areas', 'LIKE',$busquedadearea);
-            })->WhereHas('estado', function ($query) use ($busquedadeestado) {
-                $query->where('estadoot', 'LIKE',$busquedadeestado);
-            })->WhereHas('equipo', function ($query) use ($busquedadeequipo) {
-                $query->where('tipodeequipo_id', 'LIKE',$busquedadeequipo);
-            })
+                ->wherehas('sucursal', function ($query) use ($busquedadesucursal)  {
+                    $query->where('sucursal','LIKE',$busquedadesucursal);
+                })->WhereHas('area', function ($query) use ($busquedadearea) {
+                    $query->where('areas', 'LIKE',$busquedadearea);
+                })->WhereHas('estado', function ($query) use ($busquedadeestado) {
+                    $query->where('estadoot', 'LIKE',$busquedadeestado);
+                })->WhereHas('equipo', function ($query) use ($busquedadeequipo) {
+                    $query->where('tipodeequipo_id', 'LIKE',$busquedadeequipo);
+                })
                 ->orderby('ot_id','DESC')->paginate(10)
                 ->appends([
 
@@ -468,7 +500,7 @@ Presupuesto: ' . $nuevaorden->presupuesto;
 
         else {
             $orders=Ot::
-                where('user_id',$user_id)
+            where('user_id',$user_id)
                 ->where('estado_id','!=','8')
                 ->where('estado_id','!=','7')
                 ->where('estado_id','!=','3')

@@ -15,9 +15,9 @@ class ClientesController extends Controller
         $search = $request->search;
 
         if($search == ''){
-            $clientes = Cliente::orderby('apellido','asc')->select('id','nombre','celular','telefono','mail','apellido')->limit(5)->get();
+            $clientes = Cliente::orderby('apellido','asc')->select('id','nombre','celular','telefono','mail','apellido')->get();
         }else{
-            $clientes = Cliente::orderby('apellido','asc')->select('id','nombre','celular','telefono','mail','apellido')->where('apellido', 'like', '%' .$search . '%')->limit(5)->get();
+            $clientes = Cliente::orderby('apellido','asc')->select('id','nombre','celular','telefono','mail','apellido')->where('apellido', 'like', '%' .$search . '%')->get();
         }
 
         $response = array();

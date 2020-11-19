@@ -41,6 +41,24 @@ class AnnotationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function listaindex()
+    {
+        $anotattions=Annotation::orderby('created_at','DESC')->get();
+
+
+        return view('anotaciones.lista', compact('anotattions'));
+
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+
     public function create()
     {
 

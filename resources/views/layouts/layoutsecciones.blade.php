@@ -264,6 +264,12 @@
                         <p>Listado Clientes</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ URL::route('anotaciones.lista')}}" class="nav-link active">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Anotaciones</p>
+                    </a>
+                </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

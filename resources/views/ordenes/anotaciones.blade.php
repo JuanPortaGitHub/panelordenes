@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="card-body">
-                            <table id="anotaciones" class="table compact table-bordered" style="font-size: small; white-space: pre-wrap;word-wrap: break-word; width: 100%">
+                            <table id="anotaciones" class="table compact table-bordered table-layout" style="font-size: small; white-space: pre-wrap;word-wrap: break-word; table-layout: fixed;">
                                 <thead>
                                 <tr>
                                     <th class="all">Fecha</th>
@@ -95,7 +95,7 @@
                                                 {{$anotacion->user->name}}
                                             @endif</td>
 
-                                        <td style="white-space: pre-wrap ;word-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
+                                        <td style="white-space: pre-wrap ;text-overflow: ellipsis;overflow-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
 
 
 
@@ -718,6 +718,12 @@
                     "infoFiltered": "(Filtrado de _MAX_ registros totales)",
 
                 },
+                "columns": [
+                    { "width": "20%" },
+                    { "width": "10%" },
+                    { "width": "60%" },
+                    { "width": "10%" }
+                ],
                 "lengthChange": false,
 
                 "autoWidth": false,

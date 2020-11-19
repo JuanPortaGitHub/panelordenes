@@ -107,7 +107,7 @@
                         <div class="form-group row">
                             <label for="mailcliente" class="col-sm-2 col-form-label">Mail</label>
                             <div class="col-sm-10">
-                                <input name="mailcliente" id="mailcliente" type="email" class="form-control" placeholder="Mail ..." readonly required>
+                                <input name="mailcliente" id="mailcliente" type="email" class="form-control" placeholder="Mail ..." readonly>
                             </div>
                         </div>
 
@@ -143,7 +143,7 @@
                             <label for="tipodeequipo" class="col-sm-2 col-form-label">Categoria</label>
                             <div class="col-sm-10">
 
-                                <select name="tipodeequipo" class="form-control" placeholder="Presupuestar o Confirmada ..." required>
+                                <select name="tipodeequipo_id" id="tipodeequipo_id" class="form-control" placeholder="Presupuestar o Confirmada ..." required>
                                     <option value=""></option>
                                     @foreach ($tipoequipos as $tipoequipo)
                                         <option value="{{ $tipoequipo['id'] }}">{{ $tipoequipo['tipodeequipo'] }}</option>
@@ -155,13 +155,13 @@
                         <div class="form-group row">
                             <label for="modeloequipo" class="col-sm-2 col-form-label">Modelo Equipo</label>
                             <div class="col-sm-10">
-                                <input name="modeloequipo" type="text" class="form-control" required>
+                                <input name="modeloequipo" id="modeloequipo" type="text" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="passwordequipo" class="col-sm-2 col-form-label">Password</label>
                             <div class="col-sm-10">
-                                <input name="passwordequipo" type="text" class="form-control" placeholder="Ingresar contraseña del equipo" required>
+                                <input name="passwordequipo" id="passwordequipo" type="text" class="form-control" placeholder="Ingresar contraseña del equipo" required>
                             </div>
                         </div>
                         <div class="offset-sm-2 col-sm-10">
@@ -236,7 +236,7 @@
                         <div class="form-group row">
                             <label for="necesitarepuesto" class="col-sm-2 col-form-label">Repuesto</label>
                             <div class="col-sm-10">
-                                <select name="necesitarepuesto" class="form-control" placeholder="Indicar si requiere de repuesto ..." required>
+                                <select name="necesitarepuesto" class="form-control" placeholder="Indicar si requiere de repuesto ..." id="necesitarepuesto" required>
 
                                         <option value="{{ $estadoderepuestos[0]->id }}">{{ $estadoderepuestos[0]->estadoderepuesto }}</option>
                                         <option value="{{ $estadoderepuestos[1]->id }}">{{ $estadoderepuestos[1]->estadoderepuesto }}</option>
@@ -247,26 +247,26 @@
                         <div class="form-group row">
                             <label for="detalles" class="col-sm-2 col-form-label">Detalles / Roturas / Marcas</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" rows="3" placeholder="Detalles, roturas y marcas del equipo ..." name="detalles" required></textarea>
+                                <textarea class="form-control" rows="3" placeholder="Detalles, roturas y marcas del equipo ..." name="detalles" id="detalles" required></textarea>
 
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="sintoma" class="col-sm-2 col-form-label">Sintomas / Diagnostico</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" rows="3" placeholder="Sintoma y diagnostico de corresponder ..." name="sintoma" required></textarea>
+                                <textarea class="form-control" rows="3" placeholder="Sintoma y diagnostico de corresponder ..." name="sintoma" id="sintoma" required></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="presupuesto" class="col-sm-2 col-form-label">Presupuesto</label>
                             <div class="col-sm-10">
-                                <input name="Presupuesto" type="text" class="form-control" placeholder="Indicar presupuesto del trabajo ..." >
+                                <input name="presupuesto" id="presupuesto" type="text" class="form-control" placeholder="Indicar presupuesto del trabajo ..." >
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="estado" class="col-sm-2 col-form-label">Estado</label>
                             <div class="col-sm-10">
-                                <select name="estado" class="form-control" placeholder="Indicar estado de la orden ..." required>
+                                <select name="estado" class="form-control" id="estado" placeholder="Indicar estado de la orden ..." required>
 
                                     <option value="{{ $estados[0]->id }}">{{ $estados[0]->estadoot }}</option>
                                     <option value="{{ $estados[1]->id }}">{{ $estados[1]->estadoot }}</option>
@@ -278,19 +278,19 @@
                         <div class="form-group row">
                             <label for="fechaingreso" class="col-sm-2 col-form-label">Fecha Ingreso</label>
                             <div class="col-sm-10">
-                                <input name="fechaingreso" type="datetime-local" class="form-control" value="{{now()->format('Y-m-d\TH:i')}}" readonly required>
+                                <input name="fechaingreso" type="datetime-local" class="form-control" id="fechaingreso" value="{{now()->format('Y-m-d\TH:i')}}" readonly required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="fechaentrega" class="col-sm-2 col-form-label">Fecha Entrega</label>
                             <div class="col-sm-10">
-                                <input name="fechaentrega" type="date" class="form-control" required value={{ $fechaentrega }} required>
+                                <input name="fechaentrega" type="date" class="form-control" id="fechaentrega" required value={{ $fechaentrega }} required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="passwordot" class="col-sm-2 col-form-label">Contraseña Orden</label>
                             <div class="col-sm-10">
-                                <input name="passwordot" type="text" class="form-control" value="{{ $passwordot }}" readonly required>
+                                <input name="passwordot" type="text" class="form-control" id="passwordot" value="{{ $passwordot }}" readonly required>
                             </div>
                         </div>
 
@@ -342,8 +342,9 @@
                                         <div class="card-footer" >
                                             <button type="submit" class="btn btn-info" id="ajaxsubmit">Ingresar</button>
 
-                                        </div>
 
+                                        </div>
+                                        <div class="alert alert-danger" style="display:none"></div>
                                     </div>
                             <div id="loading-screen" style="display: none; position: absolute; left: 50%; top: 50%;
                 z-index: 1000;
@@ -432,76 +433,130 @@
 
         });
 
+
     });
 </script>
 <script>
 
     $(document).ready(function() {
 
-    $(function() {
-        $('#area').change(function(){
-            if($('#area').val() == '1'){
-            $('#nombretecnico').val("7")
+                $(function() {
+                    $('#area').change(function(){
+                        if($('#area').val() == '1'){
+                        $('#nombretecnico').val("7")
 
 
-            }
-        });
+                        }
+                    });
+                });
+
+
+
+                $(function() {
+                    $('#area').change(function(){
+                        if($('#area').val() == '2'&&$('#sucursal').val() == '1') {
+                            $('#nombretecnico').val("8")
+                        }
+                            if($('#area').val() == '2'&&$('#sucursal').val() == '2'){
+                                $('#nombretecnico').val("9")
+
+                        }
+                    });
+
+                });
+
+                $(function() {
+                    $('#sucursal').change(function(){
+                        if($('#area').val() == '1'){
+                            $('#nombretecnico').val("7")
+
+
+                        }
+                    });
+                });
+
+
+                $(function() {
+                    $('#sucursal').change(function(){
+                        if($('#area').val() == '2'&&$('#sucursal').val() == '1') {
+                            $('#nombretecnico').val("8")
+                        }
+                        if($('#area').val() == '2'&&$('#sucursal').val() == '2'){
+                            $('#nombretecnico').val("9")
+
+                        }
+                    });
+
+                });
+
+                jQuery('#ajaxsubmit').click(function(e){
+                    $('#cargapin').hide();
+                    $('#loading-screen').show();
+                    e.preventDefault();
+
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    jQuery.ajax({
+                        url: "{{ route('ordenes.store') }}",
+                        method: 'post',
+                        data: {
+
+                            pincode: jQuery('#pincode').val(),
+                            apellidocliente: jQuery('#apellidocliente').val(),
+                            idclient: jQuery('#idclient').val(),
+                            nombrecliente: jQuery('#nombrecliente').val(),
+                            celularcliente: jQuery('#celularcliente').val(),
+                            telefonocliente: jQuery('#telefonocliente').val(),
+                            mailcliente: jQuery('#mailcliente').val(),
+                            tipodeequipo_id: $('#tipodeequipo_id').val(),
+                            modeloequipo: jQuery('#modeloequipo').val(),
+                            passwordequipo: jQuery('#passwordequipo').val(),
+                            cargador: jQuery('#cargador').is(':checked'),
+                            bateria: jQuery('#bateria').is(':checked'),
+                            bolsofunda: jQuery('#bolsofunda').is(':checked'),
+                            sucursal: jQuery('#sucursal').val(),
+                            area: jQuery('#areaaaa').val(),
+                            nombretecnico: jQuery('#nombretecnico').val(),
+                            necesitarepuesto: jQuery('#necesitarepuesto').val(),
+                            detalles: jQuery('#detalles').val(),
+                            sintoma: jQuery('#sintoma').val(),
+                            presupuesto: jQuery('#presupuesto').val(),
+                            estado_id: jQuery('#estado').val(),
+                            fechaingreso: jQuery('#fechaingreso').val(),
+                            fechaentrega: jQuery('#fechaentrega').val(),
+                            passwordot: jQuery('#passwordot').val(),
+
+                        },
+                        success: function(result){
+                            $('#loading-screen').hide();
+                            if(result.errors)
+                            {
+                                $('#cargapin').show();
+                                jQuery('.alert-danger').html('');
+
+                                jQuery.each(result.errors, function(key, value){
+                                    jQuery('.alert-danger').show();
+                                    jQuery('.alert-danger').append('<li>'+value+'</li>');
+                                });
+                            }
+                            else
+                            {
+                                jQuery('.alert-danger').hide();
+                                jQuery('.anotacionot').hide();
+                                location.reload();
+                            }
+                        }});
+                });
     });
-    });
-
-
-    $(function() {
-        $('#area').change(function(){
-            if($('#area').val() == '2'&&$('#sucursal').val() == '1') {
-                $('#nombretecnico').val("8")
-            }
-                if($('#area').val() == '2'&&$('#sucursal').val() == '2'){
-                    $('#nombretecnico').val("9")
-
-            }
-        });
-
-    });
-
-    $(function() {
-        $('#sucursal').change(function(){
-            if($('#area').val() == '1'){
-                $('#nombretecnico').val("7")
-
-
-            }
-        });
-    });
-
-
-    $(function() {
-        $('#sucursal').change(function(){
-            if($('#area').val() == '2'&&$('#sucursal').val() == '1') {
-                $('#nombretecnico').val("8")
-            }
-            if($('#area').val() == '2'&&$('#sucursal').val() == '2'){
-                $('#nombretecnico').val("9")
-
-            }
-        });
-
-    });
-
-
-
 </script>
 
 
-<script>
-    jQuery(document).ready(function(){
-        jQuery('#ajaxsubmit').click(function(e){
-            $('#cargapin').hide();
-            $('#loading-screen').show();
 
 
-        });
-    });
-</script>
+
 
 
 <!-- jQuery -->
