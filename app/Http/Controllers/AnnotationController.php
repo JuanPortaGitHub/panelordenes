@@ -78,6 +78,7 @@ class AnnotationController extends Controller
             'orden' => 'required',
             'anotacion' => 'required',
             'pincode' => 'required|exists:users,pincode',
+            'archivoadjunto' => 'required|max:2048',
         ]);
 
         if ($validator->fails())
@@ -95,6 +96,7 @@ class AnnotationController extends Controller
 
         $nuevaanotacion->ot_id = $request->input('orden');
         $nuevaanotacion->anotacion = $request->input('anotacion');
+        $nuevaanotacion->ruta = $request->file('archivoadjunto')->store('public');
 
 
 
@@ -193,6 +195,7 @@ class AnnotationController extends Controller
         }else{
             $nuevaanotacion->interaccioncliente=1;
         };
+
 
 
 

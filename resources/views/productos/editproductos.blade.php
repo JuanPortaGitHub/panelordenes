@@ -120,11 +120,7 @@
                                 <button type="submit" class="btn btn-warning"><b>Actualizar Producto</b>
                                 </button>
                             </div>
-                            <form action="{{ route('productos.destroy', $product->id)}}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger" type="submit">Borrar</button>
-                            </form>
+
                         </div>
 
 
@@ -142,6 +138,12 @@
 
                     </div>
                 </div>
+            </form>
+
+            <form action="{{ route('productos.destroy', $product->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger" type="submit">Borrar</button>
             </form>
             <!-- CIERRE DE FORMULARIO CARGA PRODUCTO -->
         </section>

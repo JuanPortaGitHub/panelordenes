@@ -37,7 +37,7 @@
                     <!-- Search form -->
                     <form class="form-inline ml-3">
                         <div>
-                            <input class="form-control" name="busqueda" id="busqueda" type="search" placeholder="Buscar por orden o nombre" aria-label="Search">
+                            <input class="form-control" name="busqueda" id="busqueda" type="search" id="busquedaorden" placeholder="Buscar por orden o nombre" aria-label="Search">
 
 
                                 <button class="btn btn-navbar" type="submit">
@@ -120,7 +120,7 @@
                             <th class="desktop">Equipo</th>
 
                             <th class="desktop">Imprimir</th>
-
+                            <th class="desktop">Ver Mas</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -159,7 +159,7 @@
                                     <td>{{$order->equipo->modelo}}</td>
 
                                     <td><a href="{{route('ordenes.showpdf', $order->ot_id)}}"><i class="fas fa-print"></i></a></td>
-
+                                    <td></td>
                                     </tr>
 
                                     @endforeach
@@ -184,6 +184,7 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
+                                            <th></th>
                                         </tr>
                                     </tfoot>
                         </table>
@@ -224,8 +225,21 @@
 <script>
 
 $(document).ready(function () {
-$('#listaordenes').dataTable({
 
+document.getElementById("busquedaorden").focus();
+
+$('#listaordenes').dataTable({
+    responsive: {
+        details: {
+            type: 'column',
+            target: -1
+        }
+    },
+    columnDefs: [ {
+        className: 'control',
+        orderable: false,
+        targets:   -1
+    } ],
 
 "language": {
 "paginate": {
@@ -240,6 +254,8 @@ $('#listaordenes').dataTable({
 "infoFiltered": "(Filtrado de _MAX_ registros totales)",
 
 },
+
+
 
 
 "autoWidth": true,

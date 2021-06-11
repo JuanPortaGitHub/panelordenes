@@ -531,6 +531,7 @@
 
 <!-- SCRIPT PARA VALIDACION DE MODAL -->
 <script>
+
     jQuery(document).ready(function(){
         jQuery('#ajaxSubmit').click(function(e){
             $('#contenido').hide();

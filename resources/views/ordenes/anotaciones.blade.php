@@ -95,11 +95,27 @@
                                                 {{$anotacion->user->name}}
                                             @endif</td>
 
-                                        <td style="white-space: pre-wrap ;text-overflow: ellipsis;overflow-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}</td>
+                                        <td style="white-space: pre-wrap ;text-overflow: ellipsis;overflow-wrap: break-word; font-family: Verdana">{{$anotacion->anotacion}}@if(isset($anotacion->ruta))<br /><a href="#" data-target="#modalIMG{{$anotacion->id}}" data-toggle="modal" class="color-gray-darker c6 td-hover-none">
+                                                <div class="ba-0 ds-1">
+                                                    <img class="card-img-top" alt="VER ARCHIVO" src="/storage/app/{{$anotacion->ruta}}" />
 
+                                                </div>
+                                            </a>@endif</td>
 
-
-                                        <!-- /.Si es anotacion visible a cliente permite eliminar -->
+                                        <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="#modalIMG{{$anotacion->id}}" role="dialog" tabindex="-1">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-body mb-0 p-0">
+                                                        <img src="/storage/app/{{$anotacion->ruta}}" alt="Descargar Archivo" style="width:100%">
+                                                    </div>
+                                                    <div class="modal-footer"><div><a href="/storage/app/{{$anotacion->ruta}}" target="_blank">Descargar</a></div>
+                                                        <div><button class="btn btn-outline-primary btn-rounded btn-md ml-4 text-center" data-dismiss="modal" type="button">Cerrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <!-- /.Si es anotacion visible a cliente permite eliminar -->
 
                                         <td style="white-space: normal">@if(isset($anotacion->user_id) && ($anotacion->visiblecliente == 1))<form action="{{action('AnnotationController@destroy', $anotacion->id)}}" method="post">@csrf @method('DELETE')<button class="btn btn-danger btn-xs" type="submit">Borrar</button></form>@endif</td>
                                     </tr>
@@ -554,7 +570,7 @@
                         <!-- Seccion contenido Anotacion> -->
 
                         <div class="modal-body form-horizontal">
-                            <form class="form-horizontal" METHOD="post" action="{{ route('annotations.store') }}"  autocomplete="off">
+                            <form class="form-horizontal" METHOD="post" action="{{ route('annotations.store') }}"  autocomplete="off" ecytype="multipart/form-data" name="formularioanotacion" id="formularioanotacion">
                                 {{csrf_field()}}
 
 
@@ -643,6 +659,13 @@
 
                                 </div>
 
+                                <div class="form-group">
+                                    <br class="form-group">
+                                    <label for="archivoadjunto">Adjuntar Archivo: </label><br>
+
+                                    <input name="archivoadjunto" id="archivoadjunto" type="file" multiple="" accept="image/*">
+
+                                </div>
 
 
                                 <div class="form-group">
@@ -702,7 +725,22 @@
 
 @section("scriptextra")
 
+
+
+
+
     <script>
+
+        document.addEventListener ("keydown", function (e) {
+            if (e.altKey  &&  e.which === 65) {
+                $('#anotacionot').modal('toggle');
+            }
+        });
+
+
+
+
+
         $(function () {
 
             $('#anotaciones').DataTable({
@@ -917,19 +955,9 @@
                 jQuery.ajax({
                     url: "{{ route('annotations.store') }}",
                     method: 'post',
-                    data: {
-                        orden: jQuery('#orden').val(),
-                        anotacion: jQuery('#anotacion').val(),
-                        pincode: jQuery('#pincode').val(),
-                        visiblecliente: jQuery('#visiblecliente').val(),
-                        presupuestoenviado: jQuery('#presupuestoenviado').val(),
-                        fechaentregaenviada: jQuery('#fechaentregaenviada').val(),
-                        diagnosticoenviado: jQuery('#diagnosticoenviado').val(),
-                        cambioorden: jQuery('#cambioorden').val(),
-                        cambiotecnico: jQuery('#cambiotecnico').val(),
-                        cambioarea: jQuery('#cambioarea').val(),
-
-                    },
+                    data: new FormData($('#formularioanotacion')[0]),
+                    processData: false,
+                    contentType: false,
                     success: function(result){
                         $('#loading-screen').hide();
                         if(result.errors)
@@ -948,7 +976,13 @@
                             jQuery('.anotacionot').hide();
                             location.reload();
                         }
-                    }});
+
+                    },
+
+
+
+
+                });
             });
         });
     </script>

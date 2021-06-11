@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Condiva;
 use Illuminate\Http\Request;
 
 class ClientesController extends Controller
@@ -15,14 +16,25 @@ class ClientesController extends Controller
         $search = $request->search;
 
         if($search == ''){
-            $clientes = Cliente::orderby('apellido','asc')->select('id','nombre','celular','telefono','mail','apellido')->get();
+            $clientes = Cliente::orderby('apellido','asc')->get();
         }else{
-            $clientes = Cliente::orderby('apellido','asc')->select('id','nombre','celular','telefono','mail','apellido')->where('apellido', 'like', '%' .$search . '%')->get();
+            $clientes = Cliente::orderby('apellido','asc')->where('apellido', 'like', '%' .$search . '%')->orwhere('dnicuit', 'like','%' .$search . '%')->get();
         }
 
         $response = array();
         foreach($clientes as $cliente){
-            $response[] = array("apellidocliente"=>$cliente->apellido,"idclient"=>$cliente->id,"nombrecliente"=>$cliente->nombre,"label"=>$cliente->apellido." ".$cliente->nombre,"celularcliente"=>$cliente->celular,"telefonocliente"=>$cliente->telefono,"mailcliente"=>$cliente->mail);
+            $response[] = array(
+                "apellidocliente"=>$cliente->apellido,
+                "idclient"=>$cliente->id,
+                "nombrecliente"=>$cliente->nombre,
+                "condivacliente"=>$cliente->condiciondeiva->condicion,
+                "cuitcliente"=>$cliente->dnicuit,
+                "label"=>$cliente->dnicuit." || ".$cliente->apellido." ".$cliente->nombre,
+                "celularcliente"=>$cliente->celular,
+                "telefonocliente"=>$cliente->telefono,
+                "mailcliente"=>$cliente->mail,
+
+                );
         }
 
         echo json_encode($response);
@@ -41,10 +53,10 @@ class ClientesController extends Controller
      */
     public function index()
     {
-
+        $condivas = Condiva::all();
         $clientes=Cliente::all();
 
-        return view('clientes.listaclientes', compact('clientes'));
+        return view('clientes.listaclientes', compact('clientes', 'condivas'));
 
 
     }
@@ -77,6 +89,8 @@ class ClientesController extends Controller
 
         $nuevocliente = new Cliente();
 
+                    $nuevocliente->dnicuit = $request->input('dnicuit');
+                    $nuevocliente->condicioniva = $request->input('condivacliente');
                     $nuevocliente->apellido = $request->input('apellido');
                     $nuevocliente->nombre = $request->input('nombre');
                     $nuevocliente->celular = $request->input('celular');
@@ -121,9 +135,10 @@ class ClientesController extends Controller
      */
     public function edit($id)
     {
+        $condivas = Condiva::all();
         $cliente=Cliente::findOrFail($id);
 
-        return view ("clientes.edit", compact ("cliente"));
+        return view ("clientes.edit", compact ("cliente","condivas"));
     }
 
     /**
@@ -142,7 +157,9 @@ class ClientesController extends Controller
             'nombre'=>'required',
             'celular'=>'required',
             'telefono'=>'required',
-            'mail'=>'required'
+            'mail'=>'required',
+            'dnicuit'=>'required',
+            'condivacliente'=>'required'
 
 
 
@@ -150,6 +167,8 @@ class ClientesController extends Controller
 
         $updatecliente=Cliente::findOrFail($id);
 
+        $updatecliente->dnicuit = $request->input('dnicuit');
+        $updatecliente->condicioniva = $request->input('condivacliente');
         $updatecliente->apellido = $request->input('apellido');
         $updatecliente->nombre = $request->input('nombre');
         $updatecliente->celular = $request->input('celular');
@@ -158,7 +177,7 @@ class ClientesController extends Controller
 
         $updatecliente->save();
 
-        return back();
+        return redirect()->to('clientes');
 
     }
 

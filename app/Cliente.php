@@ -30,5 +30,15 @@ class Cliente extends Model
 
         return $this->hasMany(Annotation::class);
     }
+    public function condiciondeiva(){
+        return $this->hasOne('App\Condiva','id','condicioniva');
+
+    }
+
+    public function factura(){
+        return $this->hasMany('App\Factura','id','idcliente');
+
+    }
+
 }
 

@@ -78,6 +78,12 @@
                         <i class="fas fa-edit"></i>
 
                         <div class="form-group row">
+                            <label for="dnicuit" class="col-sm-2 col-form-label">DNI/CUIT</label>
+                            <div class="col-sm-10">
+                                <input name="dnicuit" id="dnicuit" type="text" class="form-control" value="{{$cliente->dnicuit}}" placeholder="DNI o CUIT sin guiones ..." required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="apellidocliente" class="col-sm-2 col-form-label">Apellido</label>
                             <div class="col-sm-10">
                                 <input name="apellido" id="apellido" type="text" class="form-control" value="{{$cliente->apellido}}" required>
@@ -90,6 +96,17 @@
                             <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
                             <div class="col-sm-10">
                                 <input name="nombre" id="nombre" type="text" class="form-control" value="{{$cliente->nombre}}" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="condivacliente" class="col-sm-2 col-form-label">IVA</label>
+                            <div class="col-sm-10">
+                                <select name="condivacliente" id="condivacliente" class="form-control" required>
+                                    <option selected value={{$cliente->condicioniva}}>{{$cliente->condiciondeiva->condicion}}</option>
+                                    @foreach ($condivas as $condiva)
+                                        <option value="{{ $condiva['id'] }}">{{ $condiva['condicion'] }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row">

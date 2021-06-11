@@ -367,10 +367,10 @@
                                 <table id="anotaciones" class="table compact table-bordered" style="font-size: small; white-space: pre-wrap;word-wrap: break-word">
                                     <thead>
                                     <tr>
-                                        <th>Fecha</th>
-                                        <th>Usuario</th>
-                                        <th>Anotacion</th>
-
+                                        <th class="all" style="text-align: center">Fecha</th>
+                                        <th class="all" style="text-align: center">Usuario</th>
+                                        <th class="desktop" style="text-align: center">Anotacion</th>
+                                        <th class="desktop" style="text-align: center">Ver Anotacion</th>
 
                                     </tr>
                                     </thead>
@@ -395,12 +395,29 @@
                                                 </td>
 
 
-                                            <td style="font-family: Verdana">{{$anotacion->anotacion}}@if($anotacion->interaccioncliente!=0)<form action="{{ route('confirmapresupuesto') }}" method="POST">{{ csrf_field() }}{{ method_field('GET') }}<div style="display: none"><input name="ot_id" id="ot_id" type="text" class="form-control" value="{{$orden->ot_id}}" required></div><div style="display: none"><input name="anotacionid" id="anotacionid" type="text" class="form-control" value="{{$anotacion->id}}" required></div>
+                                            <td style="font-family: Verdana">{{$anotacion->anotacion}}@if(isset($anotacion->ruta))<br /><a href="#" data-target="#modalIMG{{$anotacion->id}}" data-toggle="modal" class="color-gray-darker c6 td-hover-none">
+                                                    <div class="ba-0 ds-1">
+                                                        <img class="card-img-top" alt="VER ARCHIVO" src="/storage/app/{{$anotacion->ruta}}" />
+
+                                                    </div>
+                                                </a>@endif @if($anotacion->interaccioncliente!=0)<form action="{{ route('confirmapresupuesto') }}" method="POST">{{ csrf_field() }}{{ method_field('GET') }}<div style="display: none"><input name="ot_id" id="ot_id" type="text" class="form-control" value="{{$orden->ot_id}}" required></div><div style="display: none"><input name="anotacionid" id="anotacionid" type="text" class="form-control" value="{{$anotacion->id}}" required></div>
                                                     <button class="btn btn-secondary btn-sm" type="submit" name = "submit" value = "Confirma">Confirmar</button> <button class="btn btn-secondary btn-sm" type="submit" name = "submit" value = "Rechaza">Rechazar</button></form>@endif</td>
 
-
+                                        <td></td>
 
                                         </tr>
+                                        <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade" id="#modalIMG{{$anotacion->id}}" role="dialog" tabindex="-1">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-body mb-0 p-0">
+                                                        <img src="/storage/app/{{$anotacion->ruta}}" alt="Descargar Archivo" style="width:100%">
+                                                    </div>
+                                                    <div class="modal-footer"><a href="/storage/app/{{$anotacion->ruta}}" target="_blank">Descargar</a></div>
+                                                        <div><button class="btn btn-outline-primary btn-rounded btn-md ml-4 text-center" data-dismiss="modal" type="button">Cerrar</button></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         @endforeach
 
 
@@ -418,6 +435,13 @@
 
 
         </div>
+
+
+
+
+
+
+
 
         <!-- /.Modal que se acciona de carga de anotaicones -->
 
@@ -529,6 +553,20 @@
         $(function () {
 
             $('#anotaciones').DataTable({
+
+                responsive: {
+                    details: {
+                        type: 'column',
+                        target: -1
+                    }
+                },
+                columnDefs: [ {
+                    className: 'control',
+                    orderable: false,
+                    targets:   -1
+                } ],
+
+
                 "language": {
                     "paginate": {
                         "next": "Siguiente",
@@ -544,7 +582,7 @@
                 "lengthChange": false,
 
                 "autoWidth": false,
-                "responsive": true,
+
                 "paging": true,
 
                 "searching": false,
@@ -600,6 +638,7 @@
                 });
             });
         </script>
+
 
 
     <!-- jQuery -->

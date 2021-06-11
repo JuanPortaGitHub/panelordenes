@@ -29,7 +29,7 @@
 
             @include('modalformularios.modalcargacliente')
             @include('modalformularios.modalcargaproductofactura')
-
+            @include('modalformularios.modalformadepago')
 
 
 
@@ -83,7 +83,7 @@
                                     <div class="form-group row" style="display: none">
                                         <label for="idclient" class="col-sm-2 col-form-label form-control-sm">ID</label>
                                         <div class="col-sm-10">
-                                            <input name="idclient" id="idclient" type="text" class="form-control form-control-sm" placeholder="ID ...">
+                                            <input name="idclient" id="idclient" type="text" class="form-control form-control-sm" placeholder="ID ..." required>
 
                                         </div>
                                     </div>
@@ -368,7 +368,7 @@
 
 
 
-                    @include('modalformularios.modalformadepago')
+
 
 
 
@@ -410,7 +410,7 @@
 
 
 
-        var p=1;
+
 
 
         var i = 1;
@@ -609,7 +609,7 @@
 
             //console.log(rowCount);
 
-            if(rowCount == 2){
+            if(rowCount <= 2){
                 alert('No se eliminar');
             }
             else{

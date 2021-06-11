@@ -117,6 +117,14 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <select name="condiva" id="condiva" class="form-control" required>
+                                <option value=""></option>
+                                @foreach ($condivas as $condiva)
+                                    <option value="{{ $condivas['id'] }}">{{ $condivas['condicioniva'] }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group row">
                             <label for="celularcliente" class="col-sm-2 col-form-label">Celular</label>
                             <div class="col-sm-10">
                                 <input name="celularcliente" id="celularcliente" type="text" class="form-control" placeholder="Celular ..." >

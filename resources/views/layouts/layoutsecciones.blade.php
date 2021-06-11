@@ -197,7 +197,7 @@
       <div class="user-panel mt-3 pb-3 mb-3">
           <form class="navbar-form navbar-left" role="search" action="{{url('searchredirect')}}">
               <div class="form-group">
-                  <input type="number" class="form-control" name='search' placeholder="Buscar nro. orden..." />
+                  <input type="number" class="form-control" name='search' id="search" placeholder="Buscar nro. orden..." />
               </div>
 
           </form>
@@ -253,7 +253,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ URL::route('ordenes.index')}}" class="nav-link active">
+                <a id="listadeordenesdetrabajo" href="{{ URL::route('ordenes.index')}}" class="nav-link active" >
                   <i class="nav-icon fas fa-table"></i>
                   <p>Listado de Ordenes</p>
                 </a>
@@ -268,6 +268,24 @@
                     <a href="{{ URL::route('anotaciones.lista')}}" class="nav-link active">
                         <i class="nav-icon fas fa-table"></i>
                         <p>Anotaciones</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ URL::route('providers.index')}}" class="nav-link active">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Listado Proveedores</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ URL::route('productos.index')}}" class="nav-link active">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Listado Productos</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ URL::route('facturacion.create')}}" class="nav-link active">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Crear Factura</p>
                     </a>
                 </li>
               <li class="nav-item">
@@ -379,9 +397,23 @@
 
 
 
+<script>
+document.addEventListener ("keydown", function (e) {
 
+if (e.altKey  &&  e.which === 83) {
+document.getElementById("search").focus();
+}
 
+if (e.altKey  &&  e.which === 85) {
+    document.getElementById("dropdownMenuLink").click();
+}
 
+if (e.altKey  &&  e.which === 79) {
+    document.getElementById("listadeordenesdetrabajo").click();
+}
+
+});
+</script>
 
 
 

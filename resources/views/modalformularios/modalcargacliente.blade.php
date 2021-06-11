@@ -24,7 +24,12 @@
 
                         <div class="card-body">
 
-
+                            <div class="form-group row">
+                                <label for="dnicuit" class="col-sm-2 col-form-label">DNI/CUIT</label>
+                                <div class="col-sm-10">
+                                    <input name="dnicuit" id="dnicuit" type="text" class="form-control" placeholder="DNI o CUIT sin guiones ..." required>
+                                </div>
+                            </div>
 
                             <div class="form-group row">
                                 <label for="apellido" class="col-sm-2 col-form-label">Apellido</label>
@@ -48,21 +53,32 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="condivacliente" class="col-sm-2 col-form-label">IVA</label>
+                                <div class="col-sm-10">
+                                <select name="condivacliente" id="condivacliente" class="form-control" required>
+                                    <option value=""></option>
+                                    @foreach ($condivas as $condiva)
+                                        <option value="{{ $condiva['id'] }}">{{ $condiva['condicion'] }}</option>
+                                    @endforeach
+                                </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="celular" class="col-sm-2 col-form-label">Celular</label>
                                 <div class="col-sm-10">
-                                    <input name="celular" id="celular" type="text" class="form-control" placeholder="Celular ..." required>
+                                    <input name="celular" id="celular" type="number" class="form-control" placeholder="Celular ...">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="telefono" class="col-sm-2 col-form-label">Telefono</label>
                                 <div class="col-sm-10">
-                                    <input name="telefono" id="telefono" type="text" class="form-control" placeholder="Telefono ..." required>
+                                    <input name="telefono" id="telefono" type="number" class="form-control" placeholder="Telefono ...">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="mail" class="col-sm-2 col-form-label">Mail</label>
                                 <div class="col-sm-10">
-                                    <input name="mail" id="mail" type="text" class="form-control" placeholder="Mail ..." required>
+                                    <input name="mail" id="mail" type="text" class="form-control" placeholder="Mail ...">
                                 </div>
                             </div>
                             <!-- Botones de Formulario -->

@@ -94,13 +94,15 @@
                                 <thead>
                                 <tr style="font-size: 90%" align="center">
 
-                                    <th></th>
+
                                     <th>Apellido</th>
                                     <th>Nombre</th>
+                                    <th class="all">Cond. IVA</th>
+                                    <th>DNI / CUIT</th>
                                     <th>Celular</th>
                                     <th>Telefono</th>
                                     <th>Mail</th>
-
+                                    <th>Modificar / Borrar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -111,13 +113,15 @@
 
                                 <tr style="font-size: 80%" align="center">
 
-                                    <td><a href="{{route('clientes.edit', $cliente->id)}}"><i class="fas fa-edit"></i></a></td>
+
                                     <td>{{$cliente->apellido}}</td>
                                     <td>{{$cliente->nombre}}</td>
+                                    <td>{{$cliente->condiciondeiva->condicion}}</td>
+                                    <td>{{$cliente->dnicuit}}</td>
                                     <td>{{$cliente->celular}}</td>
                                     <td>{{$cliente->telefono}}</td>
                                     <td>{{$cliente->mail}}</td>
-
+                                    <td><a href="{{route('clientes.edit', $cliente->id)}}"><i class="fas fa-edit"></i></a></td>
 
                                 </tr>
 
@@ -129,12 +133,15 @@
                                 </tbody>
                                 <tfoot>
                                 <tr style="font-size: 90%" align="center">
-                                    <th></th>
+
                                     <th>Apellido</th>
                                     <th>Nombre</th>
+                                    <th>Cond. IVA</th>
+                                    <th>DNI / CUIT</th>
                                     <th>Celular</th>
                                     <th>Telefono</th>
                                     <th>Mail</th>
+                                    <th></th>
                                 </tr>
                                 </tfoot>
                             </table>

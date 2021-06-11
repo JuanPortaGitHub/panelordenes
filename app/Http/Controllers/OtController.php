@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Condiva;
 use App\Http\Requests\EstadodeordenRequest;
 use App\Mail\mailingreso;
 use Dompdf\Dompdf;
@@ -122,7 +123,7 @@ class OtController extends Controller
 
 
 
-
+        $condivas = Condiva::all();
         $sucursales = Sucursal::all();
         $estados = estado::all();
         $tecnicos = User::all();
@@ -138,7 +139,7 @@ class OtController extends Controller
 
 
 
-        return view('ordenes.cargaot', compact('tecnicos','estadoderepuestos', 'confirmacions', 'estados', 'sucursales', 'fechaentrega', 'areas', 'tipoequipos', 'passwordot'));
+        return view('ordenes.cargaot', compact('tecnicos','estadoderepuestos', 'confirmacions', 'estados', 'sucursales', 'fechaentrega', 'areas', 'tipoequipos', 'passwordot','condivas'));
     }
 
 

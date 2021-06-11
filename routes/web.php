@@ -40,6 +40,11 @@ Route::get('/anotacioncliente', 'AnnotationController@storecliente')->name('stor
 //Ruta para obtener la lista de clientes en la creacion de ordenes de trabajo (para busqueda y autocompletar)
 Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('clientes.getClientes')->middleware('auth');
 
+//Ruta para obtener la lista de productos en busqueda de codigo
+Route::post('/productos/getProductosCod/','ProductosController@getProductosCod')->name('productos.getProductosCod')->middleware('auth');
+
+
+
 //Ruta para para obtener el detalle de la orden de trabajo en base a $ot_id en vez de $id como sale por defecto en resource
 Route::get('/orden/{ot_id}','OtController@anotaciones')->name('ordenes.anotaciones')->middleware('auth');
 
@@ -56,7 +61,9 @@ Route::resource('equipos', 'EquiposController')->middleware('auth');
 Route::resource('annotations', 'AnnotationController')->middleware('auth');
 Route::resource('facturacion', 'FacturacionController')->middleware('auth');
 Route::resource('productos', 'ProductosController')->middleware('auth');
-
+Route::resource('providers', 'ProvidersController')->middleware('auth');
+Route::resource('formapagos', 'FormaPagosController')->middleware('auth');
+Route::resource('tarjetas', 'TarjetasController')->middleware('auth');
 
 
 
