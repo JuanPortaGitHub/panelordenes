@@ -1,0 +1,96 @@
+/*
+3.8 Footer
+********************************************************************/
+.footer {
+    background: #181A1C;
+    text-align: center;
+}
+.footer > p {
+    color: #fff;
+    margin:0;
+}
+.scrollup {
+    text-align:center;
+    cursor:pointer;
+    vertical-align:middle;
+    width:39px;
+    height:39px;
+    border-radius:5px;
+    font-size:20px;
+    position:fixed;
+    bottom:30px;
+    right:20px;
+    border:1px solid #fff;
+    display:none;
+    background: #FFA200;
+}
+.scrollup > a {
+    position:relative;
+    top:7px;
+    color:#fff;
+}
+
+
+.navbar-fixed-top {
+    min-height:60px;
+    height:60px;
+    padding-top:0;
+}
+.navbar-inner {
+
+    border-radius:0;
+    filter: none;
+    border: none;
+    box-shadow: none;
+}
+.navbar .brand img {
+    width:120px;
+    height:40px;
+}
+.navbar .nav > li > a {
+    text-transform:uppercase;
+    line-height: auto;
+    vertical-align: middle;
+    margin:10px 3px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    /* border-bottom: 3px solid #feb042; */
+    box-shadow: none;
+    font-size: 13px;
+    text-shadow: none;
+    color: #fff;
+    transition: border-color 1s ease;
+}
+.navbar .nav > li:hover> a, .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+    border-bottom: 3px solid #fff;
+    color: #fff;
+    background: none;
+    box-shadow: none;
+    transition: border-color 1s ease;
+}
+.nav-pills {
+    margin-bottom: 30px;
+}
+.nav-pills > li > a {
+    background: transparent;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    margin-right:5px;
+    padding-left:25px;
+    padding-right:25px;
+    border: 1px solid #585858;
+}
+.nav-pills > li > a:hover, .nav-pills > .active > a, .nav-pills > .active > a:hover, .nav-pills > .active > a:focus {
+    background: #585858;
+    color: #fff;
+}
+.navbar .btn-navbar:hover, .navbar .btn-navbar {
+    border-radius: 5px;
+    background: #FFFFFF;
+    color: #000;
+}
+#contenido{
+    background: lightgrey;
+    margin: 0;
+}
