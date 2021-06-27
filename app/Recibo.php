@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recibo extends Model
 {
     public function factura(){
-        return $this->belongsTo(factura::class);
+        return $this->belongsTo('App\Factura','id','idfactura');
 
     }
 
@@ -17,4 +17,14 @@ class Recibo extends Model
 
     }
 
+    public function financiaciontarjeta(){
+
+        return $this->hasMany('App\Tarjeta','id','idfinanciaciontarjeta');
+
+    }
+    public function user(){
+
+        return $this->belongsTo(User::class);
+
+    }
 }

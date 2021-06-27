@@ -40,6 +40,7 @@ Route::get('/anotacioncliente', 'AnnotationController@storecliente')->name('stor
 //Ruta para obtener la lista de clientes en la creacion de ordenes de trabajo (para busqueda y autocompletar)
 Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('clientes.getClientes')->middleware('auth');
 
+
 //Ruta para obtener la lista de productos en busqueda de codigo
 Route::post('/productos/getProductosCod/','ProductosController@getProductosCod')->name('productos.getProductosCod')->middleware('auth');
 

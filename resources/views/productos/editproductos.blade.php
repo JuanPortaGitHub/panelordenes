@@ -87,19 +87,19 @@
                         <div class="form-group row">
                             <label for="costoproducto" class="col-sm-2 col-form-label">Costo Iva inc.</label>
                             <div class="col-sm-10">
-                                <input name="costoproducto" id="costoproducto" type="number" class="form-control" value="{{$product->costproduct}}" required>
+                                <input name="costoproducto" id="costoproducto" type="number" step="0.01" class="form-control" value="{{$product->costproduct}}" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="margenproducto" class="col-sm-2 col-form-label">Margen Utilidad</label>
                             <div class="col-sm-10">
-                                <input name="margenproducto" id="margenproducto" type="text" class="form-control" value="{{$product->margin}}" required>
+                                <input name="margenproducto" id="margenproducto" type="number" step="0.01" class="form-control" value="{{$product->margin}}" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="precioproducto" class="col-sm-2 col-form-label">Precio IVA inc.</label>
                             <div class="col-sm-10">
-                                <input name="precioproducto" id="precioproducto" type="number" class="form-control" value="{{$product->priceproduct}}" required>
+                                <input name="precioproducto" id="precioproducto" type="number" step="0.01" class="form-control" value="{{$product->priceproduct}}" readonly>
                             </div>
                         </div>
 

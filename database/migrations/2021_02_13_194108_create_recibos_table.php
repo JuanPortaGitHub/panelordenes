@@ -23,6 +23,7 @@ class CreateRecibosTable extends Migration
             $table->integer('autorizacion')->nullable();
             $table->string('detalles')->nullable();
             $table->double('monto',11,2)->nullable();
+            $table->double('montofinanciado',11,2)->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

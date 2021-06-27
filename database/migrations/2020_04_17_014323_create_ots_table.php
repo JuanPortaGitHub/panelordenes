@@ -32,6 +32,7 @@ class CreateOtsTable extends Migration
             $table->string('recibidopor_id')->nullable();
             $table->string('passwordot');
             $table->integer('estadorepuesto_id')->default(1);
+            $table->string('descrapida')->nullable();
             $table->integer('confirmacion_id')->nullable();
             $table->integer('reparaexito_id')->default(1);
             $table->integer('categoria_id')->default(1);

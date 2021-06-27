@@ -79,6 +79,10 @@
                             <label for="presupuestoorden">Presupuesto</label>
                             <input name="presupuestoorden" id="presupuestoorden" type="number" class="form-control" value="{{$anotacionOt->presupuesto}}" required>
                         </div>
+                        <div class="form-group">
+                            <label for="descrapida">Descripcion</label>
+                            <input name="descrapida" id="descrapida" type="text" class="form-control" maxlength="30" value="{{$anotacionOt->descrapida}}">
+                        </div>
 
                         <!-- Botones de Formulario -->
                         <div class="card-footer" >

@@ -132,7 +132,7 @@
                                     <!-- Boton modal para edicion de equipo -->
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".cargacliente"><b>Carga cliente nuevo</b>
+                                            <button type="button" id="cargacliente" class="btn btn-warning" data-toggle="modal" data-target=".cargacliente"><b>Carga cliente nuevo</b>
                                             </button>
                                         </div>
                                     </div>
@@ -179,7 +179,7 @@
                                     <div class="form-group row">
                                         <label for="fechafactura" class="col-sm-2 col-form-label form-control-sm">Fecha Factura</label>
                                         <div class="col-sm-10">
-                                            <input name="fechafactura" id="fechafactura" type="datetime-local" class="form-control form-control-sm" value="{{now()->format('Y-m-d\TH:i')}}" required>
+                                            <input name="fechafactura" id="fechafactura" type="datetime-local" class="form-control form-control-sm" value="{{now()->format('Y-m-d\TH:i')}}" readonly required>
 
                                         </div>
                                     </div>
@@ -187,7 +187,7 @@
                                     <div class="form-group row">
                                         <label for="tipofactura" class="col-sm-2 col-form-label form-control-sm">Tipo Factura</label>
                                         <div class="col-sm-10">
-                                            <input name="tipofactura" id="tipofactura" type="text" class="form-control form-control-sm" value="A" required>
+                                            <input name="tipofactura" id="tipofactura" type="text" class="form-control form-control-sm" value="A" readonly required>
                                         </div>
                                     </div>
 
@@ -196,17 +196,17 @@
                                     <div class="form-group row">
                                         <label for="nrolocalfactura" class="col-sm-2 col-form-label form-control-sm">Nro.</label>
                                         <div class="col-sm-3">
-                                            <input name="nrolocalfactura" id="nrolocalfactura" type="text" class="form-control form-control-sm" value = {{str_pad($factura->nrolocalfactura, 4, "0", STR_PAD_LEFT)}} required>
+                                            <input name="nrolocalfactura" id="nrolocalfactura" type="text" readonly class="form-control form-control-sm" value = {{str_pad($factura->nrolocalfactura, 4, "0", STR_PAD_LEFT)}} required>
                                         </div>
                                         -
                                         <div class="col-sm-3">
-                                            <input name="nrofactura" id="nrofactura" type="text" class="form-control form-control-sm" value = {{str_pad($factura->numfactura +1, 8, "0", STR_PAD_LEFT)}} required>
+                                            <input name="nrofactura" id="nrofactura" type="text" readonly class="form-control form-control-sm" value = {{str_pad($factura->numfactura +1, 8, "0", STR_PAD_LEFT)}} required>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="cotizaciondolar" class="col-sm-2 col-form-label form-control-sm">Dolar</label>
                                         <div class="col-sm-10">
-                                            <input name="cotizaciondolar" id="cotizaciondolar" type="text" class="form-control form-control-sm" value = 85 readonly required>
+                                            <input name="cotizaciondolar" id="cotizaciondolar" type="text" class="form-control form-control-sm" value = 100 readonly required>
                                         </div>
                                     </div>
 
@@ -265,7 +265,7 @@
                                             <td><input  id="busquedaproducto1" name="busquedaproducto[]" class="form-control form-control-sm" type="text" placeholder="Busca por cod o descripcion" required></td>
                                             <td><input  id="articuloproducto1" name="articuloproducto[]" class="form-control form-control-sm" type="text" readonly required></td>
                                             <td><input  id="descripcionproducto1" name="descripcionproducto[]" class="form-control form-control-sm" type="text" required></td>
-                                            <td><input  id="cantprod1" name="cantprod[]" class="form-control form-control-sm" type="text" oninput="actualizasubtotal()" required></td>
+                                            <td><input  id="cantprod1" name="cantprod[]" class="form-control form-control-sm" type="number" oninput="actualizasubtotal()" required></td>
                                             <td style="display:none;">
                                                 <input  id="idprod1" name="idprod[]" type="text" class="form-control" placeholder="ID ...">
 
@@ -276,7 +276,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text form-control-sm">$</span>
                                                     </div>
-                                                    <input  id="precioprod1" name="precioprod[]" class="form-control form-control-sm" type="text" oninput="actualizasubtotal()" required>
+                                                    <input  id="precioprod1" name="precioprod[]" class="form-control form-control-sm" type="number" oninput="actualizasubtotal()" required>
 
                                                 </div></td>
                                             <td>
@@ -298,8 +298,8 @@
 
                                         </tbody>
                                     </table>
-                                    <div style="margin-left: 20px"><button type="button" class="btn btn-info" onclick="agregarFila()">Agregar Producto</button></div>
-                                    <div style="margin-left: 20px"><button type="button" class="btn-warning" onclick="eliminarFila()">Eliminar Fila</button></div>
+                                    <div style="margin-left: 20px"><button type="button" id="botonAgregarFila" class="btn btn-info" onclick="agregarFila()">Agregar Producto</button></div>
+                                    <div style="margin-left: 20px"><button type="button" id="botonEliminarFila" class="btn-warning" onclick="eliminarFila()">Eliminar Fila</button></div>
                                 </div>
 
                                 <!-- /.card-body -->
@@ -353,10 +353,12 @@
                             <!-- Boton de Carga de Orden. Llama a modal para carga de pin -->
                             <div class="card-footer">
 
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".cargafactura">
+                                <button type="button" class="btn btn-warning" id="abremodal" onclick="abrirmodal()">
                                     <b>Cargar Factura</b>
                                 </button>
+
                                 <button type="reset" class="btn btn-default float-right">Limpiar</button>
+
                             </div>
                         </div>
                         <!-- /.col -->
@@ -396,7 +398,63 @@
 @section("scriptextra")
 
 
+    <script type="text/javascript">
 
+        function abrirmodal(){
+
+            if(document.forms['formcomplete']['busquedaproducto'+i].value === ""){
+
+                alert ('Falta cargar articulo');
+
+            }else if(document.forms['formcomplete']['descripcionproducto'+i].value === ""){
+
+                alert ('Falta cargar descripción');
+
+            }else if(document.forms['formcomplete']['cantprod'+i].value === ""){
+
+                alert ('Falta cargar cantidad');
+
+            }else if(document.forms['formcomplete']['precioprod'+i].value === ""){
+
+                alert ('Falta cargar precio de producto');
+
+            }else if(document.forms['formcomplete']['descprod'+i].value === ""){
+
+                alert ('Indicar si tiene descuento');
+
+            }else{
+
+
+            if($('#apellidocliente').val()==""){
+
+                alert("Cargar Cliente");
+                return;}
+           else if($('#articuloproducto1').val()==""){
+
+                alert("Falta cargar articulo")
+
+            }else {
+               if($('#articuloproducto'+[i]).val()=="")
+               alert("Borrar fila sin articulo");
+               else{
+
+                   document.forms['formcomplete']['busquedaproducto'+i].readOnly = true;
+                   document.forms['formcomplete']['cantprod'+i].readOnly = true;
+                   document.forms['formcomplete']['descripcionproducto'+i].readOnly = true;
+                   document.forms['formcomplete']['precioprod'+i].readOnly = true;
+                   document.forms['formcomplete']['descprod'+i].readOnly = true;
+                   document.getElementById("botonEliminarFila").disabled = true;
+                   document.getElementById("botonAgregarFila").disabled = true;
+                   document.getElementById("cargacliente").disabled = true;
+                   document.getElementById("local").readOnly = true;
+                   document.getElementById("busquedacliente").disabled = true;
+                $('#carga').modal('show');
+
+               }
+               }
+        }
+            }
+    </script>
 
 
 
@@ -515,14 +573,6 @@
 
 
 
-
-
-
-
-
-
-
-
         function agregarFila(){
 
 
@@ -549,6 +599,13 @@
 
             }else{
 
+
+                document.forms['formcomplete']['busquedaproducto'+i].readOnly = true;
+                document.forms['formcomplete']['cantprod'+i].readOnly = true;
+                document.forms['formcomplete']['descripcionproducto'+i].readOnly = true;
+                document.forms['formcomplete']['precioprod'+i].readOnly = true;
+                document.forms['formcomplete']['descprod'+i].readOnly = true;
+
                 i++;
 
                 $('#productosfactura').append('<tr id="filaproductoagregado" name="filaproductoagregado'+i+'">' +
@@ -556,7 +613,7 @@
                     '<td><input  id="busquedaproducto'+i+'" name="busquedaproducto[]" class="form-control form-control-sm" type="text" placeholder="Busca por cod o descripcion" required></td>' +
                     '<td><input  id="articuloproducto'+i+'" name="articuloproducto[]" class="form-control form-control-sm" type="text" readonly required></td>' +
                     '<td><input  id="descripcionproducto'+i+'" name="descripcionproducto[]" class="form-control form-control-sm" type="text" required></td>' +
-                    '<td><input  id="cantprod'+i+'" name="cantprod[]" class="form-control form-control-sm" type="text" oninput="actualizasubtotal()" required></td>' +
+                    '<td><input  id="cantprod'+i+'" name="cantprod[]" class="form-control form-control-sm" type="number" oninput="actualizasubtotal()" required></td>' +
                     '<td style="display:none;">' +
                     '<input  id="idprod'+i+'" name="idprod[]" type="text" class="form-control" placeholder="ID ...">' +
                     '</td>' +
@@ -565,7 +622,7 @@
                     '<div class="input-group-prepend">' +
                     '<span class="input-group-text form-control-sm">$</span>\<' +
                     '/div>' +
-                    '<input  id="precioprod'+i+'" name="precioprod[]" class="form-control form-control-sm" type="text" oninput="actualizasubtotal()" required>' +
+                    '<input  id="precioprod'+i+'" name="precioprod[]" class="form-control form-control-sm" type="number" oninput="actualizasubtotal()" required>' +
                     '</div></td>' +
                     '<td>' +
                     '<div class="input-group mb-3">' +
@@ -668,8 +725,11 @@
                     $('#precioprod'+i).val(ui.item.costproducto*(1 + ui.item.margproducto / 100)*cotizacion); // CALCULA PRECIO EN BASE A COSTO, DOLAR Y MARGEN
                     $('#ivaprod'+i).html(ui.item.ivaproducto); // save selected id to input
                     $('#idprod'+i).val(ui.item.idproducto); // save selected id to input
+                    $('#cantprod'+i).val("");
                     $('#cantprod'+i).focus();
+                    actualizasubtotal();
                     return false;
+
                 }
 
             });

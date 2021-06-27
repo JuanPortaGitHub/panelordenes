@@ -192,7 +192,7 @@
                                     <th class="desktop">Categoria</th>
                                     <th class="desktop">Equipo</th>
 
-                                    <th class="desktop">Imprimir</th>
+                                    <th class="desktop">Descripcion</th>
 
                                 </tr>
                                 </thead>
@@ -234,7 +234,7 @@
                                             <td>{{$order->Equipo->tipodeequipo->tipodeequipo}}</td>
                                             <td>{{$order->equipo->modelo}}</td>
 
-                                            <td><a href="{{route('ordenes.showpdf', $order->ot_id)}}"><i class="fas fa-print"></i></a></td>
+                                            <td>{{$order->descrapida}}</td>
 
                                         </tr>
 

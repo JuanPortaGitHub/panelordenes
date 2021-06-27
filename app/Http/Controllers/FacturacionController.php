@@ -6,6 +6,7 @@ use App\Condiva;
 use App\Detallefactura;
 use App\Factura;
 use App\Formapago;
+use App\Ot;
 use App\Recibo;
 use App\Sucursal;
 use App\Tarjeta;
@@ -21,7 +22,14 @@ class FacturacionController extends Controller
      */
     public function index()
     {
+        $facturas = Factura::orderby('fechafactura','DESC')->orderby('id','DESC')->paginate(10);
+        $listasucursales = Sucursal::all();
+        $orders = Ot::query();
 
+
+
+
+        return view('facturacion.listafacturas', compact('facturas','listasucursales', 'orders'));
     }
 
     /**
@@ -53,11 +61,16 @@ class FacturacionController extends Controller
         $validator = \Validator::make($request->all(), [
 
             'pincode' => 'required|exists:users,pincode',
-        ]);
+            'apellidocliente'=> 'required|exists:clientes,apellido',
+            'saldoacancelar'=> 'required|in:0.00',
+            'cantproducto1'=> '|min:1|',
+        ]
+        );
+
 
         if ($validator->fails())
         {
-            return response()->json(['errors'=>$validator->errors()->all()]);
+            return response()->json(['errors'=>$validator->messages()->all()]);
         }
 
         $newfactura = new Factura();
@@ -116,6 +129,20 @@ class FacturacionController extends Controller
             $recibo->idcliente = $newfactura->idcliente;
             $recibo->user_id = $newfactura->user_id;
             $recibo->idfactura = $newfactura->id;
+            $recibo->sucursal_id = $newfactura->idsucursalfactura;
+
+            if($datospagos[$p]->idtipotarjeta == NULL){
+                $recibo->idfinanciaciontarjeta = NULL;
+                $recibo->lote = NULL;
+                $recibo->autorizacion = NULL;
+                $recibo->montofinanciado = $datospagos[$p]->montopagado;
+            }else{$recibo->idfinanciaciontarjeta = $datospagos[$p]->idtipotarjeta;
+                $recibo->lote = $datospagos[$p]->lote;
+                $recibo->autorizacion = $datospagos[$p]->autorizacion;
+                $recibo->montofinanciado = $datospagos[$p]->montofinanciado;
+            }
+
+
 
             $recibo->save();
         }
@@ -137,7 +164,14 @@ class FacturacionController extends Controller
      */
     public function show($id)
     {
-        //
+        $factura=Factura::findOrFail($id);
+        $listasucursales = Sucursal::all();
+        $orders = Ot::query();
+
+
+
+
+        return view('facturacion.detallesfactura', compact('factura','listasucursales', 'orders'));
     }
 
     /**
@@ -173,4 +207,5 @@ class FacturacionController extends Controller
     {
         //
     }
+
 }

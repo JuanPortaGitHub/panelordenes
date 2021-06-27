@@ -87,7 +87,7 @@
 
                     <div class="form-group row">
                         <label for="formadepago" class="col-sm-2 col-form-label form-control-sm">Forma de Pago</label>
-                        <div class="col-sm-10">
+                        <div class="col-sm-3">
                             <select name="formadepago" id="formadepago" class="form-control form-control-sm" required>
 
                                 @foreach ($formaspagos as $formaspago)
@@ -98,17 +98,20 @@
 
                             </select>
                         </div>
+
+                        <div class="form-group col-sm-3" id="infoextrapago" name="infoextrapago" style="display:none">
+                            <select name="tipotarjeta" id="tipotarjeta" class="form-control form-control-sm" required>
+
+                                @foreach ($formaspagostarjetas as $formaspagostarjeta)
+                                    <option value="{{$formaspagostarjeta->recargo}}" id="{{$formaspagostarjeta->id}}">{{$formaspagostarjeta->nombre}}</option>
+                                @endforeach
+
+                            </select>
+                        </div>
+
                     </div>
 
-                    <div class="form-group" id="infoextrapago" name="infoextrapago" style="display:none">
-                        <select name="tipotarjeta" id="tipotarjeta" class="form-control form-control-sm" required>
 
-                            @foreach ($formaspagostarjetas as $formaspagostarjeta)
-                                <option value="{{$formaspagostarjeta->recargo}}">{{$formaspagostarjeta->nombre}}</option>
-                            @endforeach
-
-                        </select>
-                    </div>
 
 
                     <div id="cuadrofinanciaciontarjeta" style="display: none">
@@ -147,21 +150,42 @@
 
                     </div>
 
-                    <div class="form-group row">
-                        <label for="montocancelado" class="col-sm-2 col-form-label form-control-sm">Monto Pago</label>
-                        <div class="col-sm-10">
-                            <input name="montocancelado" id="montocancelado" class="form-control form-control-sm" value="" required>
+
+
+
+                    <div class="form-horizontal">
+
+                        <div>
+                            <div class="form-group row">
+                                <div class="col-sm-6">
+                                    <label for="montocancelado">Monto Pago</label>
+                                    <input name="montocancelado" id="montocancelado" class="form-control input-group-lg reg_name" value="" required>
+                                </div>
+
+                                <div class="col-sm-6" id="divmontofinanciado" style="display: none">
+                                    <label for="montofinanciado">Monto Financiado</label>
+                                    <input name="Montofinanciado" id="Montofinanciado" class="form-control input-group-lg reg_name" value="" required readonly>
+                                </div>
+
+                            </div>
+                        <!--/form-group-->
+
+                            <div class="form-group row" id="divlote" style="display: none">
+                                <div class="col-sm-6">
+                                    <label for="lote">Lote</label>
+                                    <input name="Lote" id="Lote" class="form-control" value="" required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="Autorizacion">Autorizacion</label>
+                                    <input name="Autorizacion" id="Autorizacion" class="form-control" value="" required>
+                                </div>
+                            </div><!--/form-group-->
 
                         </div>
                     </div>
 
-                    <div class="form-group row" id="divmontofinanciado" style="display: none">
-                        <label for="montofinanciado" class="col-sm-2 col-form-label form-control-sm">Monto Financiado</label>
-                        <div class="col-sm-10">
-                            <input name="montofinanciado" id="montofinanciado" class="form-control form-control-sm" value="" required readonly>
 
-                        </div>
-                    </div>
+
 
 
                     <div class="form-group row">
@@ -181,7 +205,7 @@
                     <div class="card-footer">
                         <div id="botoningreso">
                             <button  class="btn btn-info" id="ajaxsubmit">Ingresar</button>
-                            <button  class="btn btn-info" id="consola">Consola</button>
+
                         </div>
 
 
@@ -199,42 +223,7 @@
 
 <!-- /.FIN de modal forma de pago -->
 
-<script>
 
-    jQuery(document).ready(function(){
-        jQuery('#consola').click(function(e){
-
-            e.preventDefault();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            datospagos=[]; //creo array
-
-            $("tr.filapago").each(function() {
-                objeto= {tipopago : $(this).find("td.idtipopago").text(),
-                    formapago : $(this).find("td.formapago").text(),
-                    montopagado : $(this).find("td.montopagado").text()};
-
-                datospagos.push(objeto);
-
-            });
-
-
-            datosformulario  = $('#formcomplete').serialize(); // store json string
-            JSON.stringify(datospagos);
-
-            console.log(datospagos);
-
-        });
-    });
-
-
-
-</script>
 
 
 
@@ -258,20 +247,23 @@
         $("tr.filapago").each(function() {
             objeto= {tipopago : $(this).find("td.idtipopago").text(),
             formapago : $(this).find("td.formapago").text(),
-            montopagado : $(this).find("td.montopagado").text()};
-
+            montopagado : $(this).find("td.montopagado").text(),
+            idtipotarjeta: $(this).find("td.tipotarjeta").text(),
+            lote: $(this).find("td.lote").text(),
+            autorizacion: $(this).find("td.autorizacion").text(),
+            montofinanciado: $(this).find("td.Montofinanciado").text()};
             datospagos.push(objeto);
 
         });
-
-
+        cantproducto1 = document.getElementById("cantprod1").value;
+        saldoacancelar = document.getElementById("saldoacancelar").textContent;
         datosformulario  = $('#formcomplete').serialize(); // store json string
 
 
         jQuery.ajax({
             url: "{{ route('facturacion.store') }}",
             method: 'post',
-            data:  datosformulario + '&' + "datospagos=" + JSON.stringify(datospagos),
+            data:  datosformulario + '&' + "datospagos=" + JSON.stringify(datospagos) + '&' + "saldoacancelar=" + saldoacancelar+ '&' + "cantproducto1=" + cantproducto1,
 
             success: function(result){
                 $('#loading-screen').hide();
@@ -313,10 +305,13 @@ function agregarFilaPago(){
                     //capturar el pago
                         var formapago = document.getElementById("formadepago");
                         var textoformapago = document.getElementById("formadepago")[document.getElementById("formadepago").selectedIndex].text;
-                        var tipotarjeta = document.getElementById("tipotarjeta")[document.getElementById("tipotarjeta").selectedIndex].text;
+                        var tipotarjeta = document.getElementById("tipotarjeta")[document.getElementById("tipotarjeta").selectedIndex].id;
+                        var nombretipotarjeta = document.getElementById("tipotarjeta")[document.getElementById("tipotarjeta").selectedIndex].text;
                         var idtipopago = document.getElementById("formadepago")[document.getElementById("formadepago").selectedIndex].value;
                         var pago = document.getElementById("montocancelado").value;
-
+                        var lote = document.getElementById("Lote").value;
+                        var autorizacion = document.getElementById("Autorizacion").value;
+                        var montofinanciado = document.getElementById("Montofinanciado").value;
 
 
                         if(pago == ''){
@@ -327,8 +322,11 @@ function agregarFilaPago(){
 
                             $('#Detallepago').append('<tr class="filapago" id="filapago'+p+'">\n' +
                                 '                        <td class="idtipopago" id="idtipopago'+p+'">'+idtipopago+'</td>\n' +
-                                '                        <td class="formapago" id="formapago'+p+'">'+textoformapago+' '+tipotarjeta+'</td>\n' +
+                                '                        <td class="formapago" id="formapago'+p+'">'+textoformapago+' '+nombretipotarjeta+'</td>\n' +
                                 '                        <td class="tipotarjeta" id="tipotarjeta'+p+'" style="display: none">'+tipotarjeta+'</td>\n' +
+                                '                        <td class="lote" id="lote'+p+'" style="display: none">'+lote+'</td>\n' +
+                                '                        <td class="autorizacion" id="autorizacion'+p+'" style="display: none">'+autorizacion+'</td>\n' +
+                                '                        <td class="Montofinanciado" id="Montofinanciado'+p+'" style="display: none">'+montofinanciado+'</td>\n' +
                                 '                        <td class="montopagado" id="montopagado'+p+'">'+pago+'</td>\n' +
                                 '\n' +
                                 '                    </tr>');
@@ -342,7 +340,10 @@ function agregarFilaPago(){
                                 '                        <td class="idtipopago" id="idtipopago'+p+'">'+idtipopago+'</td>\n' +
                                 '                        <td class="formapago" id="formapago'+p+'">'+textoformapago+'</td>\n' +
                                 '                        <td style="display: none"></td>\n' +
-                                '                        <td class="montopagado" id="montopagado'+p+'">'+pago+'</td>\n' +
+                                '                        <td class="lote" id="lote'+p+'" style="display: none">0</td>\n' +
+                                '                        <td class="autorizacion" id="autorizacion'+p+'" style="display: none">0</td>\n' +
+                                '                        <td class="Montofinanciado" id="Montofinanciado'+p+'" style="display: none">0</td>\n' +
+                                 '                        <td class="montopagado" id="montopagado'+p+'">'+pago+'</td>\n' +
                                 '\n' +
                                 '                    </tr>');
 
@@ -396,12 +397,12 @@ function totalpagos() {
 
     //Para sumar total pagado
     totalpagado = 0;
-    for (var x=0; x < (table.rows.length); x++) totalpagado = totalpagado + parseFloat(table.rows[x].cells[3].innerHTML);
+    for (var x=0; x < (table.rows.length); x++) totalpagado = totalpagado + parseFloat(table.rows[x].cells[6].innerHTML);
 
     document.getElementById("totalmontopagado").innerText  = totalpagado;
 
     var tasatarjeta = 1+(document.getElementById("tipotarjeta").value/100);
-    document.getElementById("montofinanciado").value=document.getElementById("montocancelado").value*tasatarjeta;
+    document.getElementById("Montofinanciado").value=document.getElementById("montocancelado").value*tasatarjeta;
 
     //Actualizo saldo actual
 
@@ -425,6 +426,7 @@ $(function() {
 
             $('#cuadrofinanciaciontarjeta').show();
             $('#divmontofinanciado').show();
+            $('#divlote').show();
             calculamontofinan();
 
         } else {
@@ -432,6 +434,7 @@ $(function() {
 
             $('#cuadrofinanciaciontarjeta').hide();
             $('#divmontofinanciado').hide();
+            $('#divlote').hide();
 
         }
     });
@@ -440,7 +443,7 @@ $(function() {
 
 function calculamontofinan() {
     var tasatarjeta = 1+(document.getElementById("tipotarjeta").value/100);
-    document.getElementById("montofinanciado").value=document.getElementById("montocancelado").value*tasatarjeta;
+    document.getElementById("Montofinanciado").value=document.getElementById("montocancelado").value*tasatarjeta;
 
 
 

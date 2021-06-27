@@ -352,7 +352,7 @@ Presupuesto: ' . $nuevaorden->presupuesto;
         $updateorden->user_id = $request->input('tecnicoorden');
         $updateorden->fechaentrega = $request->input('fechaentregaorden');
         $updateorden->presupuesto = $request->input('presupuestoorden');
-
+        $updateorden->descrapida = $request->input('descrapida');
         $updateorden->save();
 
         return back();
