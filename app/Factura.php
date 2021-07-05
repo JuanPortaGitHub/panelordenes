@@ -34,4 +34,5 @@ class Factura extends Model
         return $this->hasMany('App\Recibo','idfactura','id');
 
     }
+
 }

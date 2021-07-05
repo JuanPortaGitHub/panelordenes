@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Cliente;
 use App\Condiva;
+use App\Detallefactura;
+use App\Factura;
+use App\Recibo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use phpDocumentor\Reflection\Types\Null_;
 
 class ClientesController extends Controller
 {
@@ -123,8 +128,13 @@ class ClientesController extends Controller
     public function show($id)
     {
         $cliente=Cliente::findOrFail($id);
+        $facturas= Factura::all();
+        $recibos= Recibo::all();
+        $reciboscliente = Recibo::all()->where('idcliente', $id) ->where ('idformapago', '!=', 5);
+        $recibosclientetotales= Recibo::all()->where('idcliente', $id);
+        $recibossinfactura = Recibo::all()->where('idcliente', $id) ->where ('idfactura', '=', Null);
 
-        return view ("clientes.show", compact ("cliente"));
+        return view ("clientes.show", compact ("cliente", "facturas","recibos", "reciboscliente", 'recibosclientetotales','recibossinfactura'));
     }
 
     /**

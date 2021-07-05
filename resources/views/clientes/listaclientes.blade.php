@@ -95,6 +95,7 @@
                                 <tr style="font-size: 90%" align="center">
 
 
+                                    <th>Nro.</th>
                                     <th>Apellido</th>
                                     <th>Nombre</th>
                                     <th class="all">Cond. IVA</th>
@@ -102,7 +103,8 @@
                                     <th>Celular</th>
                                     <th>Telefono</th>
                                     <th>Mail</th>
-                                    <th>Modificar / Borrar</th>
+                                    <th>Deuda</th>
+                                    <th>Modificar Datos</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -114,6 +116,7 @@
                                 <tr style="font-size: 80%" align="center">
 
 
+                                    <td><b><a href="{{route('clientes.show', $cliente->id)}}">{{$cliente->id}}</a></b></td>
                                     <td>{{$cliente->apellido}}</td>
                                     <td>{{$cliente->nombre}}</td>
                                     <td>{{$cliente->condiciondeiva->condicion}}</td>
@@ -121,6 +124,14 @@
                                     <td>{{$cliente->celular}}</td>
                                     <td>{{$cliente->telefono}}</td>
                                     <td>{{$cliente->mail}}</td>
+                                    <td>
+                                        @if($cliente->recibo->sum('monto')- $cliente->recibo->where('idformapago', '!=', 5)->sum('monto')- $cliente->recibo->where('idfactura', '==', Null)->sum('monto')!=0)
+
+                                        {{$cliente->recibo->sum('monto')- $cliente->recibo->where('idformapago', '!=', 5)->sum('monto')- $cliente->recibo->where('idfactura', '==', Null)->sum('monto')}}
+
+                                        @else 0
+                                        @endif
+                                    </td>
                                     <td><a href="{{route('clientes.edit', $cliente->id)}}"><i class="fas fa-edit"></i></a></td>
 
                                 </tr>
@@ -134,12 +145,14 @@
                                 <tfoot>
                                 <tr style="font-size: 90%" align="center">
 
+                                    <th>Nro.</th>
                                     <th>Apellido</th>
                                     <th>Nombre</th>
                                     <th>Cond. IVA</th>
                                     <th>DNI / CUIT</th>
                                     <th>Celular</th>
                                     <th>Telefono</th>
+                                    <th>Mail</th>
                                     <th>Mail</th>
                                     <th></th>
                                 </tr>
@@ -185,6 +198,19 @@
             $("#listaclientes").DataTable({
                 "responsive": true,
                 "autoWidth": false,
+                "language": {
+                    "paginate": {
+                        "next": "Siguiente",
+                        "previous": "Anterior",
+                    },
+                    "search": "Buscar:",
+                    "lengthMenu": "Mostrar _MENU_ registros por página",
+                    "zeroRecords": "No se encuentra",
+                    "info": "Muestra página _PAGE_ de _PAGES_",
+                    "infoEmpty": "No hay anotaciones",
+                    "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+
+                },
             });
             /*$('#example2').DataTable({
                 "paging": true,

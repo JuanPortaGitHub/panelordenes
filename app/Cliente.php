@@ -36,7 +36,12 @@ class Cliente extends Model
     }
 
     public function factura(){
-        return $this->hasMany('App\Factura','id','idcliente');
+        return $this->hasMany('App\Factura','idcliente','id');
+
+    }
+
+    public function recibo(){
+        return $this->hasMany('App\Recibo','idcliente','id');
 
     }
 

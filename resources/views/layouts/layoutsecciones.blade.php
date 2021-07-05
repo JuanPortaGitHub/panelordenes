@@ -240,12 +240,7 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{route('ordenes.panelusuario', $user_id=Auth::user()->id)}}" class="nav-link active">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>Panel Usuario</p>
-                    </a>
-                </li>
+
               <li class="nav-item">
                 <a href="{{ URL::route('ordenes.create')}}" class="nav-link active">
                   <i class="nav-icon fas fa-edit"></i>
@@ -286,6 +281,18 @@
                     <a href="{{ URL::route('facturacion.create')}}" class="nav-link active">
                         <i class="nav-icon fas fa-table"></i>
                         <p>Crear Factura</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ URL::route('facturacion.index')}}" class="nav-link active">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Lista Facturas</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ URL::route('recibos.create')}}" class="nav-link active">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Cargar Recibo</p>
                     </a>
                 </li>
               <li class="nav-item">

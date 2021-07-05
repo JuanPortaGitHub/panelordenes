@@ -61,6 +61,7 @@ Route::resource('clientes', 'ClientesController')->middleware('auth');
 Route::resource('equipos', 'EquiposController')->middleware('auth');
 Route::resource('annotations', 'AnnotationController')->middleware('auth');
 Route::resource('facturacion', 'FacturacionController')->middleware('auth');
+Route::resource('recibos', 'RecibosController')->middleware('auth');
 Route::resource('productos', 'ProductosController')->middleware('auth');
 Route::resource('providers', 'ProvidersController')->middleware('auth');
 Route::resource('formapagos', 'FormaPagosController')->middleware('auth');

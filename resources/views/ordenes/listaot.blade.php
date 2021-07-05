@@ -226,7 +226,7 @@
 
 $(document).ready(function () {
 
-document.getElementById("busquedaorden").focus();
+document.getElementById("busqueda").focus();
 
 $('#listaordenes').dataTable({
     responsive: {
