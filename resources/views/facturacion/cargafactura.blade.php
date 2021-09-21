@@ -276,7 +276,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text form-control-sm">$</span>
                                                     </div>
-                                                    <input  id="precioprod1" name="precioprod[]" class="form-control form-control-sm" type="number" oninput="actualizasubtotal()" required>
+                                                    <input  id="precioprod1" name="precioprod[]" class="form-control form-control-sm" type="number" step=".01"  oninput="actualizasubtotal()" required>
 
                                                 </div></td>
                                             <td>
@@ -722,7 +722,8 @@
                     $('#busquedaproducto'+i).val(ui.item.codigoproducto); // save selected id to input
                     $('#articuloproducto'+i).val(ui.item.articuloproducto); // save selected id to input
                     $('#descripcionproducto'+i).val(ui.item.descripcionproducto); // save selected id to input
-                    $('#precioprod'+i).val(ui.item.costproducto*(1 + ui.item.margproducto / 100)*cotizacion); // CALCULA PRECIO EN BASE A COSTO, DOLAR Y MARGEN
+                    var calculo = ui.item.costproducto*(1 + ui.item.margproducto / 100)*cotizacion;
+                    $('#precioprod'+i).val(calculo.toFixed(2)); // CALCULA PRECIO EN BASE A COSTO, DOLAR Y MARGEN
                     $('#ivaprod'+i).html(ui.item.ivaproducto); // save selected id to input
                     $('#idprod'+i).val(ui.item.idproducto); // save selected id to input
                     $('#cantprod'+i).val("");

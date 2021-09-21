@@ -62,7 +62,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>$ {{$factura->Recibo->sum('monto')}}</td>
+                                    <td>{{$factura->Recibo->sum('monto')}}</td>
                                     <td></td>
 
                                 </tr>
@@ -114,9 +114,9 @@
                             <th></th>
                             <th></th>
                             <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th style="text-align: center"><b>$ {{$reciboscliente->sum('monto')}}</b></th>
+                            <th style="text-align: center"><b>$ {{$recibosclientetotales->sum('monto') - $recibossinfactura->sum('monto')}}</b></th>
+
 
                         </tr>
                         </tfoot>
@@ -124,15 +124,9 @@
                     <div class="row">
                         <div class="col-12 d-flex justify-content-end pt-4">
                             <table>
-                                <tr>
-                                    <td><b>TOTAL DEBE $ {{$reciboscliente->sum('monto')}}</b></td>
 
-                                </tr>
                                 <tr>
-                                    <td><b>TOTAL HABER $ {{$recibosclientetotales->sum('monto') - $recibossinfactura->sum('monto')}}</b></td>
-                                </tr>
-                                <tr>
-                                    <td style="color: red"><b>SALDO CUENTA CORRIENTE
+                                    <td style="color: @if(($recibosclientetotales->sum('monto') - $recibossinfactura->sum('monto') - $reciboscliente->sum('monto'))>0) red @else black @endif "><b>SALDO CUENTA CORRIENTE
 
 
                                             $ {{$recibosclientetotales->sum('monto') - $recibossinfactura->sum('monto') - $reciboscliente->sum('monto')}}

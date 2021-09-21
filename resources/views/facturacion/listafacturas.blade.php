@@ -15,7 +15,7 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h2><b>Listado de Facturas </b> </h2>
-
+                        {{$ultimafactura}}
                     </div>
 
                 </div>

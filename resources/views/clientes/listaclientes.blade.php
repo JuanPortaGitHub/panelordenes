@@ -116,7 +116,7 @@
                                 <tr style="font-size: 80%" align="center">
 
 
-                                    <td><b><a href="{{route('clientes.show', $cliente->id)}}">{{$cliente->id}}</a></b></td>
+                                    <td><b><a href="{{route('clientes.show', $cliente->id)}}">VER CUENTA</a></b></td>
                                     <td>{{$cliente->apellido}}</td>
                                     <td>{{$cliente->nombre}}</td>
                                     <td>{{$cliente->condiciondeiva->condicion}}</td>

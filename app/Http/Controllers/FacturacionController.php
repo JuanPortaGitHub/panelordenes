@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Afip;
 use App\Condiva;
 use App\Detallefactura;
 use App\Factura;
@@ -12,6 +13,7 @@ use App\Sucursal;
 use App\Tarjeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class FacturacionController extends Controller
 {
@@ -19,17 +21,19 @@ class FacturacionController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function index()
     {
         $facturas = Factura::orderby('fechafactura','DESC')->orderby('id','DESC')->paginate(10);
         $listasucursales = Sucursal::all();
         $orders = Ot::query();
+        $afip = new Afip(array('CUIT' => 20334376045));
+
+        $ultimafactura = $afip->ElectronicBilling->GetLastVoucher(1,6);
 
 
-
-
-        return view('facturacion.listafacturas', compact('facturas','listasucursales', 'orders'));
+        return view('facturacion.listafacturas', compact('facturas','listasucursales', 'orders','ultimafactura'));
     }
 
     /**
@@ -52,8 +56,9 @@ class FacturacionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return string
+     * @throws \Exception
      */
     public function store(Request $request)
     {
@@ -117,7 +122,6 @@ class FacturacionController extends Controller
 
         }
 
-
         //CARGA DETALLES DE FORMA DE PAGO
 
         $datospagos = json_decode($_POST['datospagos']);
@@ -145,12 +149,96 @@ class FacturacionController extends Controller
 
 
             $recibo->save();
+
+
+                //SI ES B Intenta facturar. AL 10/07 ESTA FUNCIONANDO BIEN: FALTA PONER QUE SE COMPLETEN LOS DATOS BIEN
+
+                try{
+
+                    require_once '../vendor/afipsdk/afip.php/src/Afip.php';
+
+
+                    //Informacion para carga factura electronicoa
+
+                    $cliente = DB::table('clientes')->where('id', $newfactura->idcliente)->first();
+                    if($cliente->condicioniva == 2){
+
+                        $tipofactura = 1;
+
+                    }else{
+
+                        $tipofactura = 6;
+
+                    }
+
+
+                    //Fin informacion para carga factura electronica
+
+                    $afip = new Afip(array('CUIT' => 20334376045));
+
+                    //Pide la ultima factura y le suma 1 para pasarle los datos luego
+                    $last_voucher = $afip->ElectronicBilling->GetLastVoucher(1,$tipofactura);
+
+                    $valfac = $last_voucher + 1;
+
+
+                    $data = array(
+                        'CantReg' 	=> 1,  // Cantidad de comprobantes a registrar
+                        'PtoVta' 	=> 1,  // Punto de venta
+                        'CbteTipo' 	=> 6,  // Tipo de comprobante (ver tipos disponibles)
+                        'Concepto' 	=> 1,  // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
+                        'DocTipo' 	=> 99, // Tipo de documento del comprador (99 consumidor final, ver tipos disponibles)
+                        'DocNro' 	=> 0,  // Número de documento del comprador (0 consumidor final)
+                        'CbteDesde' 	=> $valfac,  // Número de comprobante o numero del primer comprobante en caso de ser mas de uno
+                        'CbteHasta' 	=> $valfac,  // Número de comprobante o numero del último comprobante en caso de ser mas de uno
+                        'CbteFch' 	=> intval(date('Ymd')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
+                        'ImpTotal' 	=> 121, // Importe total del comprobante
+                        'ImpTotConc' 	=> 0,   // Importe neto no gravado
+                        'ImpNeto' 	=> 100, // Importe neto gravado
+                        'ImpOpEx' 	=> 0,   // Importe exento de IVA
+                        'ImpIVA' 	=> 21,  //Importe total de IVA
+                        'ImpTrib' 	=> 0,   //Importe total de tributos
+                        'MonId' 	=> 'PES', //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos)
+                        'MonCotiz' 	=> 1,     // Cotización de la moneda usada (1 para pesos argentinos)
+                        'Iva' 		=> array( // (Opcional) Alícuotas asociadas al comprobante
+                            array(
+                                'Id' 		=> 5, // Id del tipo de IVA (5 para 21%)(ver tipos disponibles)
+                                'BaseImp' 	=> 100, // Base imponible
+                                'Importe' 	=> 21 // Importe
+                            )
+                        ),
+                    );
+
+                    $res = $afip->ElectronicBilling->CreateVoucher($data);
+
+                    $res['CAE']; //CAE asignado el comprobante
+                    $res['CAEFchVto']; //Fecha de vencimiento del CAE (yyyy-mm-dd)
+                    //
+
+                }catch (Throwable $e){
+
+                    report($e);
+
+                }finally{
+
+
+
+
+
+
+                    return redirect()->to('facturacion/create');
+
+                }
+
+
         }
 
 
 
 
-        return redirect()->to('facturacion/create');
+
+
+
 
 
 
