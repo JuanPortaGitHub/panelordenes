@@ -263,7 +263,7 @@
         jQuery.ajax({
             url: "{{ route('facturacion.store') }}",
             method: 'post',
-            data:  datosformulario + '&' + "datospagos=" + JSON.stringify(datospagos) + '&' + "saldoacancelar=" + saldoacancelar+ '&' + "cantproducto1=" + cantproducto1,
+            data:  datosformulario + '&' + "datospagos=" + JSON.stringify(datospagos) + '&' + "saldoacancelar=" + saldoacancelar+ '&' + "cantproducto1=" + cantproducto1 + '&' + "sumVal105=" + sumVal105.toFixed(2) + '&' + "sumVal21=" + sumVal21.toFixed(2) + '&' + "sumValFinal=" + sumValFinal.toFixed(2) + '&' + "TotNeto21=" + TotNeto21.toFixed(2) + '&' + "TotNeto105=" + TotNeto105.toFixed(2),
 
             success: function(result){
                 $('#loading-screen').hide();

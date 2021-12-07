@@ -15,7 +15,15 @@
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h2><b>Listado de Facturas </b> </h2>
-                        {{$ultimafactura}} {{$server_status}}
+                        @if($server_status)
+                        <div>Última Factura A: {{$ultimaFacturaA}}</div>
+                        <div>Última Factura B: {{$ultimaFacturaB}}</div>
+                        <div>Server AFIP AppServer: <b>{{$server_status->AppServer}}</b></div>
+                        <div>Server AFIP DBServer: <b>{{$server_status->DbServer}}</b></div>
+                        <div>Server AFIP AuthServer: <b>{{$server_status->AuthServer}}</b></div>
+                        @else
+                        <div style="color: red"><b>No se puede conectar a AFIP</b></div>
+                        @endif
                     </div>
 
                 </div>

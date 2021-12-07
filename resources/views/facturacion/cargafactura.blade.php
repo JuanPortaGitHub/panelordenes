@@ -3,43 +3,18 @@
 @section('content')
 
 
-
-
-
-
-
-
-
     <!-- Main content -->
-
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-
-
-        <!-- Main content -->
-
-
-
-
-
-        <div class="col-md-12">
-
-            <!-- Boton modal carga cliente -->
+     <!-- Main content -->
+      <div class="col-md-12">
+         <!-- Boton modal carga cliente -->
 
             @include('modalformularios.modalcargacliente')
             @include('modalformularios.modalcargaproductofactura')
 
-
-
-
             <p></p>
-
-
-
-
-
-
             <!-- FORMULARIO DE CARGA OT -->
 
             <section class="content">
@@ -52,13 +27,10 @@
                         <div class="col-md-6">
                             <!-- Seccion Titular Cliente -->
 
-
-
                             <div class="card card-warning">
                                 <div class="card-header">
                                     <h3 class="card-title"><b>Datos Cliente</b></h3>
                                 </div>
-
 
                                 <!-- Seccion contenido Cliente -->
 
@@ -143,17 +115,10 @@
 
                             </div>
 
-
-
-
-
                         </div>
                         <div class="col-md-6">
                             <!-- Seccion Datos Factura -->
-
-
-
-                            <div class="card card-warning">
+                       <div class="card card-warning">
                                 <div class="card-header">
                                     <h3 class="card-title"><b>Datos Factura</b> <i class="fas fa-square"></i> </h3>
                                 </div>
@@ -162,6 +127,17 @@
                                 <!-- Seccion contenido Cliente -->
 
                                 <div class="card-body">
+
+
+                                    <div class="form-group row">
+                                        <label for="facturar" class="col-sm-2 col-form-label form-control-sm">FACTURAR</label>
+                                        <div class="col-sm-10">
+                                            <select name="facturar" id="facturar" class="form-control form-control-sm" required>
+                                                    <option value=1>NO</option>
+                                                    <option value=0>SI</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group row">
                                         <label for="local" class="col-sm-2 col-form-label form-control-sm">SUCURSAL</label>
@@ -209,10 +185,6 @@
                                             <input name="cotizaciondolar" id="cotizaciondolar" type="text" class="form-control form-control-sm" value = 100 readonly required>
                                         </div>
                                     </div>
-
-
-
-
 
                                 </div>
                                 <!-- Cierra boton modal carga cliente -->
@@ -402,26 +374,18 @@
 
         function abrirmodal(){
 
+
+
             if(document.forms['formcomplete']['busquedaproducto'+i].value === ""){
-
                 alert ('Falta cargar articulo');
-
             }else if(document.forms['formcomplete']['descripcionproducto'+i].value === ""){
-
                 alert ('Falta cargar descripción');
-
             }else if(document.forms['formcomplete']['cantprod'+i].value === ""){
-
                 alert ('Falta cargar cantidad');
-
             }else if(document.forms['formcomplete']['precioprod'+i].value === ""){
-
                 alert ('Falta cargar precio de producto');
-
             }else if(document.forms['formcomplete']['descprod'+i].value === ""){
-
                 alert ('Indicar si tiene descuento');
-
             }else{
 
 
@@ -448,7 +412,13 @@
                    document.getElementById("cargacliente").disabled = true;
                    document.getElementById("local").readOnly = true;
                    document.getElementById("busquedacliente").disabled = true;
-                $('#carga').modal('show');
+
+                   if (confirm('¿Autorizar con AFIP?')) {
+                       document.getElementById('facturar').value = [0];
+                   } else {
+                       document.getElementById('facturar').value = [1];
+                   }
+                   $('#carga').modal('show');
 
                }
                }
