@@ -18,7 +18,7 @@
                         @if($server_status)
                         <div>Última Factura A: {{$ultimaFacturaA}}</div>
                         <div>Última Factura B: {{$ultimaFacturaB}}</div>
-                        <div>Server AFIP AppServer: <b>{{$server_status->AppServer}}</b></div>
+                        <div>Server AFIP AppServe   : <b>{{$server_status->AppServer}}</b></div>
                         <div>Server AFIP DBServer: <b>{{$server_status->DbServer}}</b></div>
                         <div>Server AFIP AuthServer: <b>{{$server_status->AuthServer}}</b></div>
                         @else
@@ -115,7 +115,8 @@
                                     </td>
                                     <td>{{$factura->sucursal->sucursal}}</td>
                                     <td>{{$factura->user->name}}</td>
-                                    <td><i class="fas fa-print"></i></td>
+                                    <td><a href="{{route('facturacion.showpdf', $factura->numfactura)}}"><i class="fas fa-print"></i></a></td>
+                                    <td><a href="{{route('facturacion.showpdf', $factura->numfactura)}}"><i class="fas fa-print"></i></a></td>
                                     </tr>
 
                                     @endforeach

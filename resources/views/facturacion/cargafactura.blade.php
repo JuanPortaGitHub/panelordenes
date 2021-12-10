@@ -129,15 +129,12 @@
                                 <div class="card-body">
 
 
-                                    <div class="form-group row">
-                                        <label for="facturar" class="col-sm-2 col-form-label form-control-sm">FACTURAR</label>
-                                        <div class="col-sm-10">
-                                            <select name="facturar" id="facturar" class="form-control form-control-sm" required>
+
+                                            <select name="facturar" id="facturar" class="form-control form-control-sm" required hidden>
                                                     <option value=1>NO</option>
                                                     <option value=0>SI</option>
                                             </select>
-                                        </div>
-                                    </div>
+
 
                                     <div class="form-group row">
                                         <label for="local" class="col-sm-2 col-form-label form-control-sm">SUCURSAL</label>
@@ -160,17 +157,14 @@
                                         </div>
                                     </div>
 
+
+
                                     <div class="form-group row">
-                                        <label for="tipofactura" class="col-sm-2 col-form-label form-control-sm">Tipo Factura</label>
-                                        <div class="col-sm-10">
-                                            <input name="tipofactura" id="tipofactura" type="text" class="form-control form-control-sm" value="A" readonly required>
+                                        <label for="nrolocalfactura" class="col-sm-2 col-form-label form-control-sm">Factura Interna Nro.</label>
+                                        <div class="col-sm-3">
+                                            <input name="tipofactura" id="tipofactura" type="text" readonly class="form-control form-control-sm" value = 'X' required>
                                         </div>
-                                    </div>
-
-
-
-                                    <div class="form-group row">
-                                        <label for="nrolocalfactura" class="col-sm-2 col-form-label form-control-sm">Nro.</label>
+                                        -
                                         <div class="col-sm-3">
                                             <input name="nrolocalfactura" id="nrolocalfactura" type="text" readonly class="form-control form-control-sm" value = {{str_pad($factura->nrolocalfactura, 4, "0", STR_PAD_LEFT)}} required>
                                         </div>
@@ -179,6 +173,9 @@
                                             <input name="nrofactura" id="nrofactura" type="text" readonly class="form-control form-control-sm" value = {{str_pad($factura->numfactura +1, 8, "0", STR_PAD_LEFT)}} required>
                                         </div>
                                     </div>
+
+
+
                                     <div class="form-group row">
                                         <label for="cotizaciondolar" class="col-sm-2 col-form-label form-control-sm">Dolar</label>
                                         <div class="col-sm-10">
@@ -426,16 +423,8 @@
             }
     </script>
 
-
-
-
     <!-- Script autocompletar campos cliente en base a apellido -->
     <script type="text/javascript">
-
-
-
-
-
 
 
         var p=1;
@@ -476,8 +465,10 @@
                     $('#celularcliente').val(ui.item.celularcliente); // save selected id to input
                     $('#telefonocliente').val(ui.item.telefonocliente); // save selected id to input
                     $('#mailcliente').val(ui.item.mailcliente); // save selected id to input
+
                     return false;
                 }
+
 
             });
 

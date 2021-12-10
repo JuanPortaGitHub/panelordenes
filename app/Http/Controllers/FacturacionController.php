@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use phpDocumentor\Reflection\Types\Null_;
+use Dompdf\Dompdf;
 use Throwable;
 
 class FacturacionController extends Controller
@@ -61,12 +62,23 @@ class FacturacionController extends Controller
         $formaspagos = Formapago::all();
         $formaspagostarjetas = Tarjeta::all();
         //$formaspagostarjetas = Formapago::all()->skip(2); //salteo 2 para saltear efectivo y transferencia
+        /*try{
+            $afip = new Afip(array('CUIT' => 20334376045));
+            $ultimaFacturaASinFormato = $afip->ElectronicBilling->GetLastVoucher(1,1);
+            $ultimaFacturaA = str_pad($ultimaFacturaASinFormato +1, 8, "0", STR_PAD_LEFT);
+            $ultimaFacturaBSinFormato = $afip->ElectronicBilling->GetLastVoucher(1,6);
+            $ultimaFacturaB = str_pad($ultimaFacturaBSinFormato +1, 8, "0", STR_PAD_LEFT);
+            $server_status = $afip->ElectronicBilling->GetServerStatus();
+        }catch(\Exception $e){
+            $ultimaFacturaA = 'No funciona Servidor Afip Factura A';
+            $ultimaFacturaB = 'No funciona Servidor Afip Factura B';
+            $server_status = 'No funciona Servidor Afip';
+        };*/
 
 
 
 
-
-        return view ('facturacion.cargafactura', compact('condivas', 'locales','factura','formaspagos','formaspagostarjetas'));
+        return view ('facturacion.cargafactura', compact('condivas', 'locales','factura','formaspagos','formaspagostarjetas'/*, 'ultimaFacturaA', 'ultimaFacturaB'*/));
     }
 
     /**
@@ -79,7 +91,7 @@ class FacturacionController extends Controller
     public function store(Request $request)
     {
 
-        Log::debug($request);
+//        Log::debug($request);
 
         $validator = \Validator::make($request->all(), [
 
@@ -176,10 +188,15 @@ class FacturacionController extends Controller
 
             if($newfactura->negro == 0){
 
-                $contador = 5;
+
+
+
+                $contador = 10;
                     for ($try = 0; $try < $contador; $try++) {
                          try{
                                 $cliente = DB::table('clientes')->where('id', $newfactura->idcliente)->first();
+
+                                Log::debug($cliente->condicioniva);
 
                                 switch ($cliente->condicioniva){
                                     case(2):
@@ -261,39 +278,65 @@ class FacturacionController extends Controller
                                     'MonCotiz' 	=> 1,     // Cotización de la moneda usada (1 para pesos argentinos)
                                     'Iva' 		=> $arrayiva,
                                 );
-                             Log::debug($data);
-                                $res = $afip->ElectronicBilling->CreateVoucher($data);
-                                Log::debug($res);
 
+                                $res = $afip->ElectronicBilling->CreateVoucher($data);
 
                                 $facturaAgregarCAE = Factura::find($newfactura->id);
                                 $facturaAgregarCAE->CAE = $res['CAE']; //CAE asignado el comprobante
                                 $facturaAgregarCAE->VencimientoCAE = $res['CAEFchVto']; //CAE asignado el comprobante
                                 $nroAFIPfactura=0;
 
-                                if($tipofactura = 6){
-                                    $ultimaA = DB::table('facturas')->where('tipo', 'A')->orderby('nroAFIPfactura', 'desc')->first();
-                                    $facturaAgregarCAE->nroAFIPfactura = $ultimaA->nroAFIPfactura+1;
+                             //Log::debug($tipofactura);
+
+                                if($tipofactura == 1){
+                                    //$ultimaA = DB::table('facturas')->where('tipo', 'A')->orderby('nroAFIPfactura', 'desc')->first();
+                                    $facturaAgregarCAE->nroAFIPfactura = $valfac;
+                                    $facturaAgregarCAE->tipoAfip = 'A';
                                 }
                                 else{
-                                    $ultimaB = DB::table('facturas')->where('tipo', 'B')->orderby('nroAFIPfactura', 'desc')->first();
-                                    $facturaAgregarCAE->nroAFIPfactura = $ultimaB->nroAFIPfactura+1;
+                                    //$ultimaB = DB::table('facturas')->where('tipo', 'B')->orderby('nroAFIPfactura', 'desc')->first();
+                                    $facturaAgregarCAE->nroAFIPfactura = $valfac;
+                                    $facturaAgregarCAE->tipoAfip = 'B';
                                 }
 
                                 $facturaAgregarCAE->save();
 
-                                 return redirect()->to('facturacion/create');
+
+
                          } catch (\Exception $e) {
-                             Log::debug($e);
-                             var_dump('failed ' . $try);
-                             sleep(1);
-                             continue;
+
+
+
                          }
-                        break;
+
                     }
             }
                 }
-        return redirect()->to('facturacion/create');
+        //return redirect()->to('facturacion/create')->with('alert', 'Se generó CAE con éxito');
+
+        //Descarga PDF
+
+        $pdf = \PDF::loadView('pdf.pdfFactura');
+        Log::debug('entre pdf');
+
+        return $pdf->stream();
+
+
+    }
+
+    public function showpdf($numfactura)
+    {
+        Log::debug('entre funcion show pdf');
+        Log::debug('orden id');
+
+
+        $factura=Factura::where('numfactura',$numfactura)->firstOrFail();
+
+        $pdf = \PDF::loadView('pdf.factura.pdfFactura', compact('factura'));
+
+        return $pdf->stream();
+
+
     }
 
     /**
@@ -307,8 +350,6 @@ class FacturacionController extends Controller
         $factura=Factura::findOrFail($id);
         $listasucursales = Sucursal::all();
         $orders = Ot::query();
-
-
 
 
         return view('facturacion.detallesfactura', compact('factura','listasucursales', 'orders'));

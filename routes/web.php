@@ -50,6 +50,8 @@ Route::post('/productos/getProductosCod/','ProductosController@getProductosCod')
 Route::get('/orden/{ot_id}','OtController@anotaciones')->name('ordenes.anotaciones')->middleware('auth');
 
 Route::get('/pdf/{ot_id}','OtController@showpdf')->name('ordenes.showpdf')->middleware('auth');
+Route::get('/pdf/factura/{id}','FacturacionController@showpdf')->name('facturacion.showpdf')->middleware('auth');
+
 
 Route::get('anotaciones/lista', 'AnnotationController@listaindex')->name('anotaciones.lista')->middleware('auth');
 
