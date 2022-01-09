@@ -133,11 +133,11 @@
         <tr >
             <td rowspan="5" style="background-color: white; text-align: right; padding-right: 20px"><img src="adminlte/img/logosolo2.png" width="75px"></td>
             <td style="background-color: white; text-align: left">HotSpot Servicio Técnico SAS</td>
-            <td style="background-color: white; text-align: right">Factura</td>
+            <td style="background-color: white; text-align: right">@if($factura->CAE) Factura @else Comprobante Interno @endif</td>
         </tr>
         <tr>
             <td style="background-color: white; text-align: left">IVA Responsable Inscripto</td>
-            <td style="background-color: white; text-align: right">Nº {{$factura->nrolocalfactura}} - @if($factura->CAE){{str_pad($factura->nroAFIPfactura +1, 8, "0", STR_PAD_LEFT)}} @else {{$factura->numfactura}} @endif</td>
+            <td style="background-color: white; text-align: right">Nº {{$factura->nrolocalfactura}} - @if($factura->CAE){{str_pad($factura->nroAFIPfactura , 8, "0", STR_PAD_LEFT)}} @else {{$factura->numfactura}} @endif</td>
 
         </tr>
         <tr>
@@ -216,8 +216,8 @@
             <td class="desc">{{$item->descripcion}}</td>
             <td class="unit">{{$item->productofactura->ivaproduct}}</td>
             <td class="unit">{{$item->descuento}} %</td>
-            <td class="total">@if( $factura->tipoAfip == 'B' || null) {{$item->precio}} @else {{$item->precio / (1+$item->productofactura->ivaproduct/100)}}@endif</td>
-            <td class="total">@if( $factura->tipoAfip == 'B' || null) {{$item->precio  * $item->cantidad * (1-($item->descuento)/100)}} @else {{$item->precio / (1+$item->productofactura->ivaproduct/100  * $item->cantidad * (1-($item->descuento)/100))}} @endif</td>
+            <td class="total">@if( $factura->tipoAfip == 'B' || null) {{round($item->precio,2)}} @else {{round(($item->precio / (1+$item->productofactura->ivaproduct/100))  * (1-($item->descuento)/100),2)}} @endif</td>
+            <td class="total">@if( $factura->tipoAfip == 'B' || null) {{round($item->precio  * $item->cantidad * (1-($item->descuento)/100),2)}} @else  {{round(($item->precio / (1+$item->productofactura->ivaproduct/100)  * ($item->cantidad) * (1-($item->descuento)/100)),2)}} @endif</td>
         </tr>
             @endforeach
         @endif
@@ -237,7 +237,7 @@
                         @endphp
                     @endforeach
 
-                    $ {{$productos}}
+                    $ {{round($productos,2)}}
 
                     @else
                         @php
@@ -250,7 +250,7 @@
                             @endphp
                         @endforeach
 
-                        $ {{$productos}}
+                        $ {{round($productos,2)}}
                     @endif
 
 
@@ -266,11 +266,11 @@
                     @foreach($factura->detallefactura as $productos)
                         @php
 
-                            $productos=$suma += $productos->cantidad * $productos->precio * $productos->productofactura->ivaproduct/100;
+                                $productos=$suma += ($productos->cantidad * $productos->precio * (1-($productos->descuento)/100 ) / (1+$productos->productofactura->ivaproduct/100))*($productos->productofactura->ivaproduct/100);
                         @endphp
                     @endforeach
 
-                    $ {{$productos}}</b>@endif</td>
+                    $ {{round($productos, 2)}}</b>@endif</td>
 
         </tr>
         <tr>
@@ -285,7 +285,7 @@
                         @endphp
                     @endforeach
 
-                    $ {{$productos}}</b></td>
+                    $ {{round($productos,2)}}</b></td>
         </tr>
         </tbody>
     </table>

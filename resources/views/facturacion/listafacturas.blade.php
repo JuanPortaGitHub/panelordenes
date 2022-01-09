@@ -78,6 +78,7 @@
                         <tr style="text-align: center; height: 2em">
 
                             <th class="all">Fecha</th>
+                            <th class="all">AFIP</th>
                             <th class="all">Tipo</th>
                             <th class="all">Nro Local</th>
                             <th class="all">Nro Factura</th>
@@ -99,7 +100,8 @@
                                 <tr style="text-align:center; height: 3em">
 
                                     <td>{{ \Carbon\Carbon::parse($factura->fechafactura)->format('d-m-y') }}</td>
-                                    <td>{{$factura->tipo}}</td>
+                                    <td>@if($factura->CAE){{$factura->tipoAfip}} - {{$factura->nroAFIPfactura}}@else - @endif</td>
+                                    <td>@if($factura->CAE){{$factura->tipoAfip}} @else{{$factura->tipo}} @endif</td>
                                     <td>{{$factura->nrolocalfactura}}</td>
                                     <td><a href="{{route('facturacion.show', $factura->id)}}"><b>{{$factura->numfactura}}</b></a></td>
                                     <td>{{$factura->cliente->apellido}} {{$factura->cliente->nombre}}</td>
@@ -116,7 +118,6 @@
                                     <td>{{$factura->sucursal->sucursal}}</td>
                                     <td>{{$factura->user->name}}</td>
                                     <td><a href="{{route('facturacion.showpdf', $factura->numfactura)}}"><i class="fas fa-print"></i></a></td>
-                                    <td><a href="{{route('facturacion.showpdf', $factura->numfactura)}}"><i class="fas fa-print"></i></a></td>
                                     </tr>
 
                                     @endforeach
@@ -127,7 +128,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-
+                                                <th></th>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>

@@ -78,7 +78,7 @@
                                     </td>
                                     <td>{{$factura->sucursal->sucursal}}</td>
                                     <td>{{$factura->user->name}}</td>
-                                    <td><i class="fas fa-print"></i></td>
+                                    <td><a href="{{route('facturacion.showpdf', $factura->numfactura)}}"><i class="fas fa-print"></i></a></td>
                                     </tr>
 
 

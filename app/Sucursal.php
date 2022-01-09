@@ -11,4 +11,10 @@ class Sucursal extends Model
 
         return $this->hasMany(Ot::class);
     }
+
+    public function caja(){
+
+        return $this->hasMany('App\Caja','sucursal_id','id');
+    }
+
 }

@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="costoproducto" class="col-sm-2 col-form-label">Costo Iva inc.</label>
+                            <label for="costoproducto" class="col-sm-2 col-form-label">Costo Iva inc. U$S</label>
                             <div class="col-sm-10">
                                 <input name="costoproducto" id="costoproducto" type="number" class="form-control" required>
                             </div>

@@ -191,9 +191,7 @@ class FacturacionController extends Controller
 
 
 
-                $contador = 10;
-                    for ($try = 0; $try < $contador; $try++) {
-                         try{
+
                                 $cliente = DB::table('clientes')->where('id', $newfactura->idcliente)->first();
 
                                 Log::debug($cliente->condicioniva);
@@ -217,6 +215,10 @@ class FacturacionController extends Controller
                                         $docnro = $cliente->dnicuit;
                                 }
 
+                                //INTENTO Facturar y guardar-  10 intentos
+                        $contador = 10;
+                        for ($try = 0; $try < $contador; $try++) {
+                            try{
                                 $afip = new Afip(array('CUIT' => 20334376045));
 
                                 //Pide la ultima factura y le suma 1 para pasarle los datos luego
@@ -258,6 +260,7 @@ class FacturacionController extends Controller
                                     );
                                 };
 
+
                                 $data = array(
                                     'CantReg' 	=> 1,  // Cantidad de comprobantes a registrar
                                     'PtoVta' 	=> 1,  // Punto de venta
@@ -286,7 +289,6 @@ class FacturacionController extends Controller
                                 $facturaAgregarCAE->VencimientoCAE = $res['CAEFchVto']; //CAE asignado el comprobante
                                 $nroAFIPfactura=0;
 
-                             //Log::debug($tipofactura);
 
                                 if($tipofactura == 1){
                                     //$ultimaA = DB::table('facturas')->where('tipo', 'A')->orderby('nroAFIPfactura', 'desc')->first();
@@ -300,9 +302,7 @@ class FacturacionController extends Controller
                                 }
 
                                 $facturaAgregarCAE->save();
-
-
-
+                                $try = 10;
                          } catch (\Exception $e) {
 
 
@@ -312,14 +312,7 @@ class FacturacionController extends Controller
                     }
             }
                 }
-        //return redirect()->to('facturacion/create')->with('alert', 'Se generó CAE con éxito');
-
-        //Descarga PDF
-
-        $pdf = \PDF::loadView('pdf.pdfFactura');
-        Log::debug('entre pdf');
-
-        return $pdf->stream();
+        return redirect()->to('facturacion/create');
 
 
     }
