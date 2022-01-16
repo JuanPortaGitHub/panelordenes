@@ -68,6 +68,9 @@ Route::resource('productos', 'ProductosController')->middleware('auth');
 Route::resource('providers', 'ProvidersController')->middleware('auth');
 Route::resource('formapagos', 'FormaPagosController')->middleware('auth');
 Route::resource('tarjetas', 'TarjetasController')->middleware('auth');
+Route::get('/caja/arqueo', 'RecibosController@arqueo')->name('caja.arqueocaja')->middleware('auth');
+Route::get('/recibo/ingresoegresocaja', 'RecibosController@createingresoegresocaja')->name('recibos.ingresoegresocaja')->middleware('auth');
+Route::post('/recibo/storeingresoegresocaja', 'RecibosController@storeingresoegresocaja')->name('recibos.storeingresoegresocaja')->middleware('auth');
 
 
 

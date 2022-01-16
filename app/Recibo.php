@@ -29,7 +29,12 @@ class Recibo extends Model
     }
 
     public function cliente(){
-        return $this->belongsTo('App\Cliente','id','idcliente');
+        return $this->hasOne('App\Cliente','id','idcliente');
+
+    }
+
+    public function sucursal(){
+        return $this->hasOne('App\Sucursal','id','sucursal_id');
 
     }
 }

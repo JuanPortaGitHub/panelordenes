@@ -292,7 +292,19 @@
                 <li class="nav-item">
                     <a href="{{ URL::route('recibos.create')}}" class="nav-link active">
                         <i class="nav-icon fas fa-table"></i>
-                        <p>Cargar Recibo</p>
+                        <p>Cargar Recibo Cliente</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ URL::route('recibos.ingresoegresocaja')}}" class="nav-link active">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Ingreso / Egreso Caja</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ URL::route('caja.arqueocaja')}}" class="nav-link active">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Arqueo Caja</p>
                     </a>
                 </li>
               <li class="nav-item">

@@ -216,8 +216,9 @@ class FacturacionController extends Controller
                                 }
 
                                 //INTENTO Facturar y guardar-  10 intentos
-                        $contador = 10;
-                        for ($try = 0; $try < $contador; $try++) {
+                    $success = false;
+                    $retry = 0;
+                        while ($success == false && $retry < 10)
                             try{
                                 $afip = new Afip(array('CUIT' => 20334376045));
 
@@ -284,6 +285,7 @@ class FacturacionController extends Controller
 
                                 $res = $afip->ElectronicBilling->CreateVoucher($data);
 
+
                                 $facturaAgregarCAE = Factura::find($newfactura->id);
                                 $facturaAgregarCAE->CAE = $res['CAE']; //CAE asignado el comprobante
                                 $facturaAgregarCAE->VencimientoCAE = $res['CAEFchVto']; //CAE asignado el comprobante
@@ -302,16 +304,14 @@ class FacturacionController extends Controller
                                 }
 
                                 $facturaAgregarCAE->save();
-                                $try = 10;
+                                $success = true;
                          } catch (\Exception $e) {
-
-
-
+                                $retry ++;
                          }
 
                     }
             }
-                }
+
         return redirect()->to('facturacion/create');
 
 

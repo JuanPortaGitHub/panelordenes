@@ -72,7 +72,7 @@
                     </form>
 
 
-                    <table id="listaordenes" class="table-bordered display responsive" style="width:100%; font-family: Verdana; font-size: small">
+                    <table id="listafacturas" class="table-bordered display responsive" style="width:100%; font-family: Verdana; font-size: small">
 
                         <thead>
                         <tr style="text-align: center; height: 2em">
@@ -174,6 +174,7 @@
 <script src="adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src=""></script>
 
 <!-- page script -->
 
@@ -183,48 +184,34 @@ $(document).ready(function () {
 
 document.getElementById("busquedaorden").focus();
 
-$('#listaordenes').dataTable({
-    responsive: {
-        details: {
-            type: 'column',
-            target: -1
-        }
-    },
-    columnDefs: [ {
-        className: 'control',
-        orderable: false,
-        targets:   -1
-    } ],
+    $(function () {
+        $("#listaclientes").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "language": {
+                "paginate": {
+                    "next": "Siguiente",
+                    "previous": "Anterior",
+                },
+                "search": "Buscar:",
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "No se encuentra",
+                "info": "Muestra página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay anotaciones",
+                "infoFiltered": "(Filtrado de _MAX_ registros totales)",
 
-"language": {
-"paginate": {
-"next": "Siguiente",
-"previous": "Anterior",
-},
-"search": "Buscar:",
-"lengthMenu": "Mostrar _MENU_ registros por página",
-"zeroRecords": "No se encuentra",
-"info": "Muestra página _PAGE_ de _PAGES_",
-"infoEmpty": "No hay anotaciones",
-"infoFiltered": "(Filtrado de _MAX_ registros totales)",
-
-},
-
-
-
-
-"autoWidth": true,
-
-"ordering": false,
-"paging": false,
-"searching": false,
-"info":     false,
-});
-});
-
-
-
-
+            },
+        });
+        /*$('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });*/
+    });
 </script>
 
 

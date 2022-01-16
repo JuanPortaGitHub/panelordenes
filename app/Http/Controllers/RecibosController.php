@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Caja;
 use App\Cliente;
+use App\Factura;
 use App\Formapago;
+use App\IngresoEgresoCaja;
 use App\Recibo;
+use App\Sucursal;
 use App\Tarjeta;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +26,21 @@ class RecibosController extends Controller
         //
     }
 
+    public function arqueo()
+    {
+        $dateToday = Carbon::now()->format('d-m-y');
+        $dateFromFormat = Carbon::now()->format('y-m-d');
+        $dateToFormat = Carbon::now()->addDay()->format('y-m-d');
+        $listasucursales = Sucursal::all();
+        $formaspagos = Formapago::all();
+        $formaspagostarjetas = Tarjeta::all();
+        $facturas = Factura::all();
+        $recibosefectivofecha = Recibo::where('idformapago', '=', 1)->whereBetween('updated_at', [$dateFromFormat, $dateToFormat])->orderby('updated_at', 'desc')->get();
+        $ingresosyegresosFecha = IngresoEgresoCaja::whereBetween('updated_at', [$dateFromFormat, $dateToFormat])->orderby('updated_at', 'desc')->get();
+
+        return view ('caja.listaMovimientosCaja', compact('formaspagos','formaspagostarjetas', 'listasucursales', 'facturas', 'recibosefectivofecha', 'ingresosyegresosFecha', 'dateToday'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -32,6 +52,17 @@ class RecibosController extends Controller
         $formaspagostarjetas = Tarjeta::all();
 
         return view ('recibos.cargarecibo', compact('formaspagos','formaspagostarjetas'));
+    }
+
+
+    public function createingresoegresocaja()
+    {
+        $formaspagos = Formapago::all();
+        $formaspagostarjetas = Tarjeta::all();
+        $listacajas = Caja::all();
+
+
+        return view ('recibos.ingresoegresocaja', compact('formaspagos','formaspagostarjetas', 'listacajas'));
     }
 
     /**
@@ -86,6 +117,58 @@ class RecibosController extends Controller
 
             $recibo->save();
 
+
+    }
+
+
+
+    public function storeingresoegresocaja(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+
+                'pincode' => 'required|exists:users,pincode',
+
+            ]
+        );
+
+
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->messages()->all()]);
+        }
+
+        $pin = $request->input('pincode'); //Obtengo pincode de formulario (puede ser formulario de ordenes/anotaciones o de consultaorden (de cliente)
+
+        $tecnico = DB::table('users')->where('pincode', $pin)->first();
+        //hago consulta a BD para saber cual es el ID usuario/tecnico al que corresponde el pin
+
+
+        //$compruebaultimoIngreso = IngresoEgresoCaja::latest()->first();
+
+
+        $ingresoegreso = new IngresoEgresoCaja();
+        $ingresoegreso->tipo = $request->input('ingresoOegreso');
+
+        $compruebaultimoIngreso = IngresoEgresoCaja::latest('nro')->first();
+           if($compruebaultimoIngreso){
+                  $ingresoegreso->nro = $compruebaultimoIngreso->nro + 1;
+              }else{
+            $ingresoegreso->nro = 1;
+        }
+        $ingresoegreso->caja_id = $request->input('selectCaja');
+        $ingresoegreso->monto = $request->input('monto');
+        $ingresoegreso->detalle = $request->input('detalles');
+
+        if($ingresoegreso->tipo == 'Retiro'){
+            $ingresoegreso->retiroarecibir = true;
+        }else{
+            $ingresoegreso->retiroarecibir = false;
+        }
+
+        $ingresoegreso->user_id =$tecnico->id;
+
+
+        $ingresoegreso->save();
 
     }
 

@@ -17,4 +17,9 @@ class Sucursal extends Model
         return $this->hasMany('App\Caja','sucursal_id','id');
     }
 
+    public function ingresoegresocaja(){
+
+        return $this->hasMany('App\IngresoEgresoCaja','sucursal_id','id');
+    }
+
 }
