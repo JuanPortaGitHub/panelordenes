@@ -42,9 +42,10 @@ class ClientesController extends Controller
                 );
         }
 
-        echo json_encode($response);
 
-        exit;
+        return response()->json( compact('response'))->header('Access-Control-Allow-Origin', '*')
+            ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+
     }
 
 

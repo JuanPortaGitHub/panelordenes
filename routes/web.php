@@ -38,7 +38,7 @@ Route::get('/anotacioncliente', 'AnnotationController@storecliente')->name('stor
 
 
 //Ruta para obtener la lista de clientes en la creacion de ordenes de trabajo (para busqueda y autocompletar)
-Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('clientes.getClientes')->middleware('auth');
+Route::post('/clientes/getClientes/','ClientesController@getClientes')->name('clientes.getClientes');
 
 
 //Ruta para obtener la lista de productos en busqueda de codigo
@@ -58,7 +58,7 @@ Route::get('anotaciones/lista', 'AnnotationController@listaindex')->name('anotac
 //Ruta para panel de usuario
 Route::get('/panel/{user_id}','OtController@panel')->name('ordenes.panelusuario')->middleware('auth');
 
-Route::resource('ordenes', 'OtController')->middleware('auth');
+Route::resource('ordenes', 'OtController');
 Route::resource('clientes', 'ClientesController')->middleware('auth');
 Route::resource('equipos', 'EquiposController')->middleware('auth');
 Route::resource('annotations', 'AnnotationController')->middleware('auth');

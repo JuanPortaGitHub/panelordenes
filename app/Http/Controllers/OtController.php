@@ -44,7 +44,6 @@ class OtController extends Controller
         $tecnicos= User::all();
 
 
-
         $orders = Ot::query();
 
         if ($request->input('busqueda')){
@@ -102,10 +101,21 @@ class OtController extends Controller
         }
 
         else {
-            $orders = Ot::orderby('ot_id','DESC')->paginate(10);
+            $orders = DB::table('ots')
+                ->select('ot_id', 'sucursal', 'areas as area', 'apellido', 'nombre', 'estadoot', 'fechaingreso', 'fechaentrega', 'tipodeequipo', 'modelo')
+                ->join('sucursals','sucursals.id', '=', 'ots.sucursal_id')
+                ->join('clientes','clientes.id', '=', 'ots.cliente_id')
+                ->join('estados','estados.id', '=', 'ots.estado_id')
+                ->join('equipos','equipos.id', '=', 'ots.equipo_id')
+                ->join('tipodeequipos','tipodeequipos.id', '=', 'equipos.tipodeequipo_id')
+                ->join('areas','areas.id', '=', 'ots.area_id')
+
+
+
+                ->paginate(10);
         }
 
-        return view('ordenes.listaot', compact('orders', 'areas','estados', 'listasucursales','tipoequipos','tecnicos'));
+        return response()->json( compact('orders'));
     }
 
 
@@ -122,7 +132,9 @@ class OtController extends Controller
 
 
 
-
+        $clients = DB::table('clientes')
+            ->select(DB::raw("CONCAT(apellido,' ',nombre,' || ' ,dnicuit) AS label"),'clientes.id as value', 'clientes.id', 'dnicuit', 'apellido', 'nombre', 'celular', 'telefono', 'mail', 'condicion')
+            ->join('condivas','condivas.id', '=', 'clientes.condicioniva')->orderBy('apellido')->get();
         $condivas = Condiva::all();
         $sucursales = Sucursal::all();
         $estados = estado::all();
@@ -130,16 +142,17 @@ class OtController extends Controller
         $estadoderepuestos = Estadorepuesto::all();
         $confirmacions = Confirmacion::all();
         $areas = area::all();
-        $fechaentrega=now()->addDays(5);
+        $fechaentrega = \Carbon\Carbon::parse(now()->addDays(5))->format('Y/m/d');
         $tipoequipos= tipodeequipo::all();
 
         //CREA VALOR RANDOM PARA EL PASSWORD DE OT
         $passwordot= strtolower(str::random(5));
 
 
+        return response()->json( compact('tecnicos','estadoderepuestos', 'confirmacions', 'estados', 'sucursales', 'fechaentrega', 'areas', 'tipoequipos', 'passwordot','clients'));
 
 
-        return view('ordenes.cargaot', compact('tecnicos','estadoderepuestos', 'confirmacions', 'estados', 'sucursales', 'fechaentrega', 'areas', 'tipoequipos', 'passwordot','condivas'));
+        // return view('ordenes.cargaot', compact('tecnicos','estadoderepuestos', 'confirmacions', 'estados', 'sucursales', 'fechaentrega', 'areas', 'tipoequipos', 'passwordot','condivas'));
     }
 
 
@@ -160,6 +173,7 @@ class OtController extends Controller
         if ($validator->fails())
         {
             return response()->json(['errors'=>$validator->errors()->all()]);
+
         }
 
 
@@ -172,40 +186,25 @@ class OtController extends Controller
         $nuevoequipo->modelo = $request->input('modeloequipo');
         $nuevoequipo->password = $request->input('passwordequipo');
 
-
-        $haycargador = $_POST['cargador'];
-
-        if(isset($haycargador)){
-
+        if($request->input('cargador') === true){
             $nuevoequipo->cargador = 1;
-
         }else{
-
             $nuevoequipo->cargador = 0;
-
-            };
-
-
-
-        if($_POST['bateria'] == true){
-
-            $nuevoequipo->bateria = 1;
-
-        }else{
-
-            $nuevoequipo->bateria = 0;
-
         };
 
+        if($request->input('bateria') === true){
+            $nuevoequipo->bateria = 1;
+        }else{
+            $nuevoequipo->bateria = 0;
+        };
 
-        $nuevoequipo->bolsofunda = (bool) $request->input('bolsofunda');
+        if($request->input('bolsofunda') === true){
+            $nuevoequipo->bolsofunda = 1;
+        }else{
+            $nuevoequipo->bolsofunda = 0;
+        };
 
         $nuevoequipo->save();
-
-
-
-
-
 
         // Parte que carga datos en base de datos OT
 
@@ -232,7 +231,7 @@ class OtController extends Controller
         $nuevaorden->cliente_id = $request->input('idclient');
         $nuevaorden->detalles = $request->input('detalles');
         $nuevaorden->sintoma = $request->input('sintoma');
-        $nuevaorden->fechaingreso = $request->input('fechaingreso');
+        $nuevaorden->fechaingreso = \Carbon\Carbon::parse($request->input('fechaingreso'))->format('Y-m-d h:i:s');
         $nuevaorden->fechaentrega = $request->input('fechaentrega');
         $nuevaorden->sucursal_id = $request->input('sucursal');
         $nuevaorden->estado_id = $request->input('estado_id');
@@ -282,22 +281,22 @@ Presupuesto: ' . $nuevaorden->presupuesto;
         $firstannotation->user_id=$tecnico->id;
         $firstannotation->save();
 
+        $orden=$nuevaorden;
         //Mando al view la info de ot
 
-        Mail::to($nuevaorden->cliente->mail)->queue(new mailingreso($nuevaorden));
+        try {
+            Mail::to($nuevaorden->cliente->mail)->queue(new mailingreso($nuevaorden));
 
-        $orden=$nuevaorden;
+            return response()->json( $orden, 200);
 
+        } catch (\Error $e) {
+            return response()->json( $orden, 201);
 
-        //Descarga PDF
+        }catch (\Exception  $e) {
+            return response()->json( $orden, 201);
 
-        $pdf = \PDF::loadView('pdf.pdfcargaot', compact('orden'));
+        }
 
-        return $pdf->stream();
-
-        //Arma la variable $orders para pasarla a la lista (idem que en el index) para poder abrir la lista de ordenes luego de guardar
-
-        //$orders=Ot::all();
 
 
 
